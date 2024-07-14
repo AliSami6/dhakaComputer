@@ -36,15 +36,18 @@ class StudentController extends Controller
         $validator = Validator::make($request->all(), [
             'firstName' => 'required|string|min:2|max:100',
             'lastName' => 'required|string|min:2|max:100',
+            'fathersName' => 'required|string|min:2|max:100',
+            'profession' => 'required|string|min:2|max:100',
             'course_id' => 'required',
             'email' => 'required|email|string',
+            'password' => 'required|min:8',
             'phone_no' => 'required|string',
             'date_of_birth' => 'required|string',
-            'address_one' => 'required',
-            'address_two' => 'required',
-            'state' => 'required|string',
-            'nationality' => 'required|string',
-            'country' => 'required|string',
+            'address' => 'required',
+            'city' => 'required',
+            'division' => 'required|string',
+            'country' => 'required|string'
+
         ]);
 
         if ($validator->fails()) {
@@ -56,6 +59,8 @@ class StudentController extends Controller
         $student = Student::create([
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
+            'fathersName' => $request->fathersName,
+            'profession' => $request->profession,
             'course_id' => $request->course_id,
             'email' => $request->email,
             'phone_no' => $request->phone_no,

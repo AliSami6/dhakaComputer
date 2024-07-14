@@ -194,14 +194,7 @@
                                                                                                                             </strong>
                                                                                                                             <div
                                                                                                                                 class="float-end">
-                                                                                                                                {{-- <button
-                                                                                                                                    type="button"
-                                                                                                                                    class="border-0 bg-white"
-                                                                                                                                    data-bs-toggle="modal"
-                                                                                                                                    data-bs-target="#addNewResourceFile">
-                                                                                                                                    <em
-                                                                                                                                        class="icon ni ni-folder"></em>
-                                                                                                                                </button> --}}
+                                                                                                                              
                                                                                                                                 <button
                                                                                                                                     type="button"
                                                                                                                                     class="border-0 bg-white EditLesson"
@@ -501,7 +494,7 @@
                                                                 Duration </label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="duration"
-                                                                    name="duration" placeholder="course duration">
+                                                                    name="duration" placeholder="course duration" value="{{  $editCourses->duration }}">
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -510,7 +503,7 @@
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="schedules"
 
-                                                                    name="schedules" placeholder="course schedules">
+                                                                    name="schedules" placeholder="course schedules" value="{{  $editCourses->schedules }}">
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -541,7 +534,7 @@
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
                                                                                 placeholder="Enter course price"
-                                                                                id="course_price" name="price">
+                                                                                id="course_price" name="price" value="{{ $editCourses->price }}">
                                                                             <span class="text-danger course_price"></span>
                                                                         </div>
                                                                     </div>
@@ -558,7 +551,7 @@
                                                                     <div class="col-sm-10">
                                                                         <div class="form-group">
                                                                             <input type="number" class="form-control"
-                                                                                id="discounted_price" name="discounted_price">
+                                                                                id="discounted_price" name="discounted_price"  value="{{ $editCourses->discounted_price }}">
                                                                             <span class="text-danger discounted_price"></span>
                                                                         </div>
                                                                     </div>

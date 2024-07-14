@@ -38,6 +38,34 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
+                                        <label class="form-label" for="fathersName">Father's Name</label>
+                                        <input type="text" class="form-control" id="fathersName"
+                                            placeholder="Father's Name" name="fathersName">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="profession">Father's Profession</label>
+                                        <input type="text" class="form-control" id="profession"
+                                            placeholder="Father's Name" name="profession">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="email">Email Address</label>
+                                        <input type="email" class="form-control" id="email"
+                                            placeholder="Email Address" name="email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input type="password" class="form-control" id="password"
+                                            placeholder="Enter Password" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
                                         <label class="form-label">Course to Enroll</label>
                                         <div class="form-control-wrap">
                                             <select class="form-select js-select2" name="course_id"
@@ -50,13 +78,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="email">Email Address</label>
-                                        <input type="email" class="form-control" id="email"
-                                            placeholder="Email Address" name="email">
-                                    </div>
-                                </div>
+                               
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label" for="phone_no">Phone Number</label>
@@ -71,6 +93,13 @@
                                             name="date_of_birth" placeholder="Date of Birth">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="birth-day">Image</label>
+                                        <input type="file" class="form-control" id="image"
+                                            name="image" placeholder="Upload image">
+                                    </div>
+                                </div>
                                
                                
                             </div>
@@ -79,43 +108,31 @@
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="address_one">Address Line 1</label>
-                                        <input type="text" class="form-control" id="address_one" name="address_one">
+                                        <label class="form-label" for="address">Address </label>
+                                        <input type="text" class="form-control" id="address" name="address">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="address_two">Address Line 2</label>
-                                        <input type="text" class="form-control" id="address_two"
-                                            name="address_two">
+                                        <label class="form-label" for="city">City</label>
+                                        <input type="text" class="form-control" id="city"
+                                            name="city">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="state">State</label>
-                                        <input type="text" class="form-control" id="state" name="state">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="state">Nationality</label>
-                                        <input type="text" class="form-control" id="nationality"
-                                            name="nationality">
+                                        <label class="form-label" for="division">Division</label>
+                                        <input type="text" class="form-control" id="division" name="division">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label" for="country">Country</label>
-                                        <select class="form-select js-select2" id="country" name="country">
-                                            <option value="Canada">Canada</option>
-                                            <option value="United State">United State</option>
-                                            <option value="United Kindom">United Kindom</option>
-                                            <option value="Australia">Australia</option>
-                                            <option value="India">India</option>
-                                            <option value="Bangladesh">Bangladesh</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="country"
+                                            name="country">
                                     </div>
                                 </div>
+                               
                                 <div class="col-12">
                                     <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
                                         <li>

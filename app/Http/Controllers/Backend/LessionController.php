@@ -13,16 +13,9 @@ class LessionController extends Controller
     {
        // dd($request->video_url);
         $validator = Validator::make($request->all(), [
-            'select_lession_type' => 'required|integer',
             'lession_title' => 'required|string|max:255',
             'section_id' => 'required|integer|exists:sections,id',
-            'summary' => 'required',
-            'document_type' => 'nullable|string|in:Pdf,Text,document',
-            'attachment' => 'nullable|file|mimes:pdf,doc,docx,txt|max:10240', // 10 MB max
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024', // 1 MB max
-            'video_url' => 'nullable|url',
-            'video_resource' => 'nullable|file|mimetypes:video/mp4,video/wmv,video/mov|max:100040', // 100 MB max
-            'is_free_lession' => 'nullable|boolean',
+            'summary' => 'required'
         ]);
         if ($validator->fails()) {
             return response()->json([
