@@ -9,7 +9,6 @@ use App\Models\Category;
 use App\Models\CourseFaq;
 use App\Models\CourseMeta;
 use App\Models\CourseMedia;
-use App\Models\CoursePrice;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\CourseOutcome;
@@ -38,20 +37,24 @@ class CourseController extends Controller
     public function courseEdit($id)
     {
         $course_categories = Category::get();
-        $sections = Section::with('lessons', 'quizes')->where('course_id', $id)->get();
+        $sections = Section::with('lessons')->where('course_id', $id)->get();
 
-        $editCourses = Course::with('sections', 'sections.lessons', 'sections.quizes')->where('id', $id)->first();
+        $editCourses = Course::with('sections', 'sections.lessons')->where('id', $id)->first();
 
         $faqs = CourseFaq::where('course_id', $id)->get();
         $requirements = CourseRequirements::where('course_id', $id)->get();
         $outcomes = CourseOutcome::where('course_id', $id)->get();
-        $coursePrice = CoursePrice::where('course_id', $id)->first();
-
+        $objectives = CourseObjective::where('course_id', $id)->get();
+        $eligibles = CourseEligible::where('course_id', $id)->get();
         $media = CourseMedia::where('course_id', $id)->first();
         $meta = CourseMeta::where('course_id', $id)->first();
 
         // dd($editCourses);
-        return view('backend.pages.courses.edit-course', ['course_categories' => $course_categories, 'sections' => $sections, 'faqs' => $faqs, 'requirements' => $requirements, 'outcomes' => $outcomes, 'coursePrice' => $coursePrice, 'media' => $media, 'meta' => $meta, 'editCourses' => $editCourses]);
+        return view('backend.pages.courses.edit-course', ['course_categories' => $course_categories, 'sections' => $sections, 
+        'faqs' => $faqs, 'requirements' => $requirements, 'outcomes' => $outcomes, 
+        'objectives' => $objectives, 
+        'eligibles' => $eligibles, 
+        'media' => $media, 'meta' => $meta, 'editCourses' => $editCourses]);
     }
     public function CourseFaqDelete($id)
     {
@@ -78,7 +81,6 @@ class CourseController extends Controller
 
     public function OutcomesDelete($id)
     {
-
         $outcome = CourseOutcome::find($id);
         if ($outcome) {
             $outcome->delete();
@@ -87,6 +89,28 @@ class CourseController extends Controller
             return response()->json(['status' => 'error', 'message' => 'An error occurred']);
         }
     }
+    public function ObjectiveDelete($id)
+    {
+        $objective = CourseObjective::find($id);
+        if ($objective) {
+            $objective->delete();
+            return response()->json(['status' => 'success', 'message' => 'Successfully deleted']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'An error occurred']);
+        }
+    }
+    
+    public function EnrolledForEligibiulityDelete($id)
+    {
+        $eligibles = CourseEligible::find($id);
+        if ($eligibles) {
+            $eligibles->delete();
+            return response()->json(['status' => 'success', 'message' => 'Successfully deleted']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'An error occurred']);
+        }
+    }
+    
 
     public function create()
     {
@@ -154,8 +178,7 @@ class CourseController extends Controller
             'discounted_price' => $request->discounted_price ?? 0,
             'expire_time' => $request->expire_time ?? 0,
             'duration' => $request->duration ?? 0,
-            'schedules' => $request->schedules ?? 0
-            		
+            'schedules' => $request->schedules ?? 0  		
         ];
 
         $course = Course::create($courseData);
@@ -267,7 +290,6 @@ class CourseController extends Controller
             'level' => 'nullable|string',
             'language' => 'nullable|string',
             'course_status' => 'nullable|string',
-            'top_course' => 'nullable|integer|in:0,1',
             'faq_question' => 'nullable|array',
             'faq_answer' => 'nullable|array',
             'requirement' => 'nullable|array',
@@ -275,8 +297,6 @@ class CourseController extends Controller
             'price' => 'nullable|numeric',
             'is_free' => 'nullable|integer|in:0,1',
             'discounted_price' => 'nullable|numeric',
-            'course_overview_provider' => 'nullable|string|max:255',
-            'course_overview_url' => 'nullable|url',
             'course_thumbnail' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'expire_time' => 'nullable|integer|in:0,1',
             'keyword' => 'nullable|string|max:255',
@@ -298,13 +318,20 @@ class CourseController extends Controller
         // Update the course using mass assignment
         $courseData = [
             'course_title' => $request->course_title,
+            'slug' => Str::slug($request->course_title,'_'),
             'course_short_desc' => $request->course_short_desc,
+            'about' => $request->about,
             'description' => $request->description,
             'category_id' => $request->category_id,
             'level' => $request->level,
             'language' => $request->language,
             'course_status' => $request->course_status,
-            'top_course' => $request->top_course ?? 0,
+            'is_free' => $request->is_free?? 0,
+            'price' => $request->price ?? 0,
+            'discounted_price' => $request->discounted_price ?? 0,
+            'expire_time' => $request->expire_time ?? 0,
+            'duration' => $request->duration ?? 0,
+            'schedules' => $request->schedules ?? 0
         ];
 
         $course->update(array_filter($courseData)); // Use array_filter to remove null values
@@ -344,17 +371,30 @@ class CourseController extends Controller
             }
         }
 
-        // Update course price details
-        if ($request->hasAny(['is_free', 'price', 'discounted_price', 'expire_time'])) {
-            $course->prices->update(
-                array_filter([
-                    'is_free' => $request->is_free,
-                    'price' => $request->price,
-                    'discounted_price' => $request->discounted_price,
-                    'expire_time' => $request->expire_time,
-                ]),
-            );
+        if ($request->has('objectives')) {
+            CourseObjective::where('course_id', $course->id)->delete();
+            foreach ($request->objectives as $objective) {
+                if (!empty($objective)) {
+                    CourseObjective::create([
+                        'course_id' => $course->id,
+                        'objectives' => $objective,
+                    ]);
+                }
+            }
         }
+        if ($request->has('course_eligible')) {
+            CourseEligible::where('course_id', $course->id)->delete();
+            foreach ($request->course_eligible as $eligible) {
+                if (!empty($eligible)) {
+                    CourseEligible::create([
+                        'course_id' => $course->id,
+                        'course_eligible' => $eligible,
+                    ]);
+                }
+            }
+        }
+
+       
         if ($request->hasFile('course_thumbnail')) {
             $destination = 'uploaded_files/course_thumbnails/' . $course->media->course_thumbnail;
             if (File::exists($destination)) {
@@ -369,8 +409,6 @@ class CourseController extends Controller
 
         // Prepare the data to update
         $updateData = array_filter([
-            'course_overview_provider' => $request->course_overview_provider,
-            'course_overview_url' => $request->course_overview_url,
             'course_thumbnail' => isset($filename) ? $filename : null, // Use new filename if available
         ]);
 
@@ -385,11 +423,12 @@ class CourseController extends Controller
         }
 
         // Update course meta details
-        if ($request->hasAny(['keyword', 'meta_description'])) {
+        if ($request->hasAny(['keyword','slug','meta_description'])) {
             $course->meta->update(
                 array_filter([
                     'keyword' => $request->keyword,
-                    'meta_description' => $request->meta_description,
+                    'slug' =>Str::slug($request->keyword),
+                    'meta_description' => $request->meta_description
                 ]),
             );
         }

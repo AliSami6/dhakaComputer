@@ -40,38 +40,38 @@
                                                 <div class="data-item">
                                                     <div class="data-col">
                                                         <span class="data-label">Full Name</span>
-                                                        <span class="data-value">{{ $editStudents->firstName }} {{ $editStudents->lastName }}</span>
+                                                        <span class="data-value">{{ $editStudents->firstName ?? 'First Name'}} {{ $editStudents->lastName ?? 'Last Name'}}</span>
                                                     </div>
                                                 </div><!-- data-item -->
                                                
                                                 <div class="data-item">
                                                     <div class="data-col">
                                                         <span class="data-label">Email</span>
-                                                        <span class="data-value">{{ $editStudents->email }}</span>
+                                                        <span class="data-value">{{ $editStudents->email ?? 'Email'}}</span>
                                                     </div>
                                                 </div><!-- data-item -->
                                                 <div class="data-item">
                                                     <div class="data-col">
                                                         <span class="data-label">Phone Number</span>
-                                                        <span class="data-value text-soft">{{ $editStudents->phone_no }}</span>
+                                                        <span class="data-value text-soft">{{ $editStudents->phone_no ?? 'Phone Number'}}</span>
                                                     </div>
                                                 </div><!-- data-item -->
                                                 <div class="data-item">
                                                     <div class="data-col">
                                                         <span class="data-label">Date of Birth</span>
-                                                        <span class="data-value">{{ $editStudents->date_of_birth }}</span>
+                                                        <span class="data-value">{{ $editStudents->date_of_birth ?? 'Date of Birth'}}</span>
                                                     </div>
                                                 </div><!-- data-item -->
                                                 <div class="data-item">
                                                     <div class="data-col">
-                                                        <span class="data-label">Nationality</span>
-                                                        <span class="data-value">{{ $editStudents->nationality }}</span>
+                                                        <span class="data-label">Country</span>
+                                                        <span class="data-value">{{ $editStudents->country }}</span>
                                                     </div>
-                                                </div><!-- data-item -->
+                                                </div>
                                                 <div class="data-item" data-tab-target="#address">
                                                     <div class="data-col">
                                                         <span class="data-label">Address</span>
-                                                        <span class="data-value">{{ $editStudents->address_one }},<br>{{ $editStudents->address_two }}, {{ $editStudents->country }}</span>
+                                                        <span class="data-value">{{ $editStudents->address }},<br>{{ $editStudents->city }} </span>
                                                     </div>
                                                 </div><!-- data-item -->
                                             </div><!-- data-list -->

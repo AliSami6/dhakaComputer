@@ -21,19 +21,32 @@
                         <div class="row gy-4">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="firstName">First Name</label>
+                                    <label class="form-label" for="firstName">First Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="firstName" value="{{$editStudents->firstName}}" placeholder="Enter First Name" name="firstName">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="lastName">Last Name</label>
+                                    <label class="form-label" for="lastName">Last Name <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="lastName" value="{{ $editStudents->lastName }}" placeholder="Enter Last Name" name="lastName">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="fathersName">Father's Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="fathersName" value="{{ $editStudents->fathersName }}" placeholder="Enter Father's Name" name="fathersName">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="profession">Father Profession <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="profession"  placeholder="Enter profession" name="profession"  value="{{ $editStudents->profession }}">
+                                </div>
+                            </div>
+                           
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="form-label">Course to Enrol</label>
+                                    <label class="form-label">Course to Enrol <span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
                                         <select class="form-select js-select2" name="course_id" data-placeholder="Select course">
                                             @if($courses->isNotEmpty())
@@ -47,13 +60,21 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="email">Email Address</label>
-                                    <input type="email" class="form-control" id="email" value="{{ $editStudents->email }}" placeholder="Email Address" name="email">
+                                    <label class="form-label" for="email">Email Address <span class="text-danger">*</span></label>
+                                    <input type="email" class="form-control" id="email"
+                                        placeholder="Email Address" name="email" value="{{ $editStudents->email }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="phone-no">Phone Number</label>
+                                    <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="password"
+                                        placeholder="Enter Password" name="password" value="{{ $editStudents->password }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="phone-no">Phone Number <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="phone_no" value="{{ $editStudents->phone_no }}" placeholder="Phone Number" name="phone_no">
                                 </div>
                             </div>
@@ -65,56 +86,41 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="date_of_birth">Nationality</label>
-                                    <input type="text" class="form-control date-picker" id="nationality" value="{{ $editStudents->nationality }}" placeholder="Nationality" name="nationality">
+                                    <label class="form-label" for="birth-day">Image</label>
+                                    <input type="file" class="form-control" id="image"
+                                        name="image" placeholder="Upload image">
                                 </div>
                             </div>
                           
-                            {{-- <div class="col-12">
-                                <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
-                                    <li>
-                                      
-                                        <button class="btn btn-primary" type="submit">Update Student</button >
-                                    </li>
-                                    <li>
-                                        <a href="#" data-bs-dismiss="modal" class="link link-light">Cancel</a>
-                                    </li>
-                                </ul>
-                            </div> --}}
+                          
                         </div>
                     </div><!-- .tab-pane -->
                     <div class="tab-pane" id="address">
                         <div class="row gy-4">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="address_one">Address Line 1</label>
-                                    <input type="text" class="form-control" id="address_one" value="{{ $editStudents->address_one }}" name="address_one">
+                                    <label class="form-label" for="address">Address <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="address" name="address"  value="{{ $editStudents->address }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="state">Address Line 2</label>
-                                    <input type="text" class="form-control" id="address_two" value="{{ $editStudents->address_two }}" name="address_two">
+                                    <label class="form-label" for="city">City <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="city" value="{{ $editStudents->city }}"
+                                        name="city">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="address-st">State</label>
-                                    <input type="text" class="form-control" id="state" value="{{ $editStudents->state }}" name="state">
+                                    <label class="form-label" for="division">Division</label>
+                                    <input type="text" class="form-control" id="division" name="division" value="{{ $editStudents->division }}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="country">Country</label>
-                                    <select class="form-select js-select2" id="country" name="country">
-                                        <option value="Canada" {{ $editStudents->country == 'Canada' ? 'selected' : '' }}>Canada</option>
-                                        <option value="United State" {{ $editStudents->country == 'United State' ? 'selected' : '' }}>United State</option>
-                                        <option value="United Kingdom" {{ $editStudents->country == 'United Kingdom' ? 'selected' : '' }}>United Kingdom</option>
-                                        <option value="Australia" {{ $editStudents->country == 'Australia' ? 'selected' : '' }}>Australia</option>
-                                        <option value="India" {{ $editStudents->country == 'India' ? 'selected' : '' }}>India</option>
-                                        <option value="Bangladesh" {{ $editStudents->country == 'Bangladesh' ? 'selected' : '' }}>Bangladesh</option>
-                                    </select>
-                                    
+                                    <label class="form-label" for="country">Country <span class="text-danger">*</span> </label>
+                                    <input type="text" class="form-control" id="country" value="{{ $editStudents->country }}"
+                                        name="country">
                                 </div>
                             </div>
                             <div class="col-12">

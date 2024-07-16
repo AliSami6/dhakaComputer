@@ -149,6 +149,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/faq/{id}', 'CourseFaqDelete')->name('faq.destroy');
             Route::get('/requirement/{id}', 'RequirementsDelete')->name('requirement.destroy');
             Route::get('/outcome/{id}', 'OutcomesDelete')->name('outcome.destroy');
+            Route::get('/objective/{id}', 'ObjectiveDelete')->name('objective.destroy');
+            Route::get('/eligible/{id}', 'EnrolledForEligibiulityDelete')->name('eligible.destroy');
             Route::delete('/courses/delete/{id}', 'destroy')->name('courses.delete');
         });
         // ------------------------------------------- End Course -------------------------------------------------------------------//

@@ -60,9 +60,6 @@
                         </a>
                         <ul class="nk-menu-sub">
                             <li class="nk-menu-item">
-                                <a href="{{ route('instructor.overview') }}" class="nk-menu-link"><span class="nk-menu-text">Instructor Overview</span></a>
-                            </li>
-                            <li class="nk-menu-item">
                                 <a href="{{ route('instructor.list') }}" class="nk-menu-link"><span class="nk-menu-text">Instructor List</span></a>
                             </li>
                           

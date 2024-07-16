@@ -297,7 +297,7 @@
                                                                         <em class="icon ni ni-eye"></em>
                                                                     </a>
                                                                 </li>
-                                                                @if (Auth::guard('admin')->user()->can('course.edit'))
+                                                                @if (Auth::guard('admin')->user()->status=='Active')
                                                                     <li class="nk-tb-action-hidden">
                                                                         <a href="{{ route('edit.courses', $course->id) }}"
                                                                             class="btn btn-trigger btn-icon"
@@ -307,7 +307,7 @@
                                                                         </a>
                                                                     </li>
                                                                 @endif
-                                                                @if (Auth::guard('admin')->user()->can('course.delete'))
+                                                                @if (Auth::guard('admin')->user()->status=='Active')
                                                                     <li class="nk-tb-action-hidden">
                                                                         <form
                                                                             action="{{ route('courses.delete', $course->id) }}"
@@ -330,7 +330,7 @@
                                                                             data-bs-toggle="dropdown"><em
                                                                                 class="icon ni ni-more-h"></em></a>
                                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                                            @if (Auth::guard('admin')->user()->can('course.edit'))
+                                                                            @if (Auth::guard('admin')->user()->status=='Active')
                                                                                 <ul class="link-list-opt no-bdr">
                                                                                     {{-- <li><a href="#"><em class="icon ni ni-eye"></em><span>View course on frontend</span></a></li>
                                                                             <li><a href="#"><em class="icon ni ni-repeat"></em><span>Go to course playing page</span></a></li>

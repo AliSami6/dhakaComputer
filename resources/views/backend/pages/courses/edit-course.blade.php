@@ -67,7 +67,7 @@
                                                 <span>Curriculum</span>
                                             </a>
                                         </li>
-                                      
+
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#tabItem5">
                                                 <em class="icon ni ni-tags"></em>
@@ -80,7 +80,7 @@
                                                 <span>Info</span>
                                             </a>
                                         </li>
-                                      
+
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#tabItem8">
                                                 <em class="icon ni ni-play"></em>
@@ -118,8 +118,8 @@
                                                         <button type="button" class="btn btn-outline-secondary btn-sm mr-2"
                                                             data-bs-toggle="modal" data-bs-target="#addLession">Add
                                                             Lession</button>
-                                                       
-                                                       
+
+
                                                     </div>
                                                     <div class="row g-3 align-center">
 
@@ -148,7 +148,7 @@
                                                                                                                     class="text-dark "
                                                                                                                     style="width:20px;">{{ $section->section_title }}</span>
                                                                                                             </span>
-                                                                                                           
+
                                                                                                             <button
                                                                                                                 type="button"
                                                                                                                 class="btn btn-outline-secondary btn-sm float-end mr-2 EditSection"
@@ -165,7 +165,8 @@
                                                                                                                 class="btn btn-outline-secondary btn-sm float-end mr-2 deleteSection">
                                                                                                                 <em
                                                                                                                     class="icon ni ni-trash"></em>
-                                                                                                                Delete Module
+                                                                                                                Delete
+                                                                                                                Module
                                                                                                             </button>
 
                                                                                                         </div>
@@ -194,7 +195,7 @@
                                                                                                                             </strong>
                                                                                                                             <div
                                                                                                                                 class="float-end">
-                                                                                                                              
+
                                                                                                                                 <button
                                                                                                                                     type="button"
                                                                                                                                     class="border-0 bg-white EditLesson"
@@ -219,7 +220,7 @@
                                                                                                                         </li>
                                                                                                                     @endforeach
                                                                                                                 @endif
-                                                                                                             
+
                                                                                                             </ul>
                                                                                                         </div>
                                                                                                     </div>
@@ -238,94 +239,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="tabItem2">
-                                                <div class="card-inner">
-                                                    <table class="table">
-                                                        <thead class="table-light">
-                                                            <tr>
-                                                                <th scope="col">Student</th>
-                                                                <th scope="col">Date</th>
-                                                                <th scope="col">Progress</th>
-                                                                <th scope="col">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-
-                                                                <td>
-                                                                    Student Name
-                                                                    <strong>student@example.com</strong>
-                                                                </td>
-                                                                <td>
-                                                                    <p> <strong>Enrolled from </strong>- 11 Nov 2020</p>
-                                                                </td>
-                                                                <td>
-
-                                                                    32% <br />
-
-                                                                    - Completed lesson 8 <br />
-                                                                    Out of 25
-
-                                                                    - Watched duration- 00:46:30
-                                                                </td>
-                                                                <td>
-
-                                                                    <a href="#" class="btn btn-sm btn-primary"> <em
-                                                                            class="icon ni ni-book-read"></em></a>
-                                                                    <a href="#" class="btn btn-sm btn-primary"> <em
-                                                                            class="icon ni ni-property"></em></a>
-                                                                </td>
-                                                                </td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane" id="tabItem4">
-                                                <div class="card-inner">
-                                                    <table class="table">
-                                                        <thead class="table-light">
-                                                            <tr>
-                                                                <th scope="col">Student</th>
-                                                                <th scope="col">Date</th>
-                                                                <th scope="col">Progress</th>
-                                                                <th scope="col">Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-
-                                                                <td>
-                                                                    Student Name
-                                                                    <strong>student@example.com</strong>
-                                                                </td>
-                                                                <td>
-                                                                    <p> <strong>Enrolled from </strong>- 11 Nov 2020</p>
-                                                                </td>
-                                                                <td>
-
-                                                                    32% <br />
-
-                                                                    - Completed lesson 8 <br />
-                                                                    Out of 25
-
-                                                                    - Watched duration- 00:46:30
-                                                                </td>
-                                                                <td>
-
-                                                                    <a href="#" class="btn btn-sm btn-primary"> <em
-                                                                            class="icon ni ni-book-read"></em></a>
-                                                                    <a href="#" class="btn btn-sm btn-primary"> <em
-                                                                            class="icon ni ni-property"></em></a>
-                                                                </td>
-                                                                </td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
+                                          
 
                                             <div class="tab-pane" id="tabItem5">
                                                 <div class="card-inner">
@@ -490,26 +404,30 @@
 
                                                         </div>
                                                         <div class="row mb-3">
-                                                            <label for="course-title" class="col-sm-2 col-form-label">Course
+                                                            <label for="course-title"
+                                                                class="col-sm-2 col-form-label">Course
                                                                 Duration </label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="duration"
-                                                                    name="duration" placeholder="course duration" value="{{  $editCourses->duration }}">
+                                                                    name="duration" placeholder="course duration"
+                                                                    value="{{ $editCourses->duration }}">
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
-                                                            <label for="course-title" class="col-sm-2 col-form-label">Course
+                                                            <label for="course-title"
+                                                                class="col-sm-2 col-form-label">Course
                                                                 Schedules </label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="schedules"
-
-                                                                    name="schedules" placeholder="course schedules" value="{{  $editCourses->schedules }}">
+                                                                    name="schedules" placeholder="course schedules"
+                                                                    value="{{ $editCourses->schedules }}">
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
                                                             <div class="input_fields_wrap">
                                                                 <div class="row mb-3 ">
-                                                                    <label for="course-free" class="col-sm-2 col-form-label ">
+                                                                    <label for="course-free"
+                                                                        class="col-sm-2 col-form-label ">
                                                                     </label>
                                                                     <div class="col-sm-10">
                                                                         <div class="form-group">
@@ -517,7 +435,8 @@
                                                                                 <input type="checkbox"
                                                                                     class="custom-control-input"
                                                                                     id="is_free" name="is_free"
-                                                                                    value="1">
+                                                                                    value="1"
+                                                                                    {{ isset($editCourses->is_free) && $editCourses->is_free == 1 ? 'checked' : '' }}>
                                                                                 <label class="custom-control-label"
                                                                                     for="is_free">Check if this is a
                                                                                     free course</label>
@@ -534,11 +453,12 @@
                                                                             <input type="number"
                                                                                 class="form-control form-control-sm"
                                                                                 placeholder="Enter course price"
-                                                                                id="course_price" name="price" value="{{ $editCourses->price }}">
+                                                                                id="course_price" name="price"
+                                                                                value="{{ $editCourses->price }}">
                                                                             <span class="text-danger course_price"></span>
                                                                         </div>
                                                                     </div>
-    
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -551,13 +471,16 @@
                                                                     <div class="col-sm-10">
                                                                         <div class="form-group">
                                                                             <input type="number" class="form-control"
-                                                                                id="discounted_price" name="discounted_price"  value="{{ $editCourses->discounted_price }}">
-                                                                            <span class="text-danger discounted_price"></span>
+                                                                                id="discounted_price"
+                                                                                name="discounted_price"
+                                                                                value="{{ $editCourses->discounted_price }}">
+                                                                            <span
+                                                                                class="text-danger discounted_price"></span>
                                                                         </div>
                                                                     </div>
-    
+
                                                                 </div>
-    
+
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -578,8 +501,11 @@
                                                                                                 class="custom-control-input"
                                                                                                 name="expire_time"
                                                                                                 id="expire_time_0"
-                                                                                                value="0">
-                                                                                            <label class="custom-control-label"
+                                                                                                value="0"
+                                                                                                {{ $editCourses->expire_time == 0 ? 'checked' : '' }}>
+
+                                                                                            <label
+                                                                                                class="custom-control-label"
                                                                                                 for="expire_time_0">Life
                                                                                                 Time</label>
                                                                                         </div>
@@ -591,8 +517,11 @@
                                                                                                 class="custom-control-input"
                                                                                                 name="expire_time"
                                                                                                 id="expire_time_1"
-                                                                                                value="1">
-                                                                                            <label class="custom-control-label"
+                                                                                                value="1"
+                                                                                                {{ $editCourses->expire_time == 1 ? 'checked' : '' }}>
+
+                                                                                            <label
+                                                                                                class="custom-control-label"
                                                                                                 for="expire_time_1">Limited
                                                                                                 Time</label>
                                                                                         </div>
@@ -601,8 +530,8 @@
                                                                             </div>
                                                                             <span class="text-danger expire_time"></span>
                                                                         </div>
-    
-    
+
+
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -790,7 +719,31 @@
                                                             <div class="course_outcomes_expands"></div>
                                                         </div>
                                                         <div class="row g-3 align-center">
-                                                            <div class="out_fields">
+                                                            <div class="objective_fields">
+                                                                @foreach ($objectives as $objective)
+                                                                    <div class="row mb-3 objective-group"
+                                                                        data-id="{{ $objective->id }}">
+                                                                        <label for="objective"
+                                                                            class="col-sm-2 col-form-label">Objectives</label>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control"
+                                                                                    id="objective" name="objectives[]"
+                                                                                    placeholder="Provide Objective"
+                                                                                    value="{{ $objective->objectives }}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-danger e_remove_objective_row">
+                                                                                <em class="icon ni ni-minus"></em>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+
+                                                            </div>
+                                                            <div class="objective_fields">
                                                                 <div class="row mb-3 ">
                                                                     <label for="objectives"
                                                                         class="col-sm-2 col-form-label">Objectives
@@ -800,7 +753,8 @@
                                                                             <input type="text" class="form-control"
                                                                                 id="objectives" name="objectives[]"
                                                                                 placeholder="Provide Objectives">
-                                                                            <span class="text-danger course_objectives"></span>
+                                                                            <span
+                                                                                class="text-danger course_objectives"></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-2">
@@ -814,17 +768,44 @@
                                                             </div>
                                                         </div>
                                                         <div class="row g-3 align-center">
-                                                            <div class="out_fields">
+                                                            <div class="are_eligible_fields">
+                                                                @foreach ($eligibles as $eligible)
+                                                                    <div class="row mb-3 eligible-group"
+                                                                        data-id="{{ $eligible->id }}">
+                                                                        <label for="eligible"
+                                                                            class="col-sm-2 col-form-label">Who Are
+                                                                            Eligible</label>
+                                                                        <div class="col-sm-8">
+                                                                            <div class="form-group">
+                                                                                <input type="text" class="form-control"
+                                                                                    id="eligible"
+                                                                                    name="course_eligible[]"
+                                                                                    placeholder="Provide Objective"
+                                                                                    value="{{ $eligible->course_eligible }}">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-danger e_remove_eligible_row">
+                                                                                <em class="icon ni ni-minus"></em>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                            <div class="are_eligible_fields">
                                                                 <div class="row mb-3 ">
                                                                     <label for="course_eligible"
-                                                                        class="col-sm-2 col-form-label">Who are eligible
-                                                                    </label>
+                                                                        class="col-sm-2 col-form-label">Who Are
+                                                                        Eligible</label>
                                                                     <div class="col-sm-8">
                                                                         <div class="form-group">
                                                                             <input type="text" class="form-control"
-                                                                                id="course_eligible" name="course_eligible[]"
+                                                                                id="course_eligible"
+                                                                                name="course_eligible[]"
                                                                                 placeholder="Provide eligibility">
-                                                                            <span class="text-danger course_eligible"></span>
+                                                                            <span
+                                                                                class="text-danger course_eligible"></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-sm-2">
@@ -837,123 +818,16 @@
                                                                 <div class="course_eligible_expands"></div>
                                                             </div>
                                                         </div>
+
+
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="tab-pane" id="tabItem7">
-                                                <div class="card-inner">
-                                                    <!-- Course Price Section -->
-                                                    <div class="row g-3 align-center">
-                                                        <div class="input_fields_wrap">
-                                                            <div class="row mb-3">
-                                                                <label for="course-free"
-                                                                    class="col-sm-2 col-form-label"></label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="form-group">
-                                                                        <div class="custom-control custom-checkbox">
-                                                                            <input type="checkbox"
-                                                                                class="custom-control-input"
-                                                                                id="is_free" name="is_free"
-                                                                                value="1"
-                                                                                {{ isset($coursePrice->is_free) && $coursePrice->is_free == 1 ? 'checked' : '' }}>
-                                                                            <label class="custom-control-label"
-                                                                                for="is_free">Check if this is a free
-                                                                                course</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3">
-                                                                <label for="coursePrice"
-                                                                    class="col-sm-2 col-form-label">Course Price</label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="form-group">
-                                                                        <input type="number"
-                                                                            class="form-control form-control-sm"
-                                                                            placeholder="Enter course price"
-                                                                            id="course_price" name="price"
-                                                                            value="{{ $editCourses->price }}">
-                                                                        <span class="text-danger course_price"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
 
-                                                    <!-- Discounted Price Section -->
-                                                    <div class="row g-3 align-center">
-                                                        <div class="req_fields">
-                                                            <div class="row mb-3">
-                                                                <label for="Discountedprice"
-                                                                    class="col-sm-2 col-form-label">Discounted
-                                                                    price</label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="form-group">
-                                                                        <input type="number" class="form-control"
-                                                                            id="discounted_price" name="discounted_price"
-                                                                            value="{{ $editCourses->discounted_price ?? '' }}">
-                                                                        <span class="text-danger discounted_price"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Expiry Period Section -->
-                                                    <div class="row g-3 align-center">
-                                                        <div class="out_fields">
-                                                            <div class="row mb-3">
-                                                                <label for="Expiry period"
-                                                                    class="col-sm-2 col-form-label">Expiry period</label>
-                                                                <div class="col-sm-10">
-                                                                    <div class="form-group">
-                                                                        <div class="form-control-wrap">
-                                                                            <ul
-                                                                                class="custom-control-group g-3 align-center flex-wrap">
-                                                                                <li>
-                                                                                    <div
-                                                                                        class="custom-control custom-radio">
-                                                                                        <input type="radio"
-                                                                                            class="custom-control-input"
-                                                                                            name="expire_time"
-                                                                                            id="expire_time_0"
-                                                                                            value="0"
-                                                                                            {{ $editCourses->expire_time == 0 ? 'checked' : '' }}>
-                                                                                        <label class="custom-control-label"
-                                                                                            for="expire_time_0">Life
-                                                                                            Time</label>
-                                                                                    </div>
-                                                                                </li>
-                                                                                <li>
-                                                                                    <div
-                                                                                        class="custom-control custom-radio">
-                                                                                        <input type="radio"
-                                                                                            class="custom-control-input"
-                                                                                            name="expire_time"
-                                                                                            id="expire_time_1"
-                                                                                            value="1"
-                                                                                            {{ $editCourses->expire_time == 1 ? 'checked' : '' }}>
-                                                                                        <label class="custom-control-label"
-                                                                                            for="expire_time_1">Limited
-                                                                                            Time</label>
-                                                                                    </div>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <span class="text-danger expire_time"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="tab-pane" id="tabItem8">
                                                 <div class="card-inner">
                                                     <div class="row g-3 align-center">
                                                         <div class="input_fields_wrap">
-                                                            
-                                                           
                                                             <div class="row mb-3">
                                                                 <label for="imageInput"
                                                                     class="col-sm-2 col-form-label">Course
@@ -993,7 +867,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1069,17 +942,13 @@
                 tabsize: 2,
                 height: 200
             });
-           
+
             $('#summary').summernote({
                 height: 200
             });
             $('#update_lesson_summernote').summernote({
                 height: 200
             });
-
-         
-
-
             // Add and remove FAQ fields
             let i = 1;
             $('.add_field_button').click(function() {
@@ -1158,48 +1027,48 @@
             });
 
             let objectived = 1;
-    $('.add_objectives_field_button').click(function() {
-        outcomed++;
-        var OutnewRow = '<div class="row mb-3 course_objectives">' +
-            '<label for="outcomes" class="col-sm-2 col-form-label form-label"></label>' +
-            '<div class="col-sm-8">' +
-            '<div class="form-group">' +
-            '<input type="text" class="form-control" id="objectives' + counter +
-            '" name="objectives[]" placeholder="Provide Objectives">' +
-            '</div>' +
-            '</div>' +
-            '<div class="col-sm-2">' +
-            '<button type="button" class="btn btn-sm btn-danger remove_objectives_field_button"><em class="icon ni ni-minus"></em></button>' +
-            '</div>' +
-            '</div>';
-        $('.course_objectives_expands').append(OutnewRow);
-    });
+            $('.add_objectives_field_button').click(function() {
+                outcomed++;
+                var OutnewRow = '<div class="row mb-3 course_objectives">' +
+                    '<label for="outcomes" class="col-sm-2 col-form-label form-label"></label>' +
+                    '<div class="col-sm-8">' +
+                    '<div class="form-group">' +
+                    '<input type="text" class="form-control" id="objectives' + counter +
+                    '" name="objectives[]" placeholder="Provide Objectives">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-sm-2">' +
+                    '<button type="button" class="btn btn-sm btn-danger remove_objectives_field_button"><em class="icon ni ni-minus"></em></button>' +
+                    '</div>' +
+                    '</div>';
+                $('.course_objectives_expands').append(OutnewRow);
+            });
 
-    $(document).on('click', '.remove_objectives_field_button', function() {
-        $(this).closest('.row').remove(); // Remove the entire row containing the Outco
-    });
-    let eligible =1;
-    $('.add_eligible_field_button').click(function(){
-        eligible++;
-        var Eligible = '<div class="row mb-3 course_eligible">' +
-            '<label for="outcomes" class="col-sm-2 col-form-label form-label"></label>' +
-            '<div class="col-sm-8">' +
-            '<div class="form-group">' +
-            '<input type="text" class="form-control" id="course_eligible' + counter +
-            '" name="course_eligible[]" placeholder="Provide Eligibility">' +
-            '</div>' +
-            '</div>' +
-            '<div class="col-sm-2">' +
-            '<button type="button" class="btn btn-sm btn-danger remove_eligible_field_button"><em class="icon ni ni-minus"></em></button>' +
-            '</div>' +
-            '</div>';
-        $('.course_eligible_expands').append(Eligible);
-    });
-    
-    $(document).on('click', '.remove_eligible_field_button', function() {
-        $(this).closest('.row').remove(); // Remove the entire row containing the Outco
-    });
-           
+            $(document).on('click', '.remove_objectives_field_button', function() {
+                $(this).closest('.row').remove(); // Remove the entire row containing the Outco
+            });
+            let eligible = 1;
+            $('.add_eligible_field_button').click(function() {
+                eligible++;
+                var Eligible = '<div class="row mb-3 course_eligible">' +
+                    '<label for="outcomes" class="col-sm-2 col-form-label form-label"></label>' +
+                    '<div class="col-sm-8">' +
+                    '<div class="form-group">' +
+                    '<input type="text" class="form-control" id="course_eligible' + counter +
+                    '" name="course_eligible[]" placeholder="Provide Eligibility">' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-sm-2">' +
+                    '<button type="button" class="btn btn-sm btn-danger remove_eligible_field_button"><em class="icon ni ni-minus"></em></button>' +
+                    '</div>' +
+                    '</div>';
+                $('.course_eligible_expands').append(Eligible);
+            });
+
+            $(document).on('click', '.remove_eligible_field_button', function() {
+                $(this).closest('.row').remove(); // Remove the entire row containing the Outco
+            });
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1355,32 +1224,151 @@
                 });
             });
 
+            // Handle Objective row deletion with confirmation
+            $(document).on('click', '.e_remove_objective_row', function() {
+                var objectiveGroup = $(this).closest('.objective-group');
+                var objectiveId = objectiveGroup.data('id');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/admin/objective/' + objectiveId,
+                            type: 'GET', // Consider changing this to DELETE if you're following RESTful conventions
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                if (response.status === 'success') {
+                                    objectiveGroup.remove();
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'The objective has been deleted.',
+                                        'success'
+                                    );
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'Failed to delete the objective.',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'Failed to delete the objective.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+            // Handle Eligible row deletion with confirmation
+            $(document).on('click', '.e_remove_eligible_row', function() {
+                var eligibleGroup = $(this).closest('.eligible-group');
+                var eligibleId = eligibleGroup.data('id');
+
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/admin/eligible/' + eligibleId,
+                            type: 'GET', // Consider changing this to DELETE if you're following RESTful conventions
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function(response) {
+                                if (response.status === 'success') {
+                                    eligibleGroup.remove();
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'The eligible row has been deleted.',
+                                        'success'
+                                    );
+                                } else {
+                                    Swal.fire(
+                                        'Error!',
+                                        'Failed to delete the eligible row.',
+                                        'error'
+                                    );
+                                }
+                            },
+                            error: function() {
+                                Swal.fire(
+                                    'Error!',
+                                    'Failed to delete the eligible row.',
+                                    'error'
+                                );
+                            }
+                        });
+                    }
+                });
+            });
+
+
             $('#updateCourseForm').on('submit', function(e) {
                 e.preventDefault();
+
                 var formData = new FormData(this);
+
+                // Remove existing description and meta_description to prevent duplication
+                formData.delete('description');
+                formData.delete('meta_description');
+
                 let courseDescription = $('textarea[name="description"]').val();
-                console.log(courseDescription)
                 let courseMetaDescription = $('textarea[name="meta_description"]').val();
+
                 formData.append('description', courseDescription);
                 formData.append('meta_description', courseMetaDescription);
+
                 // Collect FAQ questions and answers
                 let courseFqQue = $('input[name="faq_question[]"]').map(function() {
                     return $(this).val();
-                }).get();
+                }).get().filter(value => value !== "");
+                formData.append('courseFqQue', JSON.stringify(courseFqQue));
+
                 let courseFqAns = $('textarea[name="faq_answer[]"]').map(function() {
                     return $(this).val();
-                }).get();
-                formData.append('courseFqQue', JSON.stringify(courseFqQue));
+                }).get().filter(value => value !== "");
                 formData.append('courseFqAns', JSON.stringify(courseFqAns));
+
                 // Collect requirements and outcomes
                 let courseReq = $('input[name="requirement[]"]').map(function() {
                     return $(this).val();
-                }).get();
+                }).get().filter(value => value !== "");
+                formData.append('courseReq', JSON.stringify(courseReq));
+
                 let courseOutcomes = $('input[name="outcome[]"]').map(function() {
                     return $(this).val();
-                }).get();
-                formData.append('courseReq', JSON.stringify(courseReq));
+                }).get().filter(value => value !== "");
                 formData.append('courseOutcomes', JSON.stringify(courseOutcomes));
+
+                let courseObjectivs = $('input[name="objectives[]"]').map(function() {
+                    return $(this).val();
+                }).get().filter(value => value !== "");
+                formData.append('courseObjectivs', JSON.stringify(courseObjectivs));
+
+                let courseEligibles = $('input[name="course_eligible[]"]').map(function() {
+                    return $(this).val();
+                }).get().filter(value => value !== "");
+                formData.append('courseEligibles', JSON.stringify(courseEligibles));
+
                 $.ajax({
                     url: $(this).attr('action'),
                     type: 'POST',
@@ -1390,7 +1378,6 @@
                     success: function(response) {
                         if (response.status === 'success') {
                             flashMessage(response.status, response.message);
-
                             location.reload();
                         } else {
                             flashMessage(response.status, response.message);
@@ -1404,6 +1391,7 @@
                     }
                 });
             });
+
         });
     </script>
     <script type="text/javascript">
@@ -1411,7 +1399,6 @@
         $(document).on('click', '.EditSection', function(e) {
             e.preventDefault();
             var section_id = $(this).data('id');
-
             console.log('section_id:', section_id);
 
             $.ajax({
@@ -1437,8 +1424,7 @@
         // Function to handle form submission for updating a section
         $('#UpdateSectionFormID').on('submit', function(e) {
             e.preventDefault();
-            var sectionId = $('#e_section_id')
-                .val(); // Get the section ID from the hidden input field
+            var sectionId = $('#e_section_id').val(); // Get the section ID from the hidden input field
             var formData = $(this).serialize();
 
             $.ajax({
@@ -1574,8 +1560,6 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function() {
-           
-
             // edit lesson 
             $(document).on('click', '.EditLesson', function(e) {
                 e.preventDefault();
@@ -1596,15 +1580,13 @@
                         // Get summary without tags
                         var summaryWithoutTags = lessons_resp.summary.replace(/<\/?[^>]+(>|$)/g,
                             "");
-                        $("#update_lesson_summernote").summernote("code",summaryWithoutTags);
+                        $("#update_lesson_summernote").summernote("code", summaryWithoutTags);
                     },
                     error: function(xhr, status, error) {
                         console.error(xhr.responseText);
                     }
                 });
             });
-
-
 
             $(document).on('submit', '#UpdateLessonFormID', function(event) {
                 event.preventDefault();
@@ -1637,8 +1619,6 @@
                     }
                 });
             });
-
-
 
             // Handle form submission
             $('#lessonForm').on('submit', function(e) {
@@ -1680,10 +1660,8 @@
                     $(".print-error-msg-lession").find("ul").append('<li>' + value + '</li>');
                 });
             }
+
             // delete lesson 
-
-
-
             document.querySelectorAll('.deleteLesson').forEach(function(element) {
                 element.addEventListener('click', function(event) {
                     event.preventDefault();
@@ -1739,13 +1717,7 @@
                     });
                 });
             });
-
-
-
-
-
-
         });
     </script>
-   
+
 @endsection

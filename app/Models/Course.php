@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Course extends Model
 {
     use HasFactory;
-    protected $fillable = ['course_title','slug','course_short_desc','about','description','category_id', 'level','language','course_status','is_free','price','discounted_price','expire_time','duration','schedules'];
+    protected $fillable = ['course_title','slug','course_short_desc','about','description','category_id','level','language','course_status','is_free','price','discounted_price','expire_time','duration','schedules'];
 
     public function categories()
     {
@@ -45,11 +45,7 @@ class Course extends Model
         return $this->hasMany(CourseOutcome::class, 'course_id', 'id');
     }
 
-    public function prices()
-    {
-        return $this->hasOne(CoursePrice::class, 'course_id', 'id');
-    }
-
+   
     public function media()
     {
         return $this->hasOne(CourseMedia::class, 'course_id', 'id');

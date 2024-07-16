@@ -4,21 +4,15 @@
         <div class="card-inner">
             <div class="user-card">
                 <div class="user-avatar bg-primary">
-                    <span>AB</span>
+                    <span>{{ $editStudents->firstName['0'] ?? 'A'}}</span>
                 </div>
                 <div class="user-info">
-                    <span class="lead-text">{{ $editStudents->firstName }} {{ $editStudents->lastName }}</span>
-                    <span class="sub-text">{{ $editStudents->email }}</span>
+                    <span class="lead-text">{{ $editStudents->firstName?? 'First Name' }} {{ $editStudents->lastName ?? 'Last Name'}}</span>
+                    <span class="sub-text">{{ $editStudents->email ?? 'Email'}}</span>
                 </div>
             </div><!-- .user-card -->
         </div><!-- .card-inner -->
-        {{-- <div class="card-inner">
-            <div class="user-account-info py-0">
-                <h6 class="overline-title-alt">Total Bill</h6>
-                <div class=" h5 text-primary"> Paid <span>19</span> <small class="currency currency-btc">USD</small></div>
-                <div class="text-danger">Due <span>10 <span class="currency currency-btc">USD</span></span></div>
-            </div>
-        </div><!-- .card-inner --> --}}
+     
         <div class="card-inner p-0">
             <ul class="link-list-menu">
                 <li>

@@ -139,12 +139,14 @@ class StudentController extends Controller
         $validator = Validator::make($request->all(), [
             'firstName' => 'string|min:2|max:100',
             'lastName' => 'string|min:2|max:100',
+            'fathersName' => 'required|string|min:2|max:100',
+            'profession' => 'required|string|min:2|max:100',
             'course_id' => 'required',
             'email' => 'email|string',
             'phone_no' => 'numeric',
             'date_of_birth' => 'string',
-            'state' => 'string',
-            'nationality' => 'string',
+            'address' => 'string',
+            'city' => 'string',
             'country' => 'string',
         ]);
 
@@ -153,27 +155,37 @@ class StudentController extends Controller
                 'error' => $validator->errors()->all(),
             ]);
         }
+        
         $editStudents = Student::find($id);
+        if (!empty($request->file('image'))) {
+            $image = $this->image_updated($request->file('image'), 'uploaded_files/students/', $editStudents->image);
+        } else {
+            $image = $editStudents->image;
+        }
         $editStudents->update([
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
+            'fathersName' => $request->fathersName,
+            'profession' => $request->profession,
             'course_id' => $request->course_id,
             'email' => $request->email,
+            'password' =>Hash::make($request->password),
             'phone_no' => $request->phone_no,
             'date_of_birth' => $request->date_of_birth,
-            'address_one' => $request->address_one,
-            'address_two' => $request->address_two,
-            'state' => $request->state,
-            'nationality' => $request->nationality,
+            'address' => $request->address,
+            'city' => $request->city,
+            'division' => $request->division,
             'country' => $request->country,
+            'status' => 'Active',
+            'payment_status' => 'Due',
+            'image'=> $image
         ]);
         return redirect()->back()->with('success', 'Updated Successfully');
     }
     public function deleteStudents($id){
         $students = Student::find($id);
         if (!is_null($students)) {
-          
-            $this->imageDelete('uploaded_files/students/' . $students->image);
+            $this->imageDelete('uploaded_files/students/'.$students->image);
             $students->delete();
         }
         return back()->with('success','Student Deleted Successfully!');
