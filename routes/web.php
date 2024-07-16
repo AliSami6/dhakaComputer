@@ -9,6 +9,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\Backend\BlogController;
+use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\QuizController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\CouponController;
@@ -237,11 +238,25 @@ Route::prefix('admin')->group(function () {
         Route::controller(SettingsController::class)->group(function () {
             Route::get('/all-messages', 'allMessages')->name('show.messages');
             Route::get('/profiles', 'ProfileInfo')->name('profiles');
+            Route::get('/referral_system', 'ReferralSystem')->name('referral.system');
             Route::get('/settings', 'SettingsInfo')->name('settings');
             Route::post('/settings', 'SettingsDataSave')->name('settings.update');
         });
 
         // ------------------------------------------- End Settings -------------------------------------------------------------------//
+        // ----------------------------------------- Page  -------------------------------------------------------------------------//
+        Route::controller(PageController::class)->group(function () {
+            Route::get('/pages', 'pageList')->name('page.index');
+            Route::get('/pages/create', 'create')->name('pages.create');
+            Route::post('/pages/create', 'store')->name('pages.save');
+            Route::get('/pages/edit/{page}', 'edit')->name('pages.edit');
+            Route::post('/pages/update/{page}', 'update')->name('pages.update');
+            Route::delete('/page/delete/{page}','destroy')->name('pages.destroy');
+        });
+
+        // ------------------------------------------- End Page -------------------------------------------------------------------//
+
+
     });
 });
 

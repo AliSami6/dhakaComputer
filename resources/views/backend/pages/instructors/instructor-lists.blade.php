@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title','Instructor List')
+@section('title', 'Instructor List')
 @section('styles')
 
 @endsection
@@ -61,7 +61,7 @@
                                 <div class="card-inner p-0">
                                     <div class="nk-tb-list nk-tb-ulist">
                                         <div class="nk-tb-item nk-tb-head">
-                                           
+
                                             <div class="nk-tb-col"><span class="sub-text">Instructor</span></div>
                                             <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
                                             <div class="nk-tb-col tb-col-lg"><span class="sub-text">Country</span></div>
@@ -99,17 +99,18 @@
                                         @if ($instructors->isNotEmpty())
                                             @forelse ($instructors as $item)
                                                 <div class="nk-tb-item">
-                                                   
+
                                                     <div class="nk-tb-col">
                                                         <a href="#">
                                                             <div class="user-card">
                                                                 <div class="user-avatar bg-primary">
-                                                                    @if($item->image!=null)
-                                                                    <span>
-                                                                        <img src="{{asset('uploaded_files/Instructor/' . $item->image)  }}" />
-                                                                    </span>
+                                                                    @if ($item->image != null)
+                                                                        <span>
+                                                                            <img
+                                                                                src="{{ asset('uploaded_files/Instructor/' . $item->image) }}" />
+                                                                        </span>
                                                                     @else
-                                                                    <span>{{ $item->first_name[0] }}</span>
+                                                                        <span>{{ $item->first_name[0] }}</span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="user-info">
@@ -133,31 +134,20 @@
                                                     </div>
                                                     <div class="nk-tb-col tb-col-mb">
                                                         @php
-                                                        $activeCourseCount = $item->instructorCourses->filter(function($instructorCourse) {
-                                                            return $instructorCourse->course !== null;
-                                                        })->count();
-                                                    @endphp
-                                                        <span>{{ $activeCourseCount}} active courses</span>
+                                                            $activeCourseCount = $item->instructorCourses
+                                                                ->filter(function ($instructorCourse) {
+                                                                    return $instructorCourse->course !== null;
+                                                                })
+                                                                ->count();
+                                                        @endphp
+                                                        <span>{{ $activeCourseCount }} active courses</span>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-md">
                                                         <span class="tb-status text-success">{{ $item->status }}</span>
                                                     </div>
                                                     <div class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
-                                                            {{-- <li class="nk-tb-action-hidden">
-                                                                <a href="#" class="btn btn-trigger btn-icon"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                    title="Send Email">
-                                                                    <em class="icon ni ni-mail-fill"></em>
-                                                                </a>
-                                                            </li>
-                                                            <li class="nk-tb-action-hidden">
-                                                           `     <a href="#" class="btn btn-trigger btn-icon"
-                                                                    data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                    title="Suspend">
-                                                                    <em class="icon ni ni-user-cross-fill"></em>
-                                                                </a>
-                                                            </li> --}}
+
                                                             <li>
                                                                 <div class="drodown">
                                                                     <a href="#"
@@ -165,34 +155,51 @@
                                                                         data-bs-toggle="dropdown"><em
                                                                             class="icon ni ni-more-h"></em></a>
                                                                     <div class="dropdown-menu dropdown-menu-end">
-                                                                        @if (Auth::guard('admin')->user()->can('instructor.edit'))
-                                                                        <ul class="link-list-opt no-bdr">
-                                                                            <li><a href="{{ route('instructor.details',$item->id) }}"><em
-                                                                                        class="icon ni ni-eye"></em><span>View
-                                                                                        Details</span></a></li>
-                                                                            <li><a data-bs-toggle="modal"
-                                                                                    href="#modalEdit"
-                                                                                    class="EditInstructor"
-                                                                                    data-id="{{ $item->id }}"><em
-                                                                                        class="icon ni ni-pen2"></em><span>Edit</span></a>
-                                                                            </li>
-                                                                            <li><a href="{{ route('instructor_status.update',[$item->id,'Active']) }}"><em class="icon ni ni-activity-round"></em><span>Active</span></a></li>
-                                                                            <li><a href="{{ route('instructor_status.update',[$item->id,'Inactive']) }}"><em class="icon ni ni-lock"></em><span>Inactive</span></a></li>
-                                                                            <li><a href="{{ route('instructor_status.update',[$item->id,'Pending']) }}"><em class="icon ni ni-history"></em><span>Pending</span></a></li>
-                                                                            <li><a href="{{ route('instructor_status.update',[$item->id,'Suspend']) }}"><em class="icon ni ni-article"></em><span>Suspend</span></a></li>
-                                                                           
-                                                                            <form action="{{ route('instructor.delete', $item->id) }}" method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <li>
-                                                                                    <a href="#" class="delete_instructor">
-                                                                                        <em class="icon ni ni-trash"></em>
-                                                                                        <span>Delete</span>
-                                                                                    </a>
+                                                                        @if (Auth::guard('admin')->user()->status == 'Active')
+                                                                            <ul class="link-list-opt no-bdr">
+                                                                                <li><a
+                                                                                        href="{{ route('instructor.details', $item->id) }}"><em
+                                                                                            class="icon ni ni-eye"></em><span>View
+                                                                                            Details</span></a></li>
+                                                                                <li><a data-bs-toggle="modal"
+                                                                                        href="#modalEdit"
+                                                                                        class="EditInstructor"
+                                                                                        data-id="{{ $item->id }}"><em
+                                                                                            class="icon ni ni-pen2"></em><span>Edit</span></a>
                                                                                 </li>
-                                                                            </form>
-                                                                                    
-                                                                        </ul>
+                                                                                <li><a
+                                                                                        href="{{ route('instructor_status.update', [$item->id, 'Active']) }}"><em
+                                                                                            class="icon ni ni-activity-round"></em><span>Active</span></a>
+                                                                                </li>
+                                                                                <li><a
+                                                                                        href="{{ route('instructor_status.update', [$item->id, 'Inactive']) }}"><em
+                                                                                            class="icon ni ni-lock"></em><span>Inactive</span></a>
+                                                                                </li>
+                                                                                <li><a
+                                                                                        href="{{ route('instructor_status.update', [$item->id, 'Pending']) }}"><em
+                                                                                            class="icon ni ni-history"></em><span>Pending</span></a>
+                                                                                </li>
+                                                                                <li><a
+                                                                                        href="{{ route('instructor_status.update', [$item->id, 'Suspend']) }}"><em
+                                                                                            class="icon ni ni-article"></em><span>Suspend</span></a>
+                                                                                </li>
+
+                                                                                <form
+                                                                                    action="{{ route('instructor.delete', $item->id) }}"
+                                                                                    method="post">
+                                                                                    @csrf
+                                                                                    @method('DELETE')
+                                                                                    <li>
+                                                                                        <a href="#"
+                                                                                            class="delete_instructor">
+                                                                                            <em
+                                                                                                class="icon ni ni-trash"></em>
+                                                                                            <span>Delete</span>
+                                                                                        </a>
+                                                                                    </li>
+                                                                                </form>
+
+                                                                            </ul>
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -240,6 +247,5 @@
     @include('backend.pages.instructors.partials.edit_instructor')
 @endsection
 @section('script_js')
-   @include('backend.pages.instructors.inc.script')
+    @include('backend.pages.instructors.inc.script')
 @endsection
-

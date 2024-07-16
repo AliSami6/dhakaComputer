@@ -106,7 +106,6 @@
                                     </table>
                                 </div>
                             </div><!-- .card-preview -->
-
                         </div><!-- .row -->
                     </div>
                 </div>

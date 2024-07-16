@@ -45,4 +45,7 @@ class SettingsController extends Controller
         ]);
         return redirect()->back()->with('success','Websettings Updated !'); 
     }
+    public function ReferralSystem(){
+        return view('backend.pages.referral_system.index');
+    }
 }

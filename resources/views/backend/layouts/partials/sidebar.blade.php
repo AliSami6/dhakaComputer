@@ -109,33 +109,38 @@
                             <span class="nk-menu-text">Settings</span>
                         </a>
                     </li>
-                    {{-- <li class="nk-menu-item">
-                        <a href="{{ route('show.messages') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-chat-fill"></em></span>
-                            <span class="nk-menu-text">Messages</span>
-                        </a>
-                    </li> --}}
                    
+                  
+                    <li class="nk-menu-item ">
+                        <a href="{{ route('page.index') }}" class="nk-menu-link ">
+                            <span class="nk-menu-icon"><em class="icon ni ni-view-group-fill"></em></span>
+                            <span class="nk-menu-text">Pages</span>
+                        </a>
+                        
+                    </li>
+                    <li class="nk-menu-item ">
+                        <a href="{{ route('referral.system') }}" class="nk-menu-link ">
+                            <span class="nk-menu-icon">
+                                <em class="icon ni ni-wallet"></em>
+                                </span>
+                            <span class="nk-menu-text">Referral System</span>
+                        </a>
+                        
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{route('invoice.all')}}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-file-docs"></em></span>
+                            <span class="nk-menu-text">Invoice</span>
+                        </a>
+                        
+                    </li>
                     {{-- <li class="nk-menu-item">
                         <a href="{{ route('profiles') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-account-setting-fill"></em></span>
                             <span class="nk-menu-text">Admin profile</span>
                         </a>
                     </li>
-                    <li class="nk-menu-item has-sub">
-                        <a href="#" class="nk-menu-link nk-menu-toggle">
-                            <span class="nk-menu-icon"><em class="icon ni ni-file-docs"></em></span>
-                            <span class="nk-menu-text">Invoice</span>
-                        </a>
-                        <ul class="nk-menu-sub">
-                            <li class="nk-menu-item">
-                                <a href="{{route('invoice.all')}}" class="nk-menu-link"><span class="nk-menu-text">Invoice List</span></a>
-                            </li>
-                            <li class="nk-menu-item">
-                                <a href="{{route('invoice.details')}}" class="nk-menu-link"><span class="nk-menu-text">Invoice Details</span></a>
-                            </li>
-                        </ul>
-                    </li>
+                   
                    --}}
                    {{-- <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">Return to</h6>
