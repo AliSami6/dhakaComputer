@@ -19,7 +19,7 @@
                                         data-target="more-options"><em class="icon ni ni-more-v"></em></a>
                                     <div class="toggle-expand-content" data-content="more-options">
                                         <ul class="nk-block-tools g-3">
-                                           
+
                                         </ul>
                                     </div>
                                 </div>
@@ -34,59 +34,58 @@
                                         <div class="nk-tb-item nk-tb-head">
                                             <div class="nk-tb-col tb-col-mb"><span
                                                     class="sub-text d-lg-flex d-none">Category Name </span></div>
-                                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Subcategory Name</span></div>
-                                          
-                                         
+                                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Subcategory Name</span>
+                                            </div>
+
+
                                         </div>
-                                        @if($categories->isNotEmpty())
-                                            @foreach($categories as $list)
+                                        @if ($categories->isNotEmpty())
+                                            @foreach ($categories as $list)
                                                 <div class="nk-tb-item mb-2">
-                                                   
                                                     <div class="nk-tb-col tb-col-mb">
-                                                            <span class="tb-lead d-lg-flex d-none">{{$list->category_name}} </span>
+                                                        <span
+                                                            class="tb-lead d-lg-flex d-none">{{ $list->category_name }}</span>
                                                     </div>
                                                     <div class="nk-tb-col tb-col-md">
-                                                        @if($list->subcategories->isNotEmpty())
-                                                        @foreach($list->subcategories as $subcategory)
-                                                        <span>{{$subcategory->subcategory_name}} </span><br>
-                                                        @endforeach
+                                                        @if ($list->subcategories->isNotEmpty())
+                                                            @foreach ($list->subcategories as $subcategory)
+                                                                <span>{{ $subcategory->subcategory_name }}</span><br>
+                                                            @endforeach
                                                         @endif
                                                     </div>
-                                                   
-                                                  
                                                     <div class="nk-tb-col nk-tb-col-tools">
                                                         <ul class="nk-tb-actions gx-1">
-                                                          
                                                             <li>
                                                                 <div class="drodown">
                                                                     <a href="#"
                                                                         class="dropdown-toggle btn btn-icon btn-trigger"
-                                                                        data-bs-toggle="dropdown"><em
-                                                                            class="icon ni ni-more-h"></em></a>
+                                                                        data-bs-toggle="dropdown">
+                                                                        <em class="icon ni ni-more-h"></em>
+                                                                    </a>
                                                                     <div class="dropdown-menu dropdown-menu-end">
                                                                         <ul class="link-list-opt no-bdr">
+
                                                                             <li>
-                                                                               
-                                                                                <a data-bs-toggle="modal" href="#subcategoryEdit"
-                                                                                class="EditSubCategory" data-id="{{ $list->id }}">
-                                                                                <em class="icon ni ni-pen"></em>
-                                                                                <span>Edit </span>
-                                                                            </a>
-                                                                            </li>  
-                                                                           
-    
-                                                                            <li>
-                                                                                <a href="#" onclick="event.preventDefault(); confirmDelete('{{ $list->id }}');">
-                                                                                    <em class="icon ni ni-trash delete_blog"></em>
-                                                                                    <span>Delete</span>
+                                                                                <a
+                                                                                    href="{{route('subcategory.edit',$list->id)}}">
+                                                                                    <em class="icon ni ni-edit"></em>
+                                                                                    <span>Edit</span>
                                                                                 </a>
                                                                             </li>
-                                                                            <form id="delete-form-{{ $list->id }}"
-                                                                                action=""
-                                                                                method="POST" style="display: none;">
-                                                                                @method('DELETE')
-                                                                                @csrf
-                                                                            </form>
+
+                                                                          <li>
+    <a href="#" onclick="event.preventDefault(); confirmDelete('{{ $list->id }}');">
+        <em class="icon ni ni-trash delete_blog"></em>
+        <span>Delete</span>
+    </a>
+</li>
+
+                                                                        <form id="delete-form-{{ $list->id }}" action="{{ route('delete-subcategory',$list->id) }}" method="POST" style="display: none;">
+    @method('DELETE')
+    @csrf
+</form>
+
+
                                                                         </ul>
                                                                     </div>
                                                                 </div>
@@ -95,8 +94,9 @@
                                                     </div>
                                                 </div>
                                             @endforeach
-                                        <!-- .nk-tb-item -->
                                         @endif
+
+
                                     </div><!-- .nk-tb-list -->
                                 </div>
                                 <div class="card-inner">
@@ -157,24 +157,28 @@
     </div>
 @endsection
 @section('modals')
-@include('backend.pages.courses.partials.edit-subcategory')
+   
 @endsection
 @section('script_js')
 <script type="text/javascript">
     function confirmDelete(listId) {
-      Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-          if (result.isConfirmed) {
-              document.getElementById('delete-form-' + listId).submit();
-          }
-      })
-  }
-  </script>
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('delete-form-' + listId).submit();
+            }
+        })
+    }
+</script>
+
+
+  
+
 @endsection

@@ -72,16 +72,13 @@ Route::post('/signin', [UserLoginController::class, 'LoginDataCheck'])->name('lo
 
 Route::post('/logout/data', [UserLoginController::class, 'logoutData'])->name('logout.name');
 
-
 Route::middleware(['auth.custom'])->group(function () {
     Route::get('/course_metarials/{id}', [HomeController::class, 'CourseMetarials'])->name('course.metarials');
     Route::get('/course_lession/{lesson}', [HomeController::class, 'CourseLesson'])->name('course.lesson');
     Route::get('/student_profile', [HomeController::class, 'StudentProfile'])->name('my_profile');
     Route::get('/update_student_profile/{id}', [HomeController::class, 'EditStudentProfile'])->name('edit.my_profile');
     Route::post('/update_student_profile/{id}', [HomeController::class, 'UpdateStudentProfile'])->name('update.my_profile');
-
 });
-
 
 Route::get('/course_details/{keyword}', [HomeController::class, 'CourseDetails'])->name('course.details');
 Route::post('/order', [OrderController::class, 'store'])->name('order.save');
@@ -95,157 +92,156 @@ Route::delete('remove-from-cart', [CartController::class, 'remove'])->name('cart
 Route::get('/proceed_to_checkout', [CheckoutController::class, 'ProceedToCheckout'])->name('process_cheakout');
 Route::post('/place_order', [CheckoutController::class, 'Order'])->name('order');
 Route::post('/success', [CheckoutController::class, 'success']);
-    Route::get('/thank_you_for_purchase', [HomeController::class, 'ThankYouPage'])->name('course.thank_you');
+Route::get('/thank_you_for_purchase', [HomeController::class, 'ThankYouPage'])->name('course.thank_you');
 /**
  * Admin routes
  */
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
-    Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
-    Route::get('/admins/{id}/{status}', [AdminsController::class,'AdminStatus'])->name('admin_status.update');
-    // Login Routes
-    Route::get('/login', 'Backend\Auth\LoginController@showLoginForm')->name('admin.login');
-    Route::post('/login/submit', 'Backend\Auth\LoginController@login')->name('admin.login.submit');
+Route::prefix('admin')->group(function () {
+    Route::get('login', 'Backend\Auth\LoginController@showLoginForm')->name('admin.login');
+    Route::post('login', 'Backend\Auth\LoginController@login')->name('admin.login.submit');
+    Route::post('logout', 'Backend\Auth\LoginController@logout')->name('admin.logout.submit');
 
-    // Logout Routes
-    Route::post('/logout/submit', 'Backend\Auth\LoginController@logout')->name('admin.logout.submit');
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/', 'Backend\DashboardController@index')->name('admin.dashboard');
+        Route::resource('admins', 'Backend\AdminsController', ['names' => 'admin.admins']);
+        Route::get('/admins/{id}/{status}', [AdminsController::class, 'AdminStatus'])->name('admin_status.update');
 
-    // ----------------------------------------- Category -------------------------------------------------------------------------//
-    Route::controller(CategoryController::class)->group(function () {
-        Route::get('/category-courses', 'index')->name('category.courses');
-        Route::get('/subcategory', 'SubCategoryList')->name('subcategory.index');
-        Route::post('/subcategory', 'SubcatUpdate')->name('subcategory.update');
-        Route::post('/category-courses', 'store')->name('category.save');
-        Route::get('/category-courses/edit', 'edit')->name('category.edit');
-        Route::delete('/delete-subcategory/{id}', 'deleteCategory');
-        Route::post('/category-courses/update', 'update')->name('category.update');
-        Route::delete('/category-courses/delete/{id}', 'destroy')->name('category.courses.delete');
+        // ----------------------------------------- Category -------------------------------------------------------------------------//
+        Route::controller(CategoryController::class)->group(function () {
+            Route::get('/category-courses', 'index')->name('category.courses');
+            Route::get('/subcategory', 'SubCategoryList')->name('subcategory.index');
+            Route::get('/edit_subcategory/{id}', 'editSbcategory')->name('subcategory.edit');
+           Route::post('/update_subcategory', 'SubcatUpdate')->name('subcategory.update');
+            Route::post('/category-courses', 'store')->name('category.save');
+            Route::get('/category-courses/edit', 'edit')->name('category.edit');
+            Route::post('/category-courses/update', 'update')->name('category.update');
+            Route::delete('/category-courses/delete/{id}', 'destroy')->name('category.courses.delete');
+             Route::delete('/delete-subcategory/{id}', 'deleteSubCategory')->name('delete-subcategory');
+        });
+       
+
+        // ------------------------------------------- End Category -------------------------------------------------------------------//
+
+        // ----------------------------------------- Instructor -------------------------------------------------------------------------//
+        Route::controller(InstructorController::class)->group(function () {
+            Route::get('/instructor-all', 'index')->name('instructor.list');
+            Route::post('/instructor-save', 'store')->name('instructor.save');
+            Route::get('/instructor/edit', 'edit')->name('instructor.edit');
+            Route::get('/instructor/{id}/{status}', 'instructorStatus')->name('instructor_status.update');
+            Route::post('/instructor/update', 'update')->name('instructor.update');
+            Route::delete('/instructor/delete/{id}', 'destroy')->name('instructor.delete');
+            Route::get('/instructor-overview', 'InstructorOverview')->name('instructor.overview');
+            Route::get('/instructor_details/{id}', 'DetailsForInstructor')->name('instructor.details');
+            Route::get('/instructor_details_form/{id}', 'DetailsForInstructorForm')->name('instructor.form');
+            Route::post('/instructor_details_form', 'DetailsForInstructorSave')->name('instructor.details.save');
+            Route::get('/instructor-payments', 'PaymentForInstructor')->name('instructor.payments');
+        });
+        // ------------------------------------------- End Instructor -------------------------------------------------------------------//
+
+        // ----------------------------------------- Course -------------------------------------------------------------------------//
+        Route::controller(CourseController::class)->group(function () {
+            Route::get('/courses', 'courseList')->name('courseList');
+            Route::get('/add-courses', 'courseAdd')->name('create.courses');
+            Route::get('/course_status/{id}/{status}', 'courseStatusUpdate')->name('course_status.update');
+            Route::post('/add-courses', 'courseSave')->name('courses.save');
+            Route::get('/edit-courses/{id}', 'courseEdit')->name('edit.courses');
+            Route::post('/edit-courses/update/{id}', 'update')->name('courses.update');
+            Route::get('/faq/{id}', 'CourseFaqDelete')->name('faq.destroy');
+            Route::get('/requirement/{id}', 'RequirementsDelete')->name('requirement.destroy');
+            Route::get('/outcome/{id}', 'OutcomesDelete')->name('outcome.destroy');
+            Route::delete('/courses/delete/{id}', 'destroy')->name('courses.delete');
+        });
+        // ------------------------------------------- End Course -------------------------------------------------------------------//
+
+        // ----------------------------------------- Section -------------------------------------------------------------------------//
+        Route::controller(SectionController::class)->group(function () {
+            Route::post('/add_section/save', 'SectionSave')->name('section.save');
+            Route::get('/edit-section', 'sectionEdit')->name('edit.section');
+            Route::post('/update-section', 'updateSection')->name('sections.update');
+            Route::delete('/section/delete/{id}', 'sectionDelete')->name('section.delete');
+        });
+        // ------------------------------------------- End Section -------------------------------------------------------------------//
+
+        // ----------------------------------------- Lession -------------------------------------------------------------------------//
+        Route::controller(LessionController::class)->group(function () {
+            Route::post('/add_new_lesson/save', 'LessionSave')->name('lesson.save');
+            Route::get('/edit_lesson', 'EditLesson')->name('edit.lesson');
+            Route::post('/lesson/update', 'updateLesson')->name('lesson.update');
+            Route::delete('/lesson/delete/{id}', 'LessonDelete')->name('lesson.delete');
+        });
+
+        // ------------------------------------------- End Lession -------------------------------------------------------------------//
+
+        // ----------------------------------------- Student  -------------------------------------------------------------------------//
+        Route::controller(StudentController::class)->group(function () {
+            Route::get('/all-students', 'index')->name('students.all');
+            Route::get('/students_status/{id}/{status}', 'studentStatusUpdate')->name('students_status.update');
+            Route::post('/add_new_students/save', 'store')->name('students.save');
+            Route::get('/details-of-students/{id}', 'viewStudentDetails')->name('students.details');
+            Route::post('/details-of-students/{id}', 'UpdateStudentDetails')->name('students.details.update');
+            Route::get('/course-of-students/{id}', 'studentCourse')->name('students.course');
+            Route::post('/student_courses/update', 'studentCourseSave')->name('students.courses.save');
+            Route::delete('/student/{id}/', 'deleteStudents')->name('student.delete');
+
+            // Route::get('/courses', 'courseList')->name('courseList');
+            // Route::get('/add-courses', 'courseAdd')->name('create.courses');
+        });
+        // ------------------------------------------- End Student -------------------------------------------------------------------//
+
+        // ----------------------------------------- Coupon -------------------------------------------------------------------------//
+        Route::controller(CouponController::class)->group(function () {
+            Route::get('/coupons', 'couponList')->name('coupons.courses');
+            Route::get('/create-coupons', 'CreateCopons')->name('create.coupons');
+        });
+
+        // ------------------------------------------- End Coupon -------------------------------------------------------------------//
+        Route::controller(SliderController::class)->group(function () {
+            Route::get('/slider/create', 'create')->name('slider.create');
+            Route::post('/slider/store', 'store')->name('slider.save');
+        });
+        Route::controller(WhyChooseController::class)->group(function () {
+            Route::get('/choose_us/create', 'create')->name('chooseus.create');
+            Route::post('/choose_us/store', 'store')->name('chooseus.save');
+        });
+        Route::controller(BlogController::class)->group(function () {
+            Route::get('/blog/list', 'index')->name('blog.index');
+            Route::get('/blog/create', 'create')->name('blog.create');
+            Route::post('/blog/store', 'store')->name('blog.save');
+            Route::get('/blog/edit/{id}', 'edit')->name('blog.edit');
+            Route::post('/blog/edit/{id}', 'update')->name('blog.update');
+            Route::delete('/blog/deleted/{id}', 'destroy')->name('blog.destroy');
+        });
+        // ----------------------------------------- Invoice  -------------------------------------------------------------------------//
+        Route::controller(InvoiceController::class)->group(function () {
+            Route::get('/invoice', 'InvoiceList')->name('invoice.all');
+            Route::get('/invoice_details', 'InvoiceDetails')->name('invoice.details');
+            Route::get('/inovice_print', 'InvoicePrint')->name('invoice.print');
+        });
+
+        // ------------------------------------------- End Invoice -------------------------------------------------------------------//
+
+        // ----------------------------------------- Enrollment  -------------------------------------------------------------------------//
+        Route::controller(EnrollmentController::class)->group(function () {
+            Route::get('/all-enrollments', 'allEnrollmentList')->name('enrollments.all');
+            Route::get('/status-enrollments/{id}/{status}', 'enrollStatusUpdate')->name('status.update');
+            Route::post('/all-enrollments', 'store')->name('enrollments.save');
+            Route::get('/students-enrollments', 'studentEnrollment')->name('enrollments.student');
+            Route::delete('/students-enrollments_delete/{id}', 'destroy')->name('enrollments.delete');
+        });
+
+        // ------------------------------------------- End Enrollment -------------------------------------------------------------------//
+
+        // ----------------------------------------- Settings  -------------------------------------------------------------------------//
+        Route::controller(SettingsController::class)->group(function () {
+            Route::get('/all-messages', 'allMessages')->name('show.messages');
+            Route::get('/profiles', 'ProfileInfo')->name('profiles');
+            Route::get('/settings', 'SettingsInfo')->name('settings');
+            Route::post('/settings', 'SettingsDataSave')->name('settings.update');
+        });
+
+        // ------------------------------------------- End Settings -------------------------------------------------------------------//
     });
-    // ------------------------------------------- End Category -------------------------------------------------------------------//
-
-    // ----------------------------------------- Instructor -------------------------------------------------------------------------//
-    Route::controller(InstructorController::class)->group(function () {
-        Route::get('/instructor-all', 'index')->name('instructor.list');
-        Route::post('/instructor-save', 'store')->name('instructor.save');
-        Route::get('/instructor/edit', 'edit')->name('instructor.edit');
-        Route::get('/instructor/{id}/{status}', 'instructorStatus')->name('instructor_status.update');
-        Route::post('/instructor/update', 'update')->name('instructor.update');
-        Route::delete('/instructor/delete/{id}', 'destroy')->name('instructor.delete');
-        Route::get('/instructor-overview', 'InstructorOverview')->name('instructor.overview');
-        Route::get('/instructor_details/{id}', 'DetailsForInstructor')->name('instructor.details');
-        Route::get('/instructor_details_form/{id}', 'DetailsForInstructorForm')->name('instructor.form');
-        Route::post('/instructor_details_form', 'DetailsForInstructorSave')->name('instructor.details.save');
-        Route::get('/instructor-payments', 'PaymentForInstructor')->name('instructor.payments');
-    });
-    // ------------------------------------------- End Instructor -------------------------------------------------------------------//
-
-    // ----------------------------------------- Course -------------------------------------------------------------------------//
-    Route::controller(CourseController::class)->group(function () {
-        Route::get('/courses', 'courseList')->name('courseList');
-        Route::get('/add-courses', 'courseAdd')->name('create.courses');
-        Route::get('/course_status/{id}/{status}', 'courseStatusUpdate')->name('course_status.update');
-        Route::post('/add-courses', 'courseSave')->name('courses.save');
-        Route::get('/edit-courses/{id}', 'courseEdit')->name('edit.courses');
-        Route::post('/edit-courses/update/{id}', 'update')->name('courses.update');
-        Route::get('/faq/{id}', 'CourseFaqDelete')->name('faq.destroy');
-        Route::get('/requirement/{id}', 'RequirementsDelete')->name('requirement.destroy');
-        Route::get('/outcome/{id}', 'OutcomesDelete')->name('outcome.destroy');
-        Route::delete('/courses/delete/{id}', 'destroy')->name('courses.delete');
-    });
-    // ------------------------------------------- End Course -------------------------------------------------------------------//
-
-    // ----------------------------------------- Section -------------------------------------------------------------------------//
-    Route::controller(SectionController::class)->group(function () {
-        Route::post('/add_section/save', 'SectionSave')->name('section.save');
-        Route::get('/edit-section', 'sectionEdit')->name('edit.section');
-        Route::post('/update-section', 'updateSection')->name('sections.update');
-        Route::delete('/section/delete/{id}', 'sectionDelete')->name('section.delete');
-    });
-    // ------------------------------------------- End Section -------------------------------------------------------------------//
-
-    // ----------------------------------------- Lession -------------------------------------------------------------------------//
-    Route::controller(LessionController::class)->group(function () {
-        Route::post('/add_new_lesson/save', 'LessionSave')->name('lesson.save');
-        Route::get('/edit_lesson', 'EditLesson')->name('edit.lesson');
-        Route::post('/lesson/update', 'updateLesson')->name('lesson.update');
-        Route::delete('/lesson/delete/{id}', 'LessonDelete')->name('lesson.delete');
-    });
-
-    // ------------------------------------------- End Lession -------------------------------------------------------------------//
-
-   
-    // ----------------------------------------- Student  -------------------------------------------------------------------------//
-    Route::controller(StudentController::class)->group(function () {
-        Route::get('/all-students', 'index')->name('students.all');
-        Route::get('/students_status/{id}/{status}', 'studentStatusUpdate')->name('students_status.update');
-        Route::post('/add_new_students/save', 'store')->name('students.save');
-        Route::get('/details-of-students/{id}', 'viewStudentDetails')->name('students.details');
-        Route::post('/details-of-students/{id}', 'UpdateStudentDetails')->name('students.details.update');
-        Route::get('/course-of-students/{id}', 'studentCourse')->name('students.course');
-        Route::post('/student_courses/update', 'studentCourseSave')->name('students.courses.save');
-        Route::delete('/student/{id}/','deleteStudents')->name('student.delete');
-   
-
-        // Route::get('/courses', 'courseList')->name('courseList');
-        // Route::get('/add-courses', 'courseAdd')->name('create.courses');
-    });
-    // ------------------------------------------- End Student -------------------------------------------------------------------//
-
-    // ----------------------------------------- Coupon -------------------------------------------------------------------------//
-    Route::controller(CouponController::class)->group(function () {
-        Route::get('/coupons', 'couponList')->name('coupons.courses');
-        Route::get('/create-coupons', 'CreateCopons')->name('create.coupons');
-    });
-
-    // ------------------------------------------- End Coupon -------------------------------------------------------------------//
-    Route::controller(SliderController::class)->group(function(){
-        Route::get('/slider/create','create')->name('slider.create');
-        Route::post('/slider/store','store')->name('slider.save');
-    });
-    Route::controller(WhyChooseController::class)->group(function(){
-        Route::get('/choose_us/create','create')->name('chooseus.create');
-        Route::post('/choose_us/store','store')->name('chooseus.save');
-    });
-     Route::controller(BlogController::class)->group(function(){
-        Route::get('/blog/list','index')->name('blog.index');
-        Route::get('/blog/create','create')->name('blog.create');
-        Route::post('/blog/store','store')->name('blog.save');
-        Route::get('/blog/edit/{id}','edit')->name('blog.edit');
-        Route::post('/blog/edit/{id}','update')->name('blog.update');
-        Route::delete('/blog/deleted/{id}','destroy')->name('blog.destroy');
-    });
-    // ----------------------------------------- Invoice  -------------------------------------------------------------------------//
-    Route::controller(InvoiceController::class)->group(function () {
-        Route::get('/invoice', 'InvoiceList')->name('invoice.all');
-        Route::get('/invoice_details', 'InvoiceDetails')->name('invoice.details');
-        Route::get('/inovice_print', 'InvoicePrint')->name('invoice.print');
-    });
-
-    // ------------------------------------------- End Invoice -------------------------------------------------------------------//
-
-    // ----------------------------------------- Enrollment  -------------------------------------------------------------------------//
-    Route::controller(EnrollmentController::class)->group(function () {
-        Route::get('/all-enrollments', 'allEnrollmentList')->name('enrollments.all');
-        Route::get('/status-enrollments/{id}/{status}', 'enrollStatusUpdate')->name('status.update');
-        Route::post('/all-enrollments', 'store')->name('enrollments.save');
-        Route::get('/students-enrollments', 'studentEnrollment')->name('enrollments.student');
-        Route::delete('/students-enrollments_delete/{id}', 'destroy')->name('enrollments.delete');
-    });
-
-    // ------------------------------------------- End Enrollment -------------------------------------------------------------------//
-
-    // ----------------------------------------- Settings  -------------------------------------------------------------------------//
-    Route::controller(SettingsController::class)->group(function () {
-        Route::get('/all-messages', 'allMessages')->name('show.messages');
-        Route::get('/profiles', 'ProfileInfo')->name('profiles');
-        Route::get('/settings', 'SettingsInfo')->name('settings');
-        Route::post('/settings', 'SettingsDataSave')->name('settings.update');
-    });
-
-    // ------------------------------------------- End Settings -------------------------------------------------------------------//
-    
 });
-
 
 // SSLCOMMERZ Start
 Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout'])->name('pay.check');

@@ -14,8 +14,8 @@
                         <a class="nav-link" data-bs-toggle="tab" href="#address-info">Address</a>
                     </li>
                 </ul><!-- .nav-tabs -->
-                <form id="StudentFormId" method="POST" class="mb-3">
-                    @csrf
+                <form id="StudentFormId" method="POST" class="mb-3" enctype="multipart/form-data">
+                   @csrf
                     <div class="alert alert-danger print-error-msg-student mb-3" style="display:none">
                         <ul></ul>
                     </div>
@@ -24,49 +24,49 @@
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="firstName">First Name</label>
+                                        <label class="form-label" for="firstName">First Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="firstName"
                                             placeholder="First name" name="firstName">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="lastName">Last Name</label>
+                                        <label class="form-label" for="lastName">Last Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="lastName"
                                             placeholder="Last name" name="lastName">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="fathersName">Father's Name</label>
+                                        <label class="form-label" for="fathersName">Father's Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="fathersName"
                                             placeholder="Father's Name" name="fathersName">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="profession">Father's Profession</label>
+                                        <label class="form-label" for="profession">Father's Profession <span class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" id="profession"
                                             placeholder="Father's Name" name="profession">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="email">Email Address</label>
+                                        <label class="form-label" for="email">Email Address <span class="text-danger">*</span></label>
                                         <input type="email" class="form-control" id="email"
                                             placeholder="Email Address" name="email">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="password">Password</label>
+                                        <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
                                         <input type="password" class="form-control" id="password"
                                             placeholder="Enter Password" name="password">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">Course to Enroll</label>
+                                        <label class="form-label">Course to Enroll <span class="text-danger">*</span></label>
                                         <div class="form-control-wrap">
                                             <select class="form-select js-select2" name="course_id"
                                                 data-placeholder="Select course">
@@ -81,7 +81,7 @@
                                
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="phone_no">Phone Number</label>
+                                        <label class="form-label" for="phone_no">Phone Number <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="phone_no"
                                             placeholder="Phone Number" name="phone_no">
                                     </div>
@@ -108,13 +108,13 @@
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="address">Address </label>
+                                        <label class="form-label" for="address">Address <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="address" name="address">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="city">City</label>
+                                        <label class="form-label" for="city">City <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="city"
                                             name="city">
                                     </div>
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="country">Country</label>
+                                        <label class="form-label" for="country">Country <span class="text-danger">*</span> </label>
                                         <input type="text" class="form-control" id="country"
                                             name="country">
                                     </div>

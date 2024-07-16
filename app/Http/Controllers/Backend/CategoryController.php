@@ -13,10 +13,8 @@ use App\Http\Requests\Backend\Category\CreateRequest;
 
 class CategoryController extends Controller
 {
-  
     public function index()
     {
-     
         $categories = Category::with('subcategories')->get();
         return view('backend.pages.courses.categories.category-list', ['categories' => $categories]);
     }
@@ -34,7 +32,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-       
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'category_name' => 'required|string|min:2|max:100',
@@ -89,23 +86,22 @@ class CategoryController extends Controller
 
     public function deleteSubCategory($id)
     {
+        $subcategory = SubCategory::where('category_id', $id);
+        $category = Category::findOrFail($id);
+        // Remove associated image file
+        $this->imageDelete('uploaded_files/category/' . $category->cat_icon);
 
-        $subcategory = SubCategory::findOrFail($id);
+        $category->delete();
         $subcategory->delete();
-        if ($subcategory) {
-            return response()->json(['status' => 'success', 'message' => 'Successfully deleted']);
-        } else {
-            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);
-        }
+        return redirect()->back()->with('success', 'SubCategory has been deleted!');
     }
 
     public function update(Request $request)
     {
-       
         $validator = Validator::make($request->all(), [
             'category_name' => 'string|min:2|max:100',
             'description' => 'string|min:2|max:100',
-            'cat_icon' => 'image|mimes:jpeg,png,jpg,gif|max:1024'
+            'cat_icon' => 'image|mimes:jpeg,png,jpg,gif|max:1024',
         ]);
 
         if ($validator->fails()) {
@@ -141,24 +137,37 @@ class CategoryController extends Controller
             return response()->json(['status' => 'success', 'message' => 'An error occured']);
         }
     }
-    public function SubCategoryList(){
+    public function SubCategoryList()
+    {
+        // Fetch all categories with their subcategories
         $categories = Category::with('subcategories')->latest('id')->get();
-        $subcategories = SubCategory::where('category_id', $categories->id)->get();
-        return view('backend.pages.courses.subcategories.index',compact('categories'));
+
+        // Optionally, if you need all subcategories separately
+        $subcategories = SubCategory::whereIn('category_id', $categories->pluck('id'))->get();
+
+        return view('backend.pages.courses.subcategories.index', compact('categories', 'subcategories'));
     }
-    public function SubcatUpdate(Request $request){
-       foreach( $request->subcategory_name as $subname){
-        SubCategory::where('category_id', $request->category_id)->update([
-            'category_id'=> $request->category_id,
-            'subcategory_name'=>$subname
-        ]);
-       }
-       return redirect()->back()->with('success', 'Category has been deleted!');
+    public function editSbcategory($id)
+    {
+        $category = Category::findOrFail($id);
+        $subcategories = SubCategory::where('category_id', $id)->get();
+
+        return view('backend.pages.courses.subcategories.edit', compact('subcategories', 'category'));
+    }
+
+    public function SubcatUpdate(Request $request)
+    {
+        foreach ($request->id as $index => $subcategoryId) {
+            SubCategory::where('id', $subcategoryId)->update([
+                'subcategory_name' => $request->subcategory_name[$index],
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Subcategories have been updated!');
     }
 
     public function destroy($id)
     {
-       
         $category = Category::findOrFail($id);
         // Remove associated image file
         $this->imageDelete('uploaded_files/category/' . $category->cat_icon);

@@ -162,7 +162,7 @@
                                     <div class="row g-0 ">
                                         <div class="col-xl-4 course-thumb-width">
                                             <div class="tpcourse__thumb p-relative w-img fix">
-                                                <a href="{{ route('course.details', $course->meta->keyword) }}"><img
+                                                <a href="{{ route('course.details', $course->meta->slug) }}"><img
                                                         src="{{ asset('uploaded_files/course_thumbnails/' . $course->media->course_thumbnail) }}"
                                                         alt="course-thumb"></a>
                                             </div>
@@ -179,13 +179,13 @@
                                                 </div>
                                                 <div class="tpcourse__ava-title mb-15">
                                                     <h4 class="tpcourse__title tp-cours-title-color"><a
-                                                            href="{{ route('course.details', $course->meta->keyword) }}">{{ $course->course_title }}</a>
+                                                            href="{{ route('course.details', $course->meta->slug) }}">{{ $course->course_title }}</a>
                                                     </h4>
                                                 </div>
                                                 <div
                                                     class="tpcourse__rating d-flex align-items-center justify-content-between">
                                                     <div class="tpcourse__pricing">
-                                                        <h5 class="price-title">$ {{ $course->prices->price }}</h5>
+                                                        <h5 class="price-title">$ {{ $course->price }}</h5>
                                                     </div>
                                                 </div>
                                             </div>

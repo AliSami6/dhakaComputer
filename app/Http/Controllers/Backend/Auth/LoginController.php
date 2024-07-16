@@ -31,57 +31,54 @@ class LoginController extends Controller
     protected $redirectTo = RouteServiceProvider::ADMIN_DASHBOARD;
 
     /**
-     * show login form for admin guard
+     * Show login form for admin guard.
      *
-     * @return void
+     * @return \Illuminate\View\View
      */
     public function showLoginForm()
     {
         return view('backend.auth.login');
     }
 
-
     /**
-     * login admin
+     * Login admin.
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function login(Request $request)
     {
         // Validate Login Data
         $request->validate([
             'email' => 'required|email|string|max:50',
-            'password' => 'required',
-        ],[
+            'password' => 'required|string',
+        ], [
             'email.required' => 'Email is required',
-            'password.required' => 'Password is requied',
+            'password.required' => 'Password is required',
         ]);
 
-        // Attempt to login
+        // Attempt to login using email
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
-            // Redirect to dashboard
-           // session()->flash('success', 'Successully Logged in !');
-            return redirect()->route('admin.dashboard')->with('success','Successully Logged in !');
-        } else {
-            // Search using username
-            if (Auth::guard('admin')->attempt(['username' => $request->email, 'password' => $request->password], $request->remember)) {
-                return redirect()->route('admin.dashboard')->with('success','Successully Logged in !');;
-            }
-            // error
-            session()->flash('error', 'Invalid email and password');
-            return back();
+            return redirect()->route('admin.dashboard')->with('success', 'Successfully logged in!');
+        } 
+
+        // Attempt to login using username
+        if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
+            return redirect()->route('admin.dashboard')->with('success', 'Successfully logged in!');
         }
+
+        // Invalid credentials
+        return back()->with('error', 'Invalid email or password')->withInput($request->only('email', 'remember'));
     }
 
     /**
-     * logout admin guard
+     * Logout admin guard.
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('admin.login')->with('success','Logout Successfully');
+        return redirect()->route('admin.login')->with('success', 'Logged out successfully');
     }
 }

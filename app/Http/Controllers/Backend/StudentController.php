@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\StudentEnrollment;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
@@ -45,9 +46,8 @@ class StudentController extends Controller
             'date_of_birth' => 'required|string',
             'address' => 'required',
             'city' => 'required',
-            'division' => 'required|string',
-            'country' => 'required|string'
-
+            'country' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
         ]);
 
         if ($validator->fails()) {
@@ -55,7 +55,12 @@ class StudentController extends Controller
                 'error' => $validator->errors()->all(),
             ]);
         }
-
+      
+         if (!empty($request->file('image'))) {
+            $image = $this->image_upload($request->file('image'), 'uploaded_files/students/', 90, 80);
+        } else {
+            return response()->json(['error' => 'Image is required']);
+        }
         $student = Student::create([
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
@@ -63,13 +68,16 @@ class StudentController extends Controller
             'profession' => $request->profession,
             'course_id' => $request->course_id,
             'email' => $request->email,
+            'password' =>Hash::make($request->password),
             'phone_no' => $request->phone_no,
             'date_of_birth' => $request->date_of_birth,
-            'address_one' => $request->address_one,
-            'address_two' => $request->address_two,
-            'state' => $request->state,
-            'nationality' => $request->nationality,
+            'address' => $request->address,
+            'city' => $request->city,
+            'division' => $request->division,
             'country' => $request->country,
+            'status' => 'Active',
+            'payment_status' => 'Due',
+            'image'=> $image
         ]);
 
         if ($student) {

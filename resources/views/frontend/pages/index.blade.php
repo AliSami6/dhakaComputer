@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="tp-feature-cn">
-                    <div class="row">
+                    <div class="row text-center">
                         <div class="col-xl-3 col-lg-6 col-md-6">
                             <div class="tpfea mb-30">
                                 <div class="tpfea__icon online_course mb-25">
@@ -277,7 +277,7 @@
                             <div class="col-xl-4 col-lg-6 col-md-6">
                                 <div class="tpcourse mb-40">
                                     <div class="tpcourse__thumb course_img p-relative w-img fix">
-                                        <a href="{{ route('course.details', $course->meta->keyword) }}">
+                                        <a href="{{ route('course.details', $course->meta->slug) }}">
                                             <img src="{{ asset('uploaded_files/course_thumbnails/' . $course->media->course_thumbnail) ? asset('uploaded_files/course_thumbnails/' . $course->media->course_thumbnail) : asset('frontend/assets/img/course/online course.jpg') }}"
                                                 alt="course-thumb">
                                         </a>
@@ -291,26 +291,17 @@
                                             <img src="{{ asset('uploaded_files/category/' . $course->categories->cat_icon) }}"
                                                 alt="course-avata" width="30px;">
                                             <h4 class="tpcourse__title fs-6"><a
-                                                    href="{{ route('course.details', $course->meta->keyword) }}">{{ $course->categories->category_name }}</a>
+                                                    href="{{ route('course.details', $course->meta->slug) }}">{{ $course->categories->category_name }}</a>
                                             </h4>
                                         </div>
-                                        {{-- <div class="tpcourse__meta pb-15 mb-20">
-                                    <ul class="d-flex align-items-center">
-                                        <li><img src="{{ asset('frontend') }}/assets/img/icon/c-meta-01.png"
-                                                alt="meta-icon"> <span>35 Classes</span></li>
-                                        <li><img src="{{ asset('frontend') }}/assets/img/icon/c-meta-02.png"
-                                                alt="meta-icon"> <span>291 Students</span></li>
-                                        <li><img src="{{ asset('frontend') }}/assets/img/icon/c-meta-03.png"
-                                                alt="meta-icon"> <span>4.7</span></li>
-                                    </ul>
-                                </div> --}}
+                                      
                                         <div class="tp-wrap-course__heading">
                                             <h4 class="tp-wrap-course__title mb-20 fs-6"><a
-                                                    href="{{ route('course.details', $course->meta->keyword) }}">{{ $course->course_title }}</a>
+                                                    href="{{ route('course.details', $course->meta->slug) }}">{{ $course->course_title }}</a>
                                             </h4>
                                         </div>
                                         <div class="tpcourse__category d-flex align-items-center justify-content-between">
-                                            <h5 class="tpcourse__course-price l-course">${{ $course->prices->price }}</h5>
+                                            <h5 class="tpcourse__course-price l-course">${{ $course->price }}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -556,7 +547,7 @@
                             <div class="row">
                                 <div class="col-xl-4 tpcourse-thumb-w">
                                     <div class="tpcourse__thumb p-relative w-img fix">
-                                        <a href="{{ route('course.details',$course_free->meta->keyword) }}"><img src="{{ asset('uploaded_files/course_thumbnails/'.$course_free->media->course_thumbnail) }}"
+                                        <a href="{{ route('course.details',$course_free->meta->slug) }}"><img src="{{ asset('uploaded_files/course_thumbnails/'.$course_free->media->course_thumbnail) }}"
                                                 alt="course-thumb"></a>
                                     </div>
                                 </div>
@@ -568,7 +559,7 @@
                                        
                                         <div
                                             class="tpcourse__category c-price-list d-flex align-items-center justify-content-between">
-                                            <h5 class="tpcourse__course-price c-price-pac">$ {{ $course_free->prices->price }}</h5>
+                                            <h5 class="tpcourse__course-price c-price-pac">$ {{ $course_free->price }}</h5>
                                            
                                             <ul class="tpcourse__price-list  d-flex align-items-center">
                                                 <li><a href="course-details.html">{{$course_free->categories->category_name  }}</a></li>

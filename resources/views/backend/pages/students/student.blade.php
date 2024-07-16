@@ -451,10 +451,6 @@
             $('#StudentFormId').on('submit', function(event) {
                 event.preventDefault();
                 let formData = new FormData(this);
-
-                // Debug: Check if course_id is present
-                console.log([...formData.entries()]);
-
                 $.ajax({
                     url: "{{ route('students.save') }}", // Change this to your server endpoint
                     type: "POST",
