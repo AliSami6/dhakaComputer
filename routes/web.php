@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\LessionController;
 use App\Http\Controllers\Backend\SectionController;
@@ -26,6 +27,7 @@ use App\Http\Controllers\Backend\WhyChooseController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\Backend\EnrollmentController;
 use App\Http\Controllers\Backend\InstructorController;
+use App\Http\Controllers\Backend\LiveCourseContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -213,6 +215,23 @@ Route::prefix('admin')->group(function () {
             Route::get('/blog/edit/{id}', 'edit')->name('blog.edit');
             Route::post('/blog/edit/{id}', 'update')->name('blog.update');
             Route::delete('/blog/deleted/{id}', 'destroy')->name('blog.destroy');
+        });
+        Route::controller(LiveCourseContentController::class)->group(function () {
+            Route::get('/live_course_content', 'index')->name('content.index');
+            Route::get('/live_course_content/create', 'create')->name('content.create');
+            Route::post('/live_course_content/store', 'store')->name('content.save');
+            Route::get('/live_course_content/edit/{id}', 'edit')->name('content.edit');
+            Route::post('/live_course_content/edit/{id}', 'update')->name('content.update');
+            Route::delete('/live_course_content/deleted/{id}', 'destroy')->name('content.destroy');
+        });
+
+          Route::controller(CounterController::class)->group(function () {
+            Route::get('/counter/all', 'index')->name('counter.index');
+            Route::get('/counter/create', 'create')->name('counter.create');
+            Route::post('/counter/store', 'store')->name('counter.save');
+            Route::get('/counter/edit/{id}', 'edit')->name('counter.edit');
+            Route::post('/counter/edit/{id}', 'update')->name('counter.update');
+            Route::delete('/counter/deleted/{id}', 'destroy')->name('counter.destroy');
         });
         // ----------------------------------------- Invoice  -------------------------------------------------------------------------//
         Route::controller(InvoiceController::class)->group(function () {

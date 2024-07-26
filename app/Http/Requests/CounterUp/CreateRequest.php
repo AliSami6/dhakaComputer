@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Blog;
+namespace App\Http\Requests\CounterUp;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,10 +22,9 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'blog_category' => 'required|string|min:2|max:255',
-            'blog_title' => 'required|string|min:2|max:255',
-            'blog_content' => 'required|string|min:2|max:255',
-            'blog_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'count_number' => 'required|string',
+            'count_title' => 'required|string|min:2|max:255',
+            'count_color' => 'required|string|max:255'
         ];
     }
 }

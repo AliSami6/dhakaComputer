@@ -103,6 +103,18 @@
                             <span class="nk-menu-text">Blog</span>
                         </a>
                     </li>
+                      <li class="nk-menu-item">
+                        <a href="{{ route('content.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-live"></em></span>
+                            <span class="nk-menu-text">Live Course Content</span>
+                        </a>
+                    </li>
+                    <li class="nk-menu-item">
+                        <a href="{{ route('counter.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-folder-plus"></em></span>
+                            <span class="nk-menu-text">Counter Section</span>
+                        </a>
+                    </li>
                     <li class="nk-menu-item">
                         <a href="{{ route('settings') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-setting-alt-fill"></em></span>
