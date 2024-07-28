@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\User;
 use App\Models\Blog;
+use App\Models\Page;
 use App\Models\Choose;
 use App\Models\Course;
 use App\Models\Enroll;
@@ -27,11 +28,35 @@ class HomeController extends Controller
         $chooseus = Choose::first();
         $categories = Category::latest('id')->get();
         $blogs = Blog::latest('id')->get();
-        $courses = Course::with('categories','media')->get();
-       // $coursesFree = Course::with('categories','prices','media','meta')->whereHas('prices', function($query) {$query->where('is_free', true);})->get();
+        $courses = Course::with('categories', 'media')->get();
+        // $coursesFree = Course::with('categories','prices','media','meta')->whereHas('prices', function($query) {$query->where('is_free', true);})->get();
         $instructors = Instructor::where('status', 'Active')->get();
         return view('frontend.pages.index');
     }
+    public function aboutPage()
+    {
+        $aboutPage = Page::where('slug', 'about-us')->first();
+        return view('frontend.pages.about', ['aboutPage' => $aboutPage]);
+    }
+
+    public function termsPage()
+    {
+        $termsPage = Page::where('slug', 'terms-and-conditions')->first();
+        return view('frontend.pages.terms', ['termsPage' => $termsPage]);
+    }
+
+    public function refundPolicyPage()
+    {
+        $refundPolicyPage = Page::where('slug', 'refund-and-cancellation-policy')->first();
+        return view('frontend.pages.refund_policy', ['refundPolicyPage' => $refundPolicyPage]);
+    }
+
+    public function privacyPolicyPage()
+    {
+        $privacyPolicyPage = Page::where('slug', 'privacy-policy')->first();
+        return view('frontend.pages.privacy_policy', ['privacyPolicyPage' => $privacyPolicyPage]);
+    }
+
     public function InstructorProfile($id)
     {
         $instructors = Instructor::where('id', $id)
@@ -61,85 +86,83 @@ class HomeController extends Controller
     {
         $students = Student::where('email', Auth::user()->email)->first();
         if ($students != null) {
-            $enrollmentClass = Enroll::with([
-                'studentEnrollment',
-                'studentEnrollment.student',
-                'studentEnrollment.course',
-                'studentEnrollment.course.meta',
-                'studentEnrollment.course.media',
-                'studentEnrollment.course.prices',
-                'studentEnrollment.course.categories'
-            ])
-            ->whereHas('studentEnrollment', function ($query) use ($students) {
-                $query->where('student_id', $students->id);
-            })
-            ->whereHas('studentEnrollment.student', function ($query) {
-                $query->where('status', 'Active');
-            })
-            ->where('enroll_status', 'Accepted')
-            ->get()
-            ->unique('studentEnrollment.course_id');
-           // dd($enrollmentClass);
-           $enrollCourseCount = StudentEnrollment::with('course')
-           ->where('student_id', $students->id)
-           ->get()
-           ->unique('course_id');
-           $uniqueCourseCount = $enrollCourseCount->count();
-        
+            $enrollmentClass = Enroll::with(['studentEnrollment', 'studentEnrollment.student', 'studentEnrollment.course', 'studentEnrollment.course.meta', 'studentEnrollment.course.media', 'studentEnrollment.course.prices', 'studentEnrollment.course.categories'])
+                ->whereHas('studentEnrollment', function ($query) use ($students) {
+                    $query->where('student_id', $students->id);
+                })
+                ->whereHas('studentEnrollment.student', function ($query) {
+                    $query->where('status', 'Active');
+                })
+                ->where('enroll_status', 'Accepted')
+                ->get()
+                ->unique('studentEnrollment.course_id');
+            // dd($enrollmentClass);
+            $enrollCourseCount = StudentEnrollment::with('course')
+                ->where('student_id', $students->id)
+                ->get()
+                ->unique('course_id');
+            $uniqueCourseCount = $enrollCourseCount->count();
+
             return view('frontend.pages.my_profile', [
                 'students' => $students,
                 'uniqueCourseCount' => $uniqueCourseCount,
-                'enrollmentClass' => $enrollmentClass
+                'enrollmentClass' => $enrollmentClass,
             ]);
         } else {
             return redirect()->back()->with('warning', 'Complete Your Order');
         }
     }
-    public function EditStudentProfile($id){
-        $students = Student::where('email', Auth::user()->email)->orWhere('id',$id)->first();
+    public function EditStudentProfile($id)
+    {
+        $students = Student::where('email', Auth::user()->email)
+            ->orWhere('id', $id)
+            ->first();
         if ($students != null) {
             return view('frontend.pages.update_profile', [
-                'students' => $students
+                'students' => $students,
             ]);
         } else {
             return redirect()->back()->with('warning', 'Complete Your Order');
         }
     }
-    public function UpdateStudentProfile(Request $request,$id){
-        $students = Student::where('email', Auth::user()->email)->orWhere('id',$id)->first();
+    public function UpdateStudentProfile(Request $request, $id)
+    {
+        $students = Student::where('email', Auth::user()->email)
+            ->orWhere('id', $id)
+            ->first();
         if (!empty($request->file('image'))) {
             $image = $this->image_upload($request->file('image'), 'uploaded_files/students/', 90, 80);
             $students->update([
-                'firstName'=>$request->firstName,
-                'lastName'=>$request->lastName,
-                'date_of_birth'=>$request->date_of_birth,
-                'nationality'=>$request->nationality,
-                'country'=>$request->country,
-                'address_one'=>$request->address_one,
-                'image'=>$image
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
+                'date_of_birth' => $request->date_of_birth,
+                'nationality' => $request->nationality,
+                'country' => $request->country,
+                'address_one' => $request->address_one,
+                'image' => $image,
             ]);
-        }else{
+        } else {
             $students->update([
-                'firstName'=>$request->firstName,
-                'lastName'=>$request->lastName,
-                'date_of_birth'=>$request->date_of_birth,
-                'nationality'=>$request->nationality,
-                'country'=>$request->country,
-                'address_one'=>$request->address_one
+                'firstName' => $request->firstName,
+                'lastName' => $request->lastName,
+                'date_of_birth' => $request->date_of_birth,
+                'nationality' => $request->nationality,
+                'country' => $request->country,
+                'address_one' => $request->address_one,
             ]);
-        } 
+        }
 
-        return redirect()->back()->with('success','Student updated successfully!!');
+        return redirect()->back()->with('success', 'Student updated successfully!!');
     }
 
     public function CourseDetails($keyword)
     {
-        $course = Course::with('categories', 'prices', 'meta', 'instructors', 'sections.lessons','studentEnrollments.student')
+        $course = Course::with('categories', 'prices', 'meta', 'instructors', 'sections.lessons', 'studentEnrollments.student')
             ->whereHas('meta', function ($query) use ($keyword) {
                 $query->where('keyword', $keyword);
             })
             ->first();
-           
+
         // If you need to count lessons for each section and sum total lessons
         $totalLessons = 0;
         $sectionsWithLessonCount = $course->sections->map(function ($section) use (&$totalLessons) {
@@ -158,7 +181,7 @@ class HomeController extends Controller
     {
         $categories = Category::get();
         $instructors = Instructor::get();
-        $courses = Course::with('categories', 'prices','meta','media','instructors.instructor')->latest('id')->take(4)->get();
+        $courses = Course::with('categories', 'prices', 'meta', 'media', 'instructors.instructor')->latest('id')->take(4)->get();
         return view('frontend.pages.course_grid', [
             'categories' => $categories,
             'instructors' => $instructors,
@@ -169,11 +192,12 @@ class HomeController extends Controller
     {
         if ($request->ajax()) {
             $searchTerm = $request->input('query');
-            $data = Course::with('meta')->where('id', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('course_title', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('level', 'like', '%' . $searchTerm . '%')
-                        ->get();
-    
+            $data = Course::with('meta')
+                ->where('id', 'like', '%' . $searchTerm . '%')
+                ->orWhere('course_title', 'like', '%' . $searchTerm . '%')
+                ->orWhere('level', 'like', '%' . $searchTerm . '%')
+                ->get();
+
             $output = '';
             if (count($data) > 0) {
                 foreach ($data as $row) {
@@ -186,11 +210,12 @@ class HomeController extends Controller
         }
         return abort(404); // Handle non-ajax requests or invalid requests
     }
-    
-    public function CourseCategory($id){
+
+    public function CourseCategory($id)
+    {
         $categories = Category::get();
         $instructors = Instructor::get();
-        $courses = Course::with('categories', 'prices', 'media', 'instructors.instructor')->where('category_id',$id)->get();
+        $courses = Course::with('categories', 'prices', 'media', 'instructors.instructor')->where('category_id', $id)->get();
         return view('frontend.pages.course_grid', [
             'categories' => $categories,
             'instructors' => $instructors,
@@ -200,7 +225,7 @@ class HomeController extends Controller
     public function coursesFilter(Request $request)
     {
         $query = Course::query();
-    
+
         if ($request->category && $request->category != 'all') {
             $query->where('category_id', $request->category);
         }
@@ -213,23 +238,22 @@ class HomeController extends Controller
             $query->whereHas('prices', function ($q) use ($request) {
                 $q->whereIn('is_free', $request->is_free);
             });
-        } 
+        }
 
         if ($request->has('instructors') && !empty($request->instructors)) {
             $query->whereHas('instructors', function ($q) use ($request) {
                 $q->where('instructor_id', $request->instructors);
             });
         }
-    
-        $courses = $query->with('categories','prices','media','meta','instructors.instructor')->get();
-    
+
+        $courses = $query->with('categories', 'prices', 'media', 'meta', 'instructors.instructor')->get();
+
         return response()->json([
             'courses' => $courses,
         ]);
     }
-    public function ThankYouPage(){
+    public function ThankYouPage()
+    {
         return view('frontend.pages.thank');
     }
-    
-    
 }

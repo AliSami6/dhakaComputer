@@ -73,37 +73,12 @@
                                              
                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                     <ul class="nk-tb-actions gx-1">
-                                                       
-                                                        <li class="nk-tb-action-hidden">
-                                                            <a href="{{route('pages.edit',$page->id)}}" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
-                                                                <em class="icon ni ni-pen"></em>
-                                                            </a>
-                                                        </li>
-                                                        <li class="nk-tb-action-hidden">
-                                                            <a href="#"   onclick="event.preventDefault(); confirmDelete('{{ $page->id }}');" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete">
-                                                                <em class="icon ni ni-trash"></em>
-                                                            </a>
-                                                        </li>
                                                         <li>
                                                             <div class="drodown">
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
                                                                         <li><a href="{{route('pages.edit',$page->id)}}"><em class="icon ni ni-edit"></em><span> Edit </span></a></li>
-                                                                        <li class="divider"></li>
-                                                                        
-                                                                        <li>
-                                                                            <a href="#"  onclick="event.preventDefault(); confirmDelete('{{ $page->id }}');">
-                                                                                <em class="icon ni ni-trash delete_subcategory"></em>
-                                                                                <span>Delete</span>
-                                                                            </a>
-                                                                        </li>
-                                                                        <form id="delete-form-{{ $page->id }}"
-                                                                            action="{{ route('pages.destroy',$page->id) }}"
-                                                                            method="POST" style="display: none;">
-                                                                            @method('DELETE')
-                                                                            @csrf
-                                                                        </form>
                                                                     </ul>
                                                                 </div>
                                                             </div>
@@ -129,20 +104,6 @@
 @endsection
 @section('script_js')
 <script type="text/javascript">
-    function confirmDelete(pageId) {
-      Swal.fire({
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-          if (result.isConfirmed) {
-              document.getElementById('delete-form-' + pageId).submit();
-          }
-      })
-  }
+  
   </script>
 @endsection

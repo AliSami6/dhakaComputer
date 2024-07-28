@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'page_title' => 'required|unique:pages,page_title',
+            'page_title' => 'required',
             'page_description' => 'required'
         ];
     }

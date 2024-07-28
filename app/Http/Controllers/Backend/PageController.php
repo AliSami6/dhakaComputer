@@ -33,13 +33,9 @@ class PageController extends Controller
     public function update(UpdateRequest $request, Page $page){
         $page->update([
             'page_title'=>$request->page_title,
-            'slug'=>Str::slug($request->page_title),
             'page_description'=>$request->page_description
         ]);
         return redirect()->back()->with('success','Page updated successfully!!');
     }
-    public function destroy(Page $page){
-        $page->delete();
-        return redirect()->back()->with('success','Page deleted successfully!!');
-    }
+  
 }

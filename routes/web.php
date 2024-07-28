@@ -63,11 +63,23 @@ Auth::routes([
 //Route::get('/', 'HomeController@index')->name('index');
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-Route::get('/course_list', [HomeController::class, 'coursesAll'])->name('course.list');
 
-Route::get('/course_cat_list/{id}', [HomeController::class, 'CourseCategory'])->name('course.category_list');
-Route::get('/course_autocomplete', [HomeController::class, 'autocomplete'])->name('autocomplete');
-Route::get('/course_filter', [HomeController::class, 'coursesFilter'])->name('course.filter');
+
+
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/about', 'aboutPage')->name('dhaka.about');
+    Route::get('/course_cat_list/{id}','CourseCategory')->name('course.category_list');
+    Route::get('/terms_and_condition', 'termsPage')->name('dhaka.terms');
+    Route::get('/refund_policy', 'refundPolicyPage')->name('dhaka.refund');
+    Route::get('/privacy_policy', 'privacyPolicyPage')->name('dhaka.privacy');
+    Route::get('/course_autocomplete', 'autocomplete')->name('autocomplete');
+    Route::get('/course_filter', 'coursesFilter')->name('course.filter');
+    Route::get('/course_list','coursesAll')->name('course.list');
+ });
+
+
+
+
 Route::get('/register', [UserLoginController::class, 'register'])->name('signUp');
 Route::post('/register', [UserLoginController::class, 'registerFormSave'])->name('register.save');
 Route::get('/signin', [UserLoginController::class, 'login'])->name('sign_in');
@@ -270,7 +282,6 @@ Route::prefix('admin')->group(function () {
             Route::post('/pages/create', 'store')->name('pages.save');
             Route::get('/pages/edit/{page}', 'edit')->name('pages.edit');
             Route::post('/pages/update/{page}', 'update')->name('pages.update');
-            Route::delete('/page/delete/{page}','destroy')->name('pages.destroy');
         });
 
         // ------------------------------------------- End Page -------------------------------------------------------------------//

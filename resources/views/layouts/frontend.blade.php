@@ -74,7 +74,7 @@
     @yield('content')
     <!-- footer-area -->
   <!-- footer start -->
-    <section id="footer_section">
+    <section id="footer_section" style="background-color: aliceblue">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
@@ -141,16 +141,16 @@
                     </div>
                     <ul class="page_link_part2">
                         <li class="page_link_part3">
-                            <a href="about-us.html">About Us</a>
+                            <a href="{{route('dhaka.about')}}" target="_blank">About Us</a>
                         </li>
                         <li class="page_link_part3">
-                            <a href="return-policy.html">Refund Policy</a>
+                            <a href="{{route('dhaka.refund')}}">Refund Policy</a>
                         </li>
                         <li class="page_link_part3">
-                            <a href="privecy-policy.html">Privacy Policy</a>
+                            <a href="{{route('dhaka.privacy')}}">Privacy Policy</a>
                         </li>
                         <li class="page_link_part3">
-                            <a href="tearms&condition.html">Terms & Conditions</a>
+                            <a href="{{route('dhaka.terms')}}">Terms & Conditions</a>
                         </li>
                     </ul>
                 </div>
