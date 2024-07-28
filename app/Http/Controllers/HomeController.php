@@ -28,9 +28,9 @@ class HomeController extends Controller
         $categories = Category::latest('id')->get();
         $blogs = Blog::latest('id')->get();
         $courses = Course::with('categories','media')->get();
-        $coursesFree = Course::with('categories','prices','media','meta')->whereHas('prices', function($query) {$query->where('is_free', true);})->get();
+       // $coursesFree = Course::with('categories','prices','media','meta')->whereHas('prices', function($query) {$query->where('is_free', true);})->get();
         $instructors = Instructor::where('status', 'Active')->get();
-        return view('frontend.pages.index', ['categories' => $categories, 'instructors' => $instructors, 'courses' => $courses, 'sliders' => $sliders, 'chooseus' => $chooseus, 'blogs' => $blogs,'coursesFree'=>$coursesFree]);
+        return view('frontend.pages.home');
     }
     public function InstructorProfile($id)
     {
