@@ -30,7 +30,7 @@ class HomeController extends Controller
         $courses = Course::with('categories','media')->get();
        // $coursesFree = Course::with('categories','prices','media','meta')->whereHas('prices', function($query) {$query->where('is_free', true);})->get();
         $instructors = Instructor::where('status', 'Active')->get();
-        return view('frontend.pages.home');
+        return view('frontend.pages.index');
     }
     public function InstructorProfile($id)
     {
