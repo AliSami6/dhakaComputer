@@ -87,11 +87,27 @@
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
+                                                            <label for="course-title" class="col-sm-2 col-form-label">Course
+                                                                Title (Bangla)</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="course_title_bn"
+                                                                    name="course_title_bn" placeholder="course title bangla">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
                                                             <label for="course-title" class="col-sm-2 col-form-label">
                                                                 About</label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="about"
                                                                     name="about" placeholder="course about">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="course-title" class="col-sm-2 col-form-label">
+                                                                About (Bangla) </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="course_about_bn"
+                                                                    name="course_about_bn" placeholder="course about bangla">
                                                             </div>
                                                         </div>
 
@@ -106,12 +122,31 @@
 
                                                             </div>
                                                         </div>
+                                                        <div class="row mb-3">
+                                                            <label for="short_description_bn"
+                                                                class="col-sm-2 col-form-label">Short
+                                                                description  (Bangla) </label>
+                                                            <div class="col-sm-10">
+                                                                <div class="form-group">
+                                                                    <textarea class="form-control form-control-sm py-2 mb-2" id="short_description_bn" name="short_description_bn"></textarea>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
 
                                                         <div class="row mb-3">
                                                             <label for="Description"
                                                                 class="col-sm-2 col-form-label">Description</label>
                                                             <div class="col-sm-10">
                                                                 <textarea name="description" id="description" class="form-control py-3 m-1 p-3 your_summernote description" rows="4"
+                                                                    cols="4"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="Description"
+                                                                class="col-sm-2 col-form-label">Description (Bangla)</label>
+                                                            <div class="col-sm-10">
+                                                                <textarea name="description_bn" id="description_bn" class="form-control py-3 m-1 p-3 your_summernote description" rows="4"
                                                                     cols="4"></textarea>
                                                             </div>
                                                         </div>
@@ -242,11 +277,9 @@
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="course-title" class="col-sm-2 col-form-label">Course
-                                                                Schedules </label>
+                                                                Enroll Date </label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="schedules"
-
-                                                                    name="schedules" placeholder="course schedules">
+                                                                <input type="date" class="form-control" id="schedules" name="schedules" placeholder="course schedules">
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -278,10 +311,23 @@
                                                                                 class="form-control form-control-sm"
                                                                                 placeholder="Enter course price"
                                                                                 id="course_price" name="price">
-                                                                            <span class="text-danger course_price"></span>
+                                                                           
                                                                         </div>
                                                                     </div>
-    
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <label for="coursePrice"
+                                                                        class="col-sm-2 col-form-label">Course
+                                                                        Price (Bangla)</label>
+                                                                    <div class="col-sm-10">
+                                                                        <div class="form-group">
+                                                                            <input type="number"
+                                                                                class="form-control form-control-sm"
+                                                                                placeholder="Enter course price banlga"
+                                                                                id="price_bn" name="price_bn">
+                                                                           
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

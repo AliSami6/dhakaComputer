@@ -88,8 +88,8 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 col-lg-6 col-xxl-3 text-center">
-                                            <div class="gallery card" style="width:70%">
+                                        <div class="col-lg-6 col-xxl-3 col-sm-6 text-center">
+                                            <div class="gallery card">
                                                 <a class="gallery-image popup-image d-flex">
                                                     <img class="rounded-top logo-image-preview align-items-center"
                                                         src="{{ isset($websettings) && $websettings->logo ? asset('uploaded_files/website/logo/' . $websettings->logo) : asset('frontend/assets/img/logo/Logo.png') }}"
@@ -115,7 +115,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-lg-6 col-xxl-3">
-                                            <div class="gallery card" style="width:70%">
+                                            <div class="gallery card" >
                                                 <a class="gallery-image popup-image ">
                                                     <img class="rounded-top favicon-image-preview "
                                                         src="{{ isset($websettings) && $websettings->favicon ? asset('uploaded_files/website/favicon/' . $websettings->favicon) : asset('frontend/assets/img/favicon.png') }}"
@@ -142,7 +142,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 col-lg-6 col-xxl-3">
-                                            <div class="gallery card" style="width:70%">
+                                            <div class="gallery card">
                                                 <a class="gallery-image popup-image ">
                                                     <img class="rounded-top banner-image-preview "
                                                         src="{{ isset($websettings) && $websettings->banner ? asset('uploaded_files/website/banner/' . $websettings->banner) : asset('frontend/assets/img/favicon.png') }}"

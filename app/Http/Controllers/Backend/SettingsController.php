@@ -29,7 +29,7 @@ class SettingsController extends Controller
            $Logo_image = $websettings->logo;
         }
         if ($request->hasFile('favicon')) {
-            $favicon_image = $this->image_updated($request->file('favicon'), 'uploaded_files/website/favicon/',$websettings->favicon);
+           $favicon_image = $this->image_updated($request->file('favicon'), 'uploaded_files/website/favicon/',$websettings->favicon);
         } 
         else {
             $favicon_image = $websettings->favicon;

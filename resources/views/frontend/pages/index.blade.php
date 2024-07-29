@@ -33,58 +33,30 @@
                         <span>আমাদের কোর্সসমুহ <i class="fas fa-book"></i></span>
                     </div>
                     <div class="row">
+                        @if($data['categories']->isNotEmpty())
+                        @foreach($data['categories'] as $category)
                         <div class="col-md-3">
                             <div class="card category_card">
-                                <div class="card-body category_body d-flex ">
+                                <div class="card-body category_body d-flex">
                                     <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-laptop"></i></a>
+                                        <a class="laptop pr-1" href="">
+                                            @if(isset($category))
+                                                <img src="{{ asset('uploaded_files/category/'.$category->cat_icon) }}" height="40" alt="" />
+                                            @else
+                                                <img src="{{ asset('/') }}frontend/assets/images/application-development.png" height="40" alt="" />
+                                            @endif
+                                        </a>
                                     </div>
                                     <div class="category_name">
-                                        <h6>Web & App Development</h6>
-                                        <p>• ২৯ কোর্স • ৫ ওয়ার্কশপ</p>
+                                        <h6>{{ $category->category_name ?? '' }}</h6>
+                                        <p class="pl-1"> {{ $category->courses->count() ?? '' }} কোর্স </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card category_card ">
-                                <div class="card-body category_body d-flex ">
-                                    <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-bell"></i></a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>Product Management & Design</h6>
-                                        <p>• ১২ কোর্স • ৩ ওয়ার্কশপ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card category_card">
-                                <div class="card-body category_body d-flex ">
-                                    <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-briefcase"></i></a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>Business & Marketing</h6>
-                                        <p>• ৭ কোর্স</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card category_card">
-                                <div class="card-body category_body d-flex ">
-                                    <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-server"></i></a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>Data Engineering</h6>
-                                        <p>• ৬ কোর্স • ১ ওয়ার্কশপ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @endif
+                       
                     </div>
                 </section>
                 <section class="courses">

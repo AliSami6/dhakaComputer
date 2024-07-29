@@ -12,7 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Course extends Model
 {
     use HasFactory;
-    protected $fillable = ['course_title','slug','course_short_desc','about','description','category_id','level','language','course_status','is_free','price','discounted_price','expire_time','duration','schedules'];
+    protected $fillable = ['course_title','course_title_bn','slug','course_short_desc','short_description_bn','about','course_about_bn','description','description_bn','category_id','level','language','course_status',
+    'is_free','price','price_bn','discounted_price','expire_time','duration','schedules'];
 
     public function categories()
     {

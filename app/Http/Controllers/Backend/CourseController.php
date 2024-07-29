@@ -165,16 +165,21 @@ class CourseController extends Controller
         // Create the course using mass assignment
         $courseData = [
             'course_title' => $request->course_title,
+            'course_title_bn' => $request->course_title_bn,
             'slug' => Str::slug($request->course_title,'_'),
             'course_short_desc' => $request->course_short_desc,
+            'short_description_bn' => $request->short_description_bn,
             'about' => $request->about,
+            'course_about_bn' => $request->course_about_bn,
             'description' => $request->description,
+            'description_bn' => $request->description_bn,
             'category_id' => $request->category_id,
             'level' => $request->level,
             'language' => $request->language,
             'course_status' => $request->course_status,
             'is_free' => $request->is_free?? 0,
             'price' => $request->price ?? 0,
+            'price_bn' => $request->price_bn ?? 0,
             'discounted_price' => $request->discounted_price ?? 0,
             'expire_time' => $request->expire_time ?? 0,
             'duration' => $request->duration ?? 0,
@@ -318,20 +323,25 @@ class CourseController extends Controller
         // Update the course using mass assignment
         $courseData = [
             'course_title' => $request->course_title,
+            'course_title_bn' => $request->course_title_bn,
             'slug' => Str::slug($request->course_title,'_'),
             'course_short_desc' => $request->course_short_desc,
+            'short_description_bn' => $request->short_description_bn,
             'about' => $request->about,
+            'course_about_bn' => $request->course_about_bn,
             'description' => $request->description,
+            'description_bn' => $request->description_bn,
             'category_id' => $request->category_id,
             'level' => $request->level,
             'language' => $request->language,
             'course_status' => $request->course_status,
             'is_free' => $request->is_free?? 0,
             'price' => $request->price ?? 0,
+            'price_bn' => $request->price_bn ?? 0,
             'discounted_price' => $request->discounted_price ?? 0,
             'expire_time' => $request->expire_time ?? 0,
             'duration' => $request->duration ?? 0,
-            'schedules' => $request->schedules ?? 0
+            'schedules' => $request->schedules ?? 0  		
         ];
 
         $course->update(array_filter($courseData)); // Use array_filter to remove null values

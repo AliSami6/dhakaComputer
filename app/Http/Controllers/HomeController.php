@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Models\Blog;
 use App\Models\Page;
-use App\Models\Choose;
 use App\Models\Course;
 use App\Models\Enroll;
-use App\Models\Slider;
 use App\Models\Lession;
 use App\Models\Section;
 use App\Models\Student;
@@ -24,8 +22,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $sliders = Slider::first();
-        $chooseus = Choose::first();
+
         $categories = Category::latest('id')->get();
         $blogs = Blog::latest('id')->get();
         $courses = Course::with('categories', 'media')->get();
@@ -33,7 +30,8 @@ class HomeController extends Controller
         $instructors = Instructor::where('status', 'Active')->get();
        $web_settings = DB::table('website_infos')->first();
        $data = [
-        'web_settings'=>$web_settings
+        'web_settings'=>$web_settings,
+        'categories'=>$categories,
        ];
         return view('frontend.pages.index',['data'=>$data]);
     }

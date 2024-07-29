@@ -93,6 +93,7 @@
                                                 <span>Seo</span>
                                             </a>
                                         </li>
+                                       
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#tabItem10">
                                                 <em class="icon ni ni-done"></em>
@@ -255,9 +256,34 @@
                                                                     value="{{ $editCourses->course_title }}">
                                                                 <span class="text-danger course_title"></span>
                                                             </div>
-
                                                         </div>
-
+                                                        <div class="row mb-3">
+                                                            <label for="course-title"
+                                                                class="col-sm-2 col-form-label">Course
+                                                                Title (Bangla)</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control"
+                                                                    id="course_title_bn" name="course_title_bn"
+                                                                    placeholder="course title bangla"
+                                                                    value="{{ $editCourses->course_title_bn }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="course-title" class="col-sm-2 col-form-label">
+                                                                About</label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="about"
+                                                                    name="about" placeholder="course about" value="{{ $editCourses->about }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="course-title" class="col-sm-2 col-form-label">
+                                                                About (Bangla) </label>
+                                                            <div class="col-sm-10">
+                                                                <input type="text" class="form-control" id="course_about_bn"
+                                                                    name="course_about_bn" placeholder="course about bangla"  value="{{ $editCourses->course_about_bn }}">
+                                                            </div>
+                                                        </div>
                                                         <div class="row mb-3">
                                                             <label for="course_short_desc"
                                                                 class="col-sm-2 col-form-label">Short
@@ -265,9 +291,17 @@
                                                             <div class="col-sm-10">
                                                                 <div class="form-group">
                                                                     <textarea class="form-control form-control-sm py-2 mb-2" id="course_short_desc" name="course_short_desc">{!! $editCourses->course_short_desc !!}</textarea>
-
                                                                 </div>
-
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="course_short_desc"
+                                                                class="col-sm-2 col-form-label">Short
+                                                                description (Bangla)</label>
+                                                            <div class="col-sm-10">
+                                                                <div class="form-group">
+                                                                    <textarea class="form-control form-control-sm py-2 mb-2" id="short_description_bn" name="short_description_bn">{!! $editCourses->short_description_bn !!}</textarea>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -275,6 +309,14 @@
                                                                 class="col-sm-2 col-form-label">Description</label>
                                                             <div class="col-sm-10">
                                                                 <textarea name="description" class="form-control your_summernote py-3 m-1 p-3" rows="4" cols="4">{!! htmlspecialchars_decode($editCourses->description) !!}</textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3">
+                                                            <label for="Description"
+                                                                class="col-sm-2 col-form-label">Description (Bangla)</label>
+                                                            <div class="col-sm-10">
+                                                                <textarea name="description_bn" id="description_bn" class="form-control py-3 m-1 p-3 your_summernote description" rows="4"
+                                                                    cols="4">{!! htmlspecialchars_decode($editCourses->description_bn) !!}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -305,7 +347,6 @@
                                                             <div class="col-sm-10">
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap">
-
                                                                         <select class="form-select js-select2 py-2 mb-2"
                                                                             id="level" name="level"
                                                                             data-placeholder="Select a level">
@@ -319,9 +360,7 @@
                                                                                 {{ $editCourses->level == 'Advanced' ? 'selected' : '' }}>
                                                                                 Advanced</option>
                                                                         </select>
-
                                                                     </div>
-                                                                    <span class="text-danger course_level"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -338,13 +377,11 @@
                                                                             <option value="English"
                                                                                 {{ $editCourses->language == 'English' ? 'selected' : '' }}>
                                                                                 English</option>
-                                                                            <option value="Japanese"
+                                                                            <option value="Bangla"
                                                                                 {{ $editCourses->language == 'Bangla' ? 'selected' : '' }}>
-                                                                                Japanese</option>
+                                                                                Bangla</option>
                                                                         </select>
-
                                                                     </div>
-                                                                    <span class="text-danger course_language"></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -396,12 +433,9 @@
                                                                                 </div>
                                                                             </li>
                                                                         </ul>
-
                                                                     </div>
-                                                                    <span class="text-danger course_status"></span>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="course-title"
@@ -415,10 +449,10 @@
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="course-title"
-                                                                class="col-sm-2 col-form-label">Course
-                                                                Schedules </label>
+                                                                class="col-sm-2 col-form-label">Enroll Date
+                                                                 </label>
                                                             <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="schedules"
+                                                                <input type="date" class="form-control" id="schedules"
                                                                     name="schedules" placeholder="course schedules"
                                                                     value="{{ $editCourses->schedules }}">
                                                             </div>
@@ -458,7 +492,20 @@
                                                                             <span class="text-danger course_price"></span>
                                                                         </div>
                                                                     </div>
-
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <label for="coursePrice"
+                                                                        class="col-sm-2 col-form-label">Course
+                                                                        Price (Bangla)</label>
+                                                                    <div class="col-sm-10">
+                                                                        <div class="form-group">
+                                                                            <input type="number"
+                                                                                class="form-control form-control-sm"
+                                                                                placeholder="Enter course price banlga"
+                                                                                id="price_bn" name="price_bn"  value="{{ $editCourses->price_bn }}">
+                                                                           
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>

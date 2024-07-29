@@ -1,5 +1,5 @@
 /*//////*/
-////navbar_nav-START//////
+
 
 .navbar>.container,
 .navbar>.container-fluid,
@@ -9,9 +9,9 @@
 .navbar>.container-xl,
 .navbar>.container-xxl {
 	display: flex;
-	flex-wrap: inherit;
-	align-items: center;
-	justify-content: start;
+	flex-wrap:inherit;
+	align-items:center;
+	justify-content:start;
 }
 
 .nav-item {
@@ -187,11 +187,12 @@
 	text-decoration: none;
 	font-weight: 500;
 	font-family: "Hind Siliguri", sans-serif;
+	color: red;
 }
 
-.laptop i {
+.laptop img {
 	color: darkblue;
-	margin-right: 10px;
+	margin-right: 12px;
 	font-size: 22px;
 }
 
