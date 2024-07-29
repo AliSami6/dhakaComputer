@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('batches', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('course_id')->constrained('courses')->cascadeOnDelete();
             $table->string('batch_no');
             $table->string('batch_code');
             $table->enum('class_type',['Online','Offline','Both'])->default('Offline');
