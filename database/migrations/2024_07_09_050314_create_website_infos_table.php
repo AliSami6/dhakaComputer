@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('site_name')->nullable();
             $table->string('site_email')->nullable();
-            $table->string('site_copyright')->nullable();
+            $table->string('address')->nullable();
             $table->string('website_title')->nullable();
             $table->longText('website_description')->nullable();
+            $table->string('banner')->nullable();
             $table->string('logo')->nullable();
             $table->string('favicon')->nullable();
             $table->timestamps();

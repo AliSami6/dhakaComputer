@@ -29,6 +29,8 @@ class Controller extends BaseController
         $product_file->move($folder, $product_image_name);
         return $product_image_name;
     }
+   
+
 
     protected function image_updated($file, $folder, $old_file)
     {

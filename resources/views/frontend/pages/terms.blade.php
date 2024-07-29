@@ -6,7 +6,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 82vh;
+            min-height: 100vh;
         }
     </style>
 @endpush
@@ -14,7 +14,9 @@
  <div class="container center-content">
         
         <div class="m-auto pt-1 mb-5 ">
+           <div class="mt-3">
             {!! $termsPage->page_description !!}
+           </div> 
         </div>
     </div>
 @endsection

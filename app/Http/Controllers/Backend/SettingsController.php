@@ -20,6 +20,7 @@ class SettingsController extends Controller
         return view('backend.pages.settings.index',compact('websettings'));
     }
     public function SettingsDataSave(CreateRequest $request){
+      
         $websettings = WebsiteInfo::first();
         if ($request->hasFile('logo')) {
             $Logo_image = $this->image_updated($request->file('logo'), 'uploaded_files/website/logo/',$websettings->logo);
@@ -33,13 +34,20 @@ class SettingsController extends Controller
         else {
             $favicon_image = $websettings->favicon;
         }
+        if ($request->hasFile('banner')) {
+            $banner_image = $this->image_updated($request->file('banner'), 'uploaded_files/website/banner/',$websettings->banner);
+        } 
+        else {
+            $banner_image = $websettings->banner;
+        }
        
         $websettings->update([
             'site_name'=>$request->site_name,
             'site_email'=>$request->site_email,
-            'site_copyright'=>$request->site_copyright,
+            'address'=>$request->address,
             'website_title'=>$request->website_title,
             'website_description'=>$request->website_description,
+            'banner'=>  $banner_image,
             'logo'=>  $Logo_image,
             'favicon'=>  $favicon_image 
         ]);

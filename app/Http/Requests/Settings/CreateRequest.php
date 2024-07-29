@@ -24,10 +24,11 @@ class CreateRequest extends FormRequest
         return [
             'site_name' => 'required|string',
             'site_email' => 'required|email|string|max:255',
-            'site_copyright' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
             'website_title' => 'required|string|min:2|max:150',
             'website_description' => 'required',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'banner' => 'nullable|image|mimes:jpeg,png,jpg',
             'favicon' => 'nullable|image|mimes:jpeg,png,jpg|max:1024'
         ];
     }

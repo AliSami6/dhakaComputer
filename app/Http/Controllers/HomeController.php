@@ -31,7 +31,11 @@ class HomeController extends Controller
         $courses = Course::with('categories', 'media')->get();
         // $coursesFree = Course::with('categories','prices','media','meta')->whereHas('prices', function($query) {$query->where('is_free', true);})->get();
         $instructors = Instructor::where('status', 'Active')->get();
-        return view('frontend.pages.index');
+       $web_settings = DB::table('website_infos')->first();
+       $data = [
+        'web_settings'=>$web_settings
+       ];
+        return view('frontend.pages.index',['data'=>$data]);
     }
     public function aboutPage()
     {
@@ -70,7 +74,9 @@ class HomeController extends Controller
         $my_course = Course::with('sections', 'sections.lessons', 'sections.quizes', 'instructors.instructor')->where('id', $id)->first();
         return view('frontend.pages.course_metarials', compact('my_course'));
     }
-
+    public function BlogList(){
+        return view('frontend.pages.blog');
+    }
     public function CourseLesson($lesson)
     {
         $my_lesson = Lession::where('lession_title', $lesson)->first();
@@ -181,12 +187,8 @@ class HomeController extends Controller
     {
         $categories = Category::get();
         $instructors = Instructor::get();
-        $courses = Course::with('categories', 'prices', 'meta', 'media', 'instructors.instructor')->latest('id')->take(4)->get();
-        return view('frontend.pages.course_grid', [
-            'categories' => $categories,
-            'instructors' => $instructors,
-            'courses' => $courses,
-        ]);
+        $courses = Course::with('categories',  'meta',  'instructors.instructor')->latest('id')->take(4)->get();
+        return view('frontend.pages.course_grid');
     }
     public function autocomplete(Request $request)
     {

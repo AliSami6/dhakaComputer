@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class WebsiteInfo extends Model
 {
     use HasFactory;
-    protected $fillable = ['site_name','site_email','site_copyright','website_title','website_description','logo','favicon'];
+    protected $fillable = ['site_name','site_email','address','website_title','website_description','banner','logo','favicon'];
 }

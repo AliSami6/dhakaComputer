@@ -1,28 +1,51 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>LMS - @yield('title') </title>
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    @php
+        $web_settings = DB::table('website_infos')->first();
+    @endphp
+    @if (isset($web_settings->favicon))
+        <link rel="shortcut icon" href="{{ asset('uploaded_files/website/favicon/' . $web_settings->favicon) }}">
+    @else
+        <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}">
+    @endif
+
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/plugins/font-awesome/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/lms.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/responsive.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/plugins/font-awesome/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('frontend') }}/assets/plugins/font-awesome/css/fontawesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" >
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap">
     @stack('styles')
     <style></style>
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar_nav sticky-lg-top">
+    <nav class="navbar navbar-expand-lg navbar_nav sticky-lg-top">
         <div class="container-fluid">
-            <a class="navbar-brand nav_img" href="index.html"><img src="{{ asset('frontend') }}/assets/images/logo.jpg">
-                <span>LMS</span></a>
+            <a class="navbar-brand nav_img" href="index.html">
+                @if (isset($web_settings->logo))
+                    <img src="{{ asset('uploaded_files/website/logo/' . $web_settings->logo) }}">
+                @else
+                    <img src="{{ asset('frontend') }}/assets/images/logo.jpg">
+                @endif
+                @if (isset($web_settings->site_name))
+                    <span>{{ $web_settings->site_name }}</span>
+                @else
+                    <span>LMS</span>
+                @endif
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -39,10 +62,10 @@
                         <a class="nav-link active nav_active" aria-current="page" href="#">SPECIAL OFFER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_hover" href="all-courses.html">ALL COURSES</a>
+                        <a class="nav-link nav_hover" href="{{ route('course.list') }}">ALL COURSES</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav_hover" href="#">BLOG</a>
+                        <a class="nav-link nav_hover" href="{{ route('all.blog') }}">BLOG</a>
                     </li>
                 </ul>
                 <div class="login_btn">
@@ -70,21 +93,30 @@
         </div>
     </nav>
 
- 
+
     @yield('content')
     <!-- footer-area -->
-  <!-- footer start -->
-    <section id="footer_section" style="background-color: aliceblue">
+    <!-- footer start -->
+    <section id="footer_section" style="background-color: aliceblue" class="mt-2">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
                     <div class="footer_img">
-                        <a href=""><img src="{{ asset('frontend') }}/assets/images/logo.jpg">
-                            <span>LMS</span></a>
+                        <a href="">
+                            @if (isset($web_settings->logo))
+                                <img src="{{ asset('uploaded_files/website/logo/' . $web_settings->logo) }}">
+                            @else
+                                <img src="{{ asset('frontend') }}/assets/images/logo.jpg">
+                            @endif
+                            @if (isset($web_settings->site_name))
+                                <span>{{ $web_settings->site_name }}</span>
+                            @else
+                                <span>LMS</span>
+                            @endif
+
+                        </a>
                         <div class="company_text">
-                            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+                            <p>{!! $web_settings->website_description !!}</p>
                         </div>
                         <div class="social_icon_lms">
                             <div class="lms_icon_part_left">
@@ -141,16 +173,16 @@
                     </div>
                     <ul class="page_link_part2">
                         <li class="page_link_part3">
-                            <a href="{{route('dhaka.about')}}" target="_blank">About Us</a>
+                            <a href="{{ route('dhaka.about') }}" target="_blank">About Us</a>
                         </li>
                         <li class="page_link_part3">
-                            <a href="{{route('dhaka.refund')}}">Refund Policy</a>
+                            <a href="{{ route('dhaka.refund') }}">Refund Policy</a>
                         </li>
                         <li class="page_link_part3">
-                            <a href="{{route('dhaka.privacy')}}">Privacy Policy</a>
+                            <a href="{{ route('dhaka.privacy') }}">Privacy Policy</a>
                         </li>
                         <li class="page_link_part3">
-                            <a href="{{route('dhaka.terms')}}">Terms & Conditions</a>
+                            <a href="{{ route('dhaka.terms') }}">Terms & Conditions</a>
                         </li>
                     </ul>
                 </div>
@@ -166,7 +198,8 @@
     </section>
     <!-- footer end -->
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="{{ asset('frontend') }}/assets/plugins/font-awesome/js/fontawesome.min.js"></script>
+    <script type="text/javascript" src="{{ asset('frontend') }}/assets/plugins/font-awesome/js/fontawesome.min.js">
+    </script>
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/js/lms.js"></script>
     @stack('scripts')
 </body>

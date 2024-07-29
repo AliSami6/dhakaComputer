@@ -64,8 +64,6 @@ Auth::routes([
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
 
-
-
 Route::controller(HomeController::class)->group(function () {
     Route::get('/about', 'aboutPage')->name('dhaka.about');
     Route::get('/course_cat_list/{id}','CourseCategory')->name('course.category_list');
@@ -75,6 +73,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/course_autocomplete', 'autocomplete')->name('autocomplete');
     Route::get('/course_filter', 'coursesFilter')->name('course.filter');
     Route::get('/course_list','coursesAll')->name('course.list');
+    Route::get('/blog_list','BlogList')->name('all.blog');
  });
 
 

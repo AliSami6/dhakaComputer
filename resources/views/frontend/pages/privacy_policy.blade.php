@@ -6,15 +6,18 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 66vh;
+            min-height: 100vh;
         }
     </style>
 @endpush
 @section('content')
- <div class="container center-content">
-        
+    <div class="container center-content">
+
         <div class="m-auto pt-1 mb-5">
-            {!! $privacyPolicyPage->page_description !!}
+            <div class="mt-4">
+                {!! $privacyPolicyPage->page_description !!}
+            </div>
+
         </div>
     </div>
 @endsection

@@ -11,8 +11,13 @@
                     <div class="col-md-12">
                         <div class="banner-image">
                             <div class="card bg-dark text-white">
-                                <img src="{{ asset('frontend') }}/assets/images/banner.jpg" class="card-img"
-                                    alt="...">
+                                @if (isset($data['web_settings']))
+                                  <img src="{{ asset('uploaded_files/website/banner/' . $data['web_settings']->banner) }}"
+                                        alt="{{ $data['web_settings']->site_name }}"  class="card-img">
+                                @else
+                                    <img src="{{ asset('frontend') }}/assets/images/banner.jpg" class="card-img"
+                                        alt="banner image">
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -346,8 +351,7 @@
                             <div class="card carrier_card">
                                 <div class="card-body carrier_body">
                                     <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i
-                                                class="fab fa-steam-symbol"></i></a>
+                                        <a class="carrier_laptop" href=""><i class="fab fa-steam-symbol"></i></a>
                                     </div>
                                     <div class="carrier_name">
                                         <h6>Blockchain Development</h6>
