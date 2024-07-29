@@ -74,7 +74,6 @@
     });
 
     // Update Instructor
-
     $('#EditInstructorFormID').submit(function(event) {
         event.preventDefault();
         const data = new FormData(this);
