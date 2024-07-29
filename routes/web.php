@@ -11,6 +11,7 @@ use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\Backend\BlogController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\QuizController;
+use App\Http\Controllers\Backend\BatchController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
@@ -77,14 +78,16 @@ Route::controller(HomeController::class)->group(function () {
  });
 
 
+ Route::controller(UserLoginController::class)->group(function () {
+    Route::get('/register', 'register')->name('signUp');
+    Route::post('/register', 'registerFormSave')->name('register.save');
+    Route::get('/signin', 'login')->name('sign_in');
+    Route::post('/signin', 'LoginDataCheck')->name('login.save');
+    Route::post('/logout/data', 'logoutData')->name('logout.name');
+ });
 
 
-Route::get('/register', [UserLoginController::class, 'register'])->name('signUp');
-Route::post('/register', [UserLoginController::class, 'registerFormSave'])->name('register.save');
-Route::get('/signin', [UserLoginController::class, 'login'])->name('sign_in');
-Route::post('/signin', [UserLoginController::class, 'LoginDataCheck'])->name('login.save');
 
-Route::post('/logout/data', [UserLoginController::class, 'logoutData'])->name('logout.name');
 
 Route::middleware(['auth.custom'])->group(function () {
     Route::get('/course_metarials/{id}', [HomeController::class, 'CourseMetarials'])->name('course.metarials');
@@ -177,9 +180,8 @@ Route::prefix('admin')->group(function () {
             Route::delete('/section/delete/{id}', 'sectionDelete')->name('section.delete');
         });
         // ------------------------------------------- End Section -------------------------------------------------------------------//
-
-        // ----------------------------------------- Lession -------------------------------------------------------------------------//
-        Route::controller(LessionController::class)->group(function () {
+          // ----------------------------------------- Lession  -------------------------------------------------------------------------//
+          Route::controller(LessionController::class)->group(function () {
             Route::post('/add_new_lesson/save', 'LessionSave')->name('lesson.save');
             Route::get('/edit_lesson', 'EditLesson')->name('edit.lesson');
             Route::post('/lesson/update', 'updateLesson')->name('lesson.update');
@@ -187,6 +189,17 @@ Route::prefix('admin')->group(function () {
         });
 
         // ------------------------------------------- End Lession -------------------------------------------------------------------//
+        // ----------------------------------------- Batch -------------------------------------------------------------------------//
+        Route::controller(BatchController::class)->group(function () {
+            Route::get('/batch', 'index')->name('batch.list');
+            Route::get('/add-batch', 'create')->name('create.batch');
+            Route::post('/add_new_batch/save', 'store')->name('batch.save');
+            Route::get('/edit_batch/{id}', 'edit')->name('edit.batch');
+            Route::post('/batch/update', 'update')->name('batch.update');
+            Route::delete('/batch/delete/{id}', 'destroy')->name('batch.delete');
+        });
+
+        // ------------------------------------------- End Batch -------------------------------------------------------------------//
 
         // ----------------------------------------- Student  -------------------------------------------------------------------------//
         Route::controller(StudentController::class)->group(function () {

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('class_rutine');
             $table->string('class_time');
             $table->integer('total_class');
+            $table->integer('total_seat');
             $table->timestamps();
         });
     }

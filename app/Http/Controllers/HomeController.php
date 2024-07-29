@@ -25,13 +25,14 @@ class HomeController extends Controller
 
         $categories = Category::latest('id')->get();
         $blogs = Blog::latest('id')->get();
-        $courses = Course::with('categories', 'media')->get();
+        $courses = Course::with('batch','media')->get();
         // $coursesFree = Course::with('categories','prices','media','meta')->whereHas('prices', function($query) {$query->where('is_free', true);})->get();
         $instructors = Instructor::where('status', 'Active')->get();
        $web_settings = DB::table('website_infos')->first();
        $data = [
         'web_settings'=>$web_settings,
         'categories'=>$categories,
+        'courses'=>$courses,
        ];
         return view('frontend.pages.index',['data'=>$data]);
     }

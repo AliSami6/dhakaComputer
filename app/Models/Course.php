@@ -49,7 +49,11 @@ class Course extends Model
    
     public function media()
     {
-        return $this->hasOne(CourseMedia::class, 'course_id', 'id');
+        return $this->hasMany(Batch::class, 'course_id', 'id');
+    }
+    public function batch()
+    {
+        return $this->hasMany(Batch::class,'course_id','id');
     }
 
     public function meta()

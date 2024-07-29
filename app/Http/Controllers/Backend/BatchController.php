@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
+use App\Models\Batch;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Batch\CreateRequest;
 
 class BatchController extends Controller
 {
@@ -12,7 +15,8 @@ class BatchController extends Controller
      */
     public function index()
     {
-        
+        $batch = Batch::latest('id')->get();
+        return view('backend.pages.courses.batch.index',compact('batch'));
     }
 
     /**
@@ -20,15 +24,27 @@ class BatchController extends Controller
      */
     public function create()
     {
-        //
+        $courses = Course::get();
+        return view('backend.pages.courses.batch.create',compact('courses'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        Batch::create([
+            'course_id'=>$request->course_id,
+            'batch_no'=>$request->batch_no,
+            'batch_code'=>$request->batch_code,
+            'class_type'=>$request->class_type,
+            'class_start'=>$request->class_start,
+            'class_rutine'=>$request->class_rutine,
+            'class_time'=>$request->class_time,
+            'total_class'=>$request->total_class,
+            'total_seat'=>$request->total_seat
+        ]);
+        return redirect()->route('batch.list')->with('success', 'Successfully Created !');
     }
 
     /**
@@ -42,9 +58,11 @@ class BatchController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit( $id)
     {
-        //
+        $batch = Batch::find($id);
+        $courses = Course::get();
+        return view('backend.pages.courses.batch.edit',compact('batch','courses'));
     }
 
     /**
@@ -52,7 +70,19 @@ class BatchController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $batch = Batch::find($id);
+        $batch->update([
+            'course_id'=>$request->course_id,
+            'batch_no'=>$request->batch_no,
+            'batch_code'=>$request->batch_code,
+            'class_type'=>$request->class_type,
+            'class_start'=>$request->class_start,
+            'class_rutine'=>$request->class_rutine,
+            'class_time'=>$request->class_time,
+            'total_class'=>$request->total_class,
+            'total_seat'=>$request->total_seat
+        ]);
+        return redirect()->route('batch.list')->with('success', 'Successfully Updated !');
     }
 
     /**
@@ -60,6 +90,8 @@ class BatchController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $batch = Batch::find($id);
+        $batch->delete();
+        return redirect()->route('batch.list')->with('success', 'Successfully Deleted !');
     }
 }

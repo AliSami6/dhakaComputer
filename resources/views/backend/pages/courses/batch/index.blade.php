@@ -1,5 +1,5 @@
 @extends('backend.layouts.master')
-@section('title', 'Coupons')
+@section('title', 'All Batch ')
 @section('styles')
 
 @endsection
@@ -11,7 +11,7 @@
                     <div class="nk-block-head nk-block-head-sm">
                         <div class="nk-block-between">
                             <div class="nk-block-head-content">
-                                <h3 class="nk-block-title page-title"> Coupons </h3>
+                                <h3 class="nk-block-title page-title"> Batch </h3>
                                 <div class="nk-block-des text-soft">
                                 </div>
                             </div><!-- .nk-block-head-content -->
@@ -21,7 +21,7 @@
                                         data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
                                     <div class="toggle-expand-content" data-content="pageMenu">
                                         <ul class="nk-block-tools g-3">
-                                            <li class="nk-block-tools-opt"><a href="{{ route('create.coupons') }}" class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Add New Coupon</span></a></li>
+                                            <li class="nk-block-tools-opt"><a href="{{ route('create.batch') }}" class="btn btn-primary"><em class="icon ni ni-plus"></em><span>Add New Batch</span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -40,14 +40,21 @@
                                         <thead>
                                             <tr class="nk-tb-item nk-tb-head">
                                                 <th class="nk-tb-col"><span class="sub-text">#</span></th>
-                                                <th class="nk-tb-col"><span class="sub-text">Coupon code</span></th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Discount percentage</span></th>
-                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Validity till</span></th>
+                                                <th class="nk-tb-col"><span class="sub-text">Batch no</span></th>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Batch code</span></th>
+                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Class type</span></th>
+                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Class start</span></th>
+                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Class rutine</span></th>
+                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Class time</span></th>
+                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Total class</span></th>
+                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Total seat</span></th>
                                                 <th class="nk-tb-col nk-tb-col-tools text-end">
                                                 </th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @if($batch->isNotEmpty())
+                                            @foreach($batch as $li)
                                             <tr class="nk-tb-item">
                                                 <td class="nk-tb-col nk-tb-col-check">
                                                     1
@@ -55,29 +62,55 @@
                                                  <td class="nk-tb-col tb-col-md">
                                                     <div class="user-card">
                                                         <div class="user-info">
-                                                            <span class="tb-lead text-gray">3O70U92</span>
+                                                            <span class="tb-lead text-gray">{{ $li->batch_no ?? '' }}</span>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="nk-tb-col tb-col-md">
                                                     <div class="user-card">
                                                         <div class="user-info">
-                                                            <span class="tb-lead text-gray">25%</span>
+                                                            <span class="tb-lead text-gray">{{ $li->batch_code ?? '' }}</span>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 
                                                 <td class="nk-tb-col tb-col-md">
                                                    <div class="user-info">
-                                                            <span class="tb-lead text-gray">Wed, 29-May-2024</span>
+                                                            <span class="tb-lead text-gray">{{ $li->class_type ?? ' ' }}</span>
                                                         </div>
                                                 </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <div class="user-info">
+                                                             <span class="tb-lead text-gray">{{ $li->class_start ?? ' ' }}</span>
+                                                         </div>
+                                                 </td>
+                                               
+                                                 <td class="nk-tb-col tb-col-md">
+                                                    <div class="user-info">
+                                                             <span class="tb-lead text-gray">{{ $li->class_rutine ?? ' ' }}</span>
+                                                         </div>
+                                                 </td>
+                                                 <td class="nk-tb-col tb-col-md">
+                                                    <div class="user-info">
+                                                             <span class="tb-lead text-gray">{{ $li->class_time ?? ' ' }}</span>
+                                                         </div>
+                                                 </td>
+                                                 <td class="nk-tb-col tb-col-md">
+                                                    <div class="user-info">
+                                                             <span class="tb-lead text-gray">{{ $li->total_class ?? ' ' }}</span>
+                                                         </div>
+                                                 </td>
+                                                 <td class="nk-tb-col tb-col-md">
+                                                    <div class="user-info">
+                                                             <span class="tb-lead text-gray">{{ $li->total_seat ?? ' ' }}</span>
+                                                         </div>
+                                                 </td>
                                                 
                                                 <td class="nk-tb-col nk-tb-col-tools">
                                                     <ul class="nk-tb-actions gx-1">
                                                        
                                                         <li class="nk-tb-action-hidden">
-                                                            <a href="#" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
+                                                            <a href="{{ route('edit.batch',$li->id) }}" class="btn btn-trigger btn-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit">
                                                                 <em class="icon ni ni-pen"></em>
                                                             </a>
                                                         </li>
@@ -91,7 +124,7 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#"><em class="icon ni ni-edit"></em><span> Edit coupons</span></a></li>
+                                                                        <li><a href="{{ route('edit.batch',$li->id) }}"><em class="icon ni ni-edit"></em><span> Edit batch</span></a></li>
                                                                         <li class="divider"></li>
                                                                         <li><a href="#"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
                                                                     </ul>
@@ -100,8 +133,10 @@
                                                         </li>
                                                     </ul>
                                                 </td>
-                                            </tr><!-- .nk-tb-item  -->
-
+                                            </tr>
+                                            @endforeach
+                                            <!-- .nk-tb-item  -->
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>

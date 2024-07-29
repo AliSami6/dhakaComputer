@@ -86,9 +86,9 @@
                         </ul><!-- .nk-menu-sub -->
                     </li>
                     <li class="nk-menu-item">
-                        <a href="{{ route('slider.create') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-img"></em></span>
-                            <span class="nk-menu-text">Slider</span>
+                        <a href="{{ route('batch.list') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-user-list-fill"></em></span>
+                            <span class="nk-menu-text">Batch</span>
                         </a>
                     </li>
                     <li class="nk-menu-item">
