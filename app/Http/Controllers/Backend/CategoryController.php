@@ -36,8 +36,7 @@ class CategoryController extends Controller
         $validator = Validator::make($request->all(), [
             'category_name' => 'required|string|min:2|max:100',
             'description' => 'required|string|min:2|max:100',
-            'cat_icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024',
-            'subcategory_name' => 'required|array',
+            'cat_icon' => 'required|image|mimes:jpeg,png,jpg,gif|max:1024'
         ]);
         if ($validator->fails()) {
             return response()->json([

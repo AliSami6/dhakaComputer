@@ -14,9 +14,8 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('course_title');
-            $table->string('slug')->nullable();
-            $table->text('course_short_desc');
-            $table->text('about');
+            $table->string('slug');
+            $table->text('course_short_desc')->nullable();
             $table->longText('description')->nullable();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->enum('level', ['Beginner', 'Advanced', 'Intermediate'])->default('Beginner');
@@ -27,7 +26,7 @@ return new class extends Migration
             $table->double('discounted_price',[8,2])->default(0);
             $table->tinyInteger('expire_time')->default(0);
             $table->string('duration')->nullable();
-            $table->string('schedules')->nullable();
+            $table->string('enroll_date')->nullable();
             $table->timestamps();
         });
 

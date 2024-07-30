@@ -23,10 +23,9 @@ use App\Http\Requests\Course\CreateRequest;
 
 class CourseController extends Controller
 {
-   
     public function courseList()
     {
-        $courses = Course::with(['categories','sections.lessons','studentEnrollments','instructors.instructor'])->get();
+        $courses = Course::with(['categories', 'sections.lessons', 'studentEnrollments', 'instructors.instructor'])->get();
         return view('backend.pages.courses.course-list', ['courses' => $courses]);
     }
     public function courseAdd()
@@ -50,11 +49,7 @@ class CourseController extends Controller
         $meta = CourseMeta::where('course_id', $id)->first();
 
         // dd($editCourses);
-        return view('backend.pages.courses.edit-course', ['course_categories' => $course_categories, 'sections' => $sections, 
-        'faqs' => $faqs, 'requirements' => $requirements, 'outcomes' => $outcomes, 
-        'objectives' => $objectives, 
-        'eligibles' => $eligibles, 
-        'media' => $media, 'meta' => $meta, 'editCourses' => $editCourses]);
+        return view('backend.pages.courses.edit-course', ['course_categories' => $course_categories, 'sections' => $sections, 'faqs' => $faqs, 'requirements' => $requirements, 'outcomes' => $outcomes, 'objectives' => $objectives, 'eligibles' => $eligibles, 'media' => $media, 'meta' => $meta, 'editCourses' => $editCourses]);
     }
     public function CourseFaqDelete($id)
     {
@@ -69,7 +64,6 @@ class CourseController extends Controller
 
     public function RequirementsDelete($id)
     {
-
         $requirement = CourseRequirements::find($id);
         if ($requirement) {
             $requirement->delete();
@@ -99,18 +93,6 @@ class CourseController extends Controller
             return response()->json(['status' => 'error', 'message' => 'An error occurred']);
         }
     }
-    
-    public function EnrolledForEligibiulityDelete($id)
-    {
-        $eligibles = CourseEligible::find($id);
-        if ($eligibles) {
-            $eligibles->delete();
-            return response()->json(['status' => 'success', 'message' => 'Successfully deleted']);
-        } else {
-            return response()->json(['status' => 'error', 'message' => 'An error occurred']);
-        }
-    }
-    
 
     public function create()
     {
@@ -123,11 +105,9 @@ class CourseController extends Controller
 
     public function courseSave(Request $request)
     {
-
         // Define validation rules
         $validator = Validator::make($request->all(), [
             'course_title' => 'required|string|max:255', // Course title must be a string with a max length of 255 characters
-            'about' => 'required', 
             'course_short_desc' => 'required', // Short description is required
             'description' => 'required', // Full description is required
             'category_id' => 'required|integer', // Category ID must be an integer
@@ -136,56 +116,53 @@ class CourseController extends Controller
             'course_status' => 'required|string', // Course status must be a string
             'faq_question' => 'required|array',
             'faq_answer' => 'required|array',
-            'requirement' => 'required|array', 
-            'outcome' => 'required|array', 
-            'objectives' => 'required|array', 
-            'price' => 'nullable|numeric', 
+            'requirement' => 'required|array',
+            'outcome' => 'required|array',
+            'objectives' => 'required|array',
+            'price' => 'nullable|numeric',
             'is_free' => 'nullable|integer|in:0,1',
             'discounted_price' => 'nullable|numeric',
-            'course_overview_provider' => 'required|string|max:255',
-            'course_overview_url' => 'nullable|url', 
             'course_thumbnail' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'expire_time' => 'required|integer|in:0,1', 
-            'keyword' => 'required|string|max:255', 
-            'meta_description' => 'required'
+            'expire_time' => 'required|integer|in:0,1',
+            'keyword' => 'required|string|max:255',
+            'meta_description' => 'required',
         ]);
 
         // Check if validation fails
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-  
+
         // Handle file upload
         if ($request->hasFile('course_thumbnail')) {
             $imagePath = $this->image_upload($request->file('course_thumbnail'), 'uploaded_files/course_thumbnails/', 90, 80);
-        }else{
+        } else {
             return response()->json(['error' => 'Image is required'], 422);
         }
-    
-        // Create the course using mass assignment
+
+        // Prepare course data
         $courseData = [
             'course_title' => $request->course_title,
             'course_title_bn' => $request->course_title_bn,
-            'slug' => Str::slug($request->course_title,'_'),
+            'slug' => Str::slug($request->course_title, '_'),
             'course_short_desc' => $request->course_short_desc,
             'short_description_bn' => $request->short_description_bn,
-            'about' => $request->about,
-            'course_about_bn' => $request->course_about_bn,
             'description' => $request->description,
             'description_bn' => $request->description_bn,
             'category_id' => $request->category_id,
             'level' => $request->level,
             'language' => $request->language,
             'course_status' => $request->course_status,
-            'is_free' => $request->is_free?? 0,
+            'is_free' => $request->is_free ?? 0,
             'price' => $request->price ?? 0,
             'price_bn' => $request->price_bn ?? 0,
             'discounted_price' => $request->discounted_price ?? 0,
             'expire_time' => $request->expire_time ?? 0,
             'duration' => $request->duration ?? 0,
-            'schedules' => $request->schedules ?? 0  		
+            'enroll_date' => $request->enroll_date ?? 0,
         ];
 
+        // Create course
         $course = Course::create($courseData);
 
         // Decode JSON fields
@@ -194,8 +171,7 @@ class CourseController extends Controller
         $requirements = json_decode($request->input('courseReq'), true);
         $outcomes = json_decode($request->input('courseOutcomes'), true);
         $objectives = json_decode($request->input('courseObjectives'), true);
-        $eligibles = json_decode($request->input('course_Eligible'), true);
-       
+
         // Save FAQ questions and answers
         if ($faqQuestions && $faqAnswers) {
             foreach ($faqQuestions as $key => $question) {
@@ -208,7 +184,6 @@ class CourseController extends Controller
         }
 
         // Save requirements
-       
         if ($requirements) {
             foreach ($requirements as $requirement) {
                 CourseRequirements::create([
@@ -218,6 +193,7 @@ class CourseController extends Controller
             }
         }
 
+        // Save outcomes
         if ($outcomes) {
             foreach ($outcomes as $outcome) {
                 CourseOutcome::create([
@@ -226,6 +202,8 @@ class CourseController extends Controller
                 ]);
             }
         }
+
+        // Save objectives
         if ($objectives) {
             foreach ($objectives as $objective) {
                 CourseObjective::create([
@@ -234,29 +212,19 @@ class CourseController extends Controller
                 ]);
             }
         }
-        if ($eligibles) {
-            foreach ($eligibles as $eligible) {
-                CourseEligible::create([
-                    'course_id' => $course->id,
-                    'course_eligible' => $eligible,
-                ]);
-            }
-        }
-        
+
         // Save course media details
         CourseMedia::create([
             'course_id' => $course->id,
-            'course_overview_provider' => $request->course_overview_provider,
-            'course_overview_url' => $request->course_overview_url,
-            'course_thumbnail' => $imagePath
+            'course_thumbnail' => $imagePath,
         ]);
 
         // Save course meta details
         $meta = CourseMeta::create([
             'course_id' => $course->id,
             'keyword' => $request->keyword,
-            'slug' => Str::slug($request->keyword,'_'),
-            'meta_description' => $request->meta_description
+            'slug' => Str::slug($request->keyword, '_'),
+            'meta_description' => $request->meta_description,
         ]);
 
         if ($meta) {
@@ -287,7 +255,6 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-      
         // Define validation rules
         $validator = Validator::make($request->all(), [
             'course_title' => 'nullable|string|max:255',
@@ -319,29 +286,27 @@ class CourseController extends Controller
         if (!$course) {
             return response()->json(['status' => 'error', 'message' => 'Course not found'], 404);
         }
-     
+
         // Update the course using mass assignment
         $courseData = [
             'course_title' => $request->course_title,
             'course_title_bn' => $request->course_title_bn,
-            'slug' => Str::slug($request->course_title,'_'),
+            'slug' => Str::slug($request->course_title, '_'),
             'course_short_desc' => $request->course_short_desc,
             'short_description_bn' => $request->short_description_bn,
-            'about' => $request->about,
-            'course_about_bn' => $request->course_about_bn,
             'description' => $request->description,
             'description_bn' => $request->description_bn,
             'category_id' => $request->category_id,
             'level' => $request->level,
             'language' => $request->language,
             'course_status' => $request->course_status,
-            'is_free' => $request->is_free?? 0,
+            'is_free' => $request->is_free ?? 0,
             'price' => $request->price ?? 0,
             'price_bn' => $request->price_bn ?? 0,
             'discounted_price' => $request->discounted_price ?? 0,
             'expire_time' => $request->expire_time ?? 0,
             'duration' => $request->duration ?? 0,
-            'schedules' => $request->schedules ?? 0  		
+            'enroll_date' => $request->enroll_date ?? 0,
         ];
 
         $course->update(array_filter($courseData)); // Use array_filter to remove null values
@@ -392,19 +357,7 @@ class CourseController extends Controller
                 }
             }
         }
-        if ($request->has('course_eligible')) {
-            CourseEligible::where('course_id', $course->id)->delete();
-            foreach ($request->course_eligible as $eligible) {
-                if (!empty($eligible)) {
-                    CourseEligible::create([
-                        'course_id' => $course->id,
-                        'course_eligible' => $eligible,
-                    ]);
-                }
-            }
-        }
 
-       
         if ($request->hasFile('course_thumbnail')) {
             $destination = 'uploaded_files/course_thumbnails/' . $course->media->course_thumbnail;
             if (File::exists($destination)) {
@@ -433,29 +386,27 @@ class CourseController extends Controller
         }
 
         // Update course meta details
-        if ($request->hasAny(['keyword','slug','meta_description'])) {
+        if ($request->hasAny(['keyword', 'slug', 'meta_description'])) {
             $course->meta->update(
                 array_filter([
                     'keyword' => $request->keyword,
-                    'slug' =>Str::slug($request->keyword),
-                    'meta_description' => $request->meta_description
+                    'slug' => Str::slug($request->keyword),
+                    'meta_description' => $request->meta_description,
                 ]),
             );
         }
-        if($updateData){
+        if ($updateData) {
             return response()->json(['status' => 'success', 'message' => 'Successfully updated']);
-        }else{
+        } else {
             return response()->json(['status' => 'error', 'message' => 'An Error Occured']);
         }
-        
     }
     public function courseStatusUpdate($id, $status)
     {
-      
-         $course = Course::findOrFail($id);
+        $course = Course::findOrFail($id);
         $course->course_status = $status;
         $course->save();
-        return redirect()->back()->with('success','Status Updated !'); 
+        return redirect()->back()->with('success', 'Status Updated !');
     }
     /**
      * Remove the specified resource from storage.

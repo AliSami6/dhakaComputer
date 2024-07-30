@@ -94,23 +94,7 @@
                                                                     name="course_title_bn" placeholder="course title bangla">
                                                             </div>
                                                         </div>
-                                                        <div class="row mb-3">
-                                                            <label for="course-title" class="col-sm-2 col-form-label">
-                                                                About</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="about"
-                                                                    name="about" placeholder="course about">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-3">
-                                                            <label for="course-title" class="col-sm-2 col-form-label">
-                                                                About (Bangla) </label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="course_about_bn"
-                                                                    name="course_about_bn" placeholder="course about bangla">
-                                                            </div>
-                                                        </div>
-
+                                                       
                                                         <div class="row mb-3">
                                                             <label for="course_short_desc"
                                                                 class="col-sm-2 col-form-label">Short
@@ -261,7 +245,6 @@
                                                                             </li>
                                                                         </ul>
                                                                     </div>
-                                                                    <span class="text-danger course_status"></span>
                                                                 </div>
                                                             </div>
 
@@ -279,7 +262,7 @@
                                                             <label for="course-title" class="col-sm-2 col-form-label">Course
                                                                 Enroll Date </label>
                                                             <div class="col-sm-10">
-                                                                <input type="date" class="form-control" id="schedules" name="schedules" placeholder="course schedules">
+                                                                <input type="date" class="form-control" id="enroll_date" name="enroll_date" placeholder="course schedules">
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -341,7 +324,7 @@
                                                                         <div class="form-group">
                                                                             <input type="number" class="form-control"
                                                                                 id="discounted_price" name="discounted_price">
-                                                                            <span class="text-danger discounted_price"></span>
+                                                                           
                                                                         </div>
                                                                     </div>
     
@@ -388,7 +371,7 @@
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
-                                                                            <span class="text-danger expire_time"></span>
+                                                                           
                                                                         </div>
     
     
@@ -515,30 +498,7 @@
                                                             <div class="course_objectives_expands"></div>
                                                         </div>
                                                     </div>
-                                                    <div class="row g-3 align-center">
-                                                        <div class="out_fields">
-                                                            <div class="row mb-3 ">
-                                                                <label for="course_eligible"
-                                                                    class="col-sm-2 col-form-label">Who are eligible
-                                                                </label>
-                                                                <div class="col-sm-8">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control"
-                                                                            id="course_eligible" name="course_eligible[]"
-                                                                            placeholder="Provide eligibility">
-                                                                        <span class="text-danger course_eligible"></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-2">
-                                                                    <button type="button"
-                                                                        class="btn btn-sm btn-primary add_eligible_field_button">
-                                                                        <em class="icon ni ni-plus"></em>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="course_eligible_expands"></div>
-                                                        </div>
-                                                    </div>
+                                                   
                                                 </div>
                                             </div>
                                           
@@ -655,6 +615,7 @@
                 let formData = new FormData(this);
                 // Collect and append form field values
                 let courseDescription = $('textarea[name="description"]').summernote("code");
+                let courseBnDescription = $('textarea[name="description_bn"]').summernote("code");
                 console.log(courseDescription);
                 let courseMetaDescription = $('textarea[name="meta_description"]').val();
                 console.log(courseMetaDescription);
@@ -684,14 +645,12 @@
                     return $(this).val();
                 }).get();
                 console.log(courseObjectives);
-                let course_Eligible = $('input[name="course_eligible[]"]').map(function() {
-                    return $(this).val();
-                }).get();
-                console.log(course_Eligible);
+             
+        
                 formData.append('courseReq', JSON.stringify(courseReq));
                 formData.append('courseOutcomes', JSON.stringify(courseOutcomes));
                 formData.append('courseObjectives', JSON.stringify(courseObjectives));
-                formData.append('course_Eligible', JSON.stringify(course_Eligible));
+             
                 // Ajax request
                 $.ajax({
                     url: '{{ route('courses.save') }}',

@@ -22,22 +22,7 @@
                                         data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                                     <div class="toggle-expand-content" data-content="pageMenu">
                                         <ul class="nk-block-tools g-3">
-                                            <li>
-                                                <div class="drodown">
-                                                    <a href="#"
-                                                        class="dropdown-toggle btn btn-white btn-dim btn-outline-light"
-                                                        data-bs-toggle="dropdown"><em
-                                                            class="d-none d-sm-inline icon ni ni-filter-alt"></em><span>Filtered
-                                                            By</span><em class="dd-indc icon ni ni-chevron-right"></em></a>
-                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                        <ul class="link-list-opt no-bdr">
-                                                            <li><a href="#"><span>Web Development</span></a></li>
-                                                            <li><a href="#"><span>Mobile Application</span></a></li>
-                                                            <li><a href="#"><span>Graphics Design</span></a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </li>
+                                            
                                             <li class="nk-block-tools-opt d-none d-sm-block">
                                                 <a class="btn btn-primary" data-bs-toggle="modal" href="#modalCreate"><em
                                                         class="icon ni ni-plus"></em><span>Add Category</span></a>
@@ -69,8 +54,7 @@
                                                             <input type="hidden" class="category_id" name="category_id"
                                                                 value="{{ $list->id }}">
                                                             <h6 class="title mb-1">{{ $list->category_name }}</h6>
-                                                            <span class="sub-text">{{ $list->subcategories->count() }}
-                                                                SubCategories</span>
+                                                          
                                                         </div>
                                                     </a>
                                                     <div class="dropdown">
@@ -106,13 +90,7 @@
                                                     </div>
                                                 </div>
                                                 <p class="description">{{ $list->description }}</p>
-                                                <ul class="d-flex flex-wrap g-1">
-                                                    @foreach ($list->subcategories as $subcategory)
-                                                        <li><span
-                                                                class="badge badge-dim bg-primary">{{ $subcategory->subcategory_name }}</span>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
+                                               
                                             </div>
                                         </div>
                                     </div>

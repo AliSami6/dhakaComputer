@@ -29,16 +29,16 @@
                 <!-- content @s -->
                 <div class="nk-content ">
                     <div class="nk-block nk-block-middle nk-auth-body  wide-xs">
-                        
+                        @php $web = DB::table('website_infos')->first(); @endphp
                         <div class="card border rounded-full">
                             <div class="brand-logo pb-2 text-center mt-5">
                                 <a href="#" class="logo-link">
                                     <img class="logo-light logo-img logo-img-lg"
-                                        src="{{ asset('/') }}backend/assets/images/logo.png"
-                                        srcset="{{ asset('/') }}backend/assets/images/logo2x.png 2x" alt="logo">
+                                        src="{{ asset('uploaded_files/website/logo/' . $web->logo)}}"
+                                        srcset="{{asset('uploaded_files/website/logo/' . $web->logo) }}" alt="logo">
                                     <img class="logo-dark logo-img logo-img-lg"
-                                        src="{{ asset('/') }}backend/assets/images/logo-dark.png"
-                                        srcset="{{ asset('/') }}backend/assets/images/logo-dark2x.png 2x"
+                                        src="{{asset('uploaded_files/website/logo/' . $web->logo) }}"
+                                        srcset="{{ asset('uploaded_files/website/logo/' . $web->logo) }}"
                                         alt="logo-dark">
                                 </a>
                             </div>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('batch_no');
             $table->string('batch_code');
             $table->enum('class_type',['Online','Offline','Both'])->default('Offline');
-            $table->string('class_start')->default('New batch will start');
+            $table->string('class_start')->nullable();
             $table->string('class_rutine');
             $table->string('class_time');
             $table->integer('total_class');

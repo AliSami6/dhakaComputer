@@ -45,9 +45,9 @@
                             <li class="nk-menu-item">
                                 <a href="{{route('category.courses')}}" class="nk-menu-link"><span class="nk-menu-text">Catagories</span></a>
                             </li>
-                            <li class="nk-menu-item">
+                            {{-- <li class="nk-menu-item">
                                 <a href="{{route('subcategory.index')}}" class="nk-menu-link"><span class="nk-menu-text">Subcatagories</span></a>
-                            </li>
+                            </li> --}}
                             <li class="nk-menu-item">
                                 <a href="{{ route('courseList') }}" class="nk-menu-link"><span class="nk-menu-text">Course List</span></a>
                             </li>

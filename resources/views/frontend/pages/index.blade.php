@@ -11,9 +11,9 @@
                     <div class="col-md-12">
                         <div class="banner-image">
                             <div class="card bg-dark text-white">
-                                @if (isset($data['web_settings']))
-                                  <img src="{{ asset('uploaded_files/website/banner/' . $data['web_settings']->banner) }}"
-                                        alt="{{ $data['web_settings']->site_name }}"  class="card-img">
+                                @if (isset($web_settings))
+                                    <img src="{{ asset('uploaded_files/website/banner/' . $web_settings->banner) }}"
+                                        alt="{{ $web_settings->site_name }}" class="card-img">
                                 @else
                                     <img src="{{ asset('frontend') }}/assets/images/banner.jpg" class="card-img"
                                         alt="banner image">
@@ -33,63 +33,71 @@
                         <span>আমাদের কোর্সসমুহ <i class="fas fa-book"></i></span>
                     </div>
                     <div class="row">
-                        @if($data['categories']->isNotEmpty())
-                        @foreach($data['categories'] as $category)
-                        <div class="col-md-3">
-                            <div class="card category_card">
-                                <div class="card-body category_body d-flex">
-                                    <div class="category_icon">
-                                        <a class="laptop pr-1" href="">
-                                            @if(isset($category))
-                                                <img src="{{ asset('uploaded_files/category/'.$category->cat_icon) }}" height="40" alt="" />
-                                            @else
-                                                <img src="{{ asset('/') }}frontend/assets/images/application-development.png" height="40" alt="" />
-                                            @endif
-                                        </a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>{{ $category->category_name ?? '' }}</h6>
-                                        <p class="pl-1"> {{ $category->courses->count() ?? '' }} কোর্স </p>
+                        @if ($categories->isNotEmpty())
+                            @foreach ($categories as $category)
+                                <div class="col-md-3">
+                                    <div class="card category_card">
+                                        <div class="card-body category_body d-flex">
+                                            <div class="category_icon">
+                                                <a class="laptop pr-1" href="">
+                                                    @if (isset($category))
+                                                        <img src="{{ asset('uploaded_files/category/' . $category->cat_icon) }}"
+                                                            height="40" alt="" />
+                                                    @else
+                                                        <img src="{{ asset('/') }}frontend/assets/images/application-development.png"
+                                                            height="40" alt="" />
+                                                    @endif
+                                                </a>
+                                            </div>
+                                            <div class="category_name">
+                                                <h6>{{ $category->category_name ?? '' }}</h6>
+                                                <p class="pl-1"> {{ $category->courses->count() ?? '' }} কোর্স </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
                         @endif
-                       
+
                     </div>
                 </section>
                 <section class="courses">
                     <div class="row">
-                        @if($data['courses']->isNotEmpty())
-                        @foreach($data['courses'] as $course)
-                        <div class="col-md-3">
-                            <div class="card course_card">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        @if(isset($course))   
-                                        <img src="{{ asset('uploaded_files/course_thumbnails/'.$course->media->course_thumbnail) }}"
-                                        class="card-img-top" alt="...">
-                                        @else
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
+                        @if ($courses->isNotEmpty())
+                            @foreach ($courses as $course)
+                                <div class="col-md-3">
+                                    <div class="card course_card">
+                                        <div class="card-header">
+                                            @if (isset($course))
+                                                @if ($course->media->isNotEmpty())
+                                                    @foreach ($course->media as $media)
+                                                        <img src="{{ asset('uploaded_files/course_thumbnails/' . $media->course_thumbnail) }}"
+                                                            class="card-img-top" alt="...">
+                                                    @endforeach
+                                                @else
+                                                    <img src="{{ asset('frontend/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg') }}"
+                                                        class="card-img-top" alt="...">
+                                                @endif
+                                            @else
+                                                <img src="{{ asset('frontend/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg') }}"
+                                                    class="card-img-top" alt="...">
                                             @endif
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
+
+                                            <div class="course_btn">
+                                                <a href="">ব্যাচ ২</a>
+                                                <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
+                                                <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
+                                            </div>
+                                        </div>
+                                        <div class="card-body course_text">
+                                            <h5 class="card-title">{{ $course->course_title ?? '' }}</h5>
+                                            <a href="course-details.html" class="btn btn-secondary">বিস্তারিত দেখি<i
+                                                    class="fas fa-arrow-right"></i></a>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">{{ $course->course_title ?? ''}}</h5>
-                                    <a href="course-details.html" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                       @endif
+                            @endforeach
+                        @endif
                     </div>
                 </section>
                 <div class="all_course_button">

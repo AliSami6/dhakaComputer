@@ -35,21 +35,7 @@
                              </div>
                          </div>
                      </div>
-                     <div class="form-group">
-                         <label class="form-label">Subcategory</label>
-                         <div class="d-flex gx-3 mb-3">
-                             <div class="g w-100 ">
-                                 <div class="form-control-wrap Subcategory">
-                                     <input type="text" class="form-control" id="Subcat" name="subcategory_name[]"
-                                         placeholder="Sub Category Name">
-                                 </div>
-                             </div>
-                             <div class="g">
-                                 <button type="button" class="btn btn-icon btn-outline-light" onclick="addInput()"><em
-                                         class="icon ni ni-plus"></em></button>
-                             </div>
-                         </div>
-                     </div>
+                    
                      <div class="form-group">
                          <button type="submit" class="btn btn-primary saveBtn">Save
                          </button>

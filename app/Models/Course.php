@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Course extends Model
 {
     use HasFactory;
-    protected $fillable = ['course_title','course_title_bn','slug','course_short_desc','short_description_bn','about','course_about_bn','description','description_bn','category_id','level','language','course_status',
-    'is_free','price','price_bn','discounted_price','expire_time','duration','schedules'];
+    protected $fillable = ['course_title','course_title_bn','slug','course_short_desc','short_description_bn','description','description_bn','category_id','level','language','course_status',
+    'is_free','price','price_bn','discounted_price','expire_time','duration','enroll_date'];
 
     public function categories()
     {
@@ -49,7 +49,7 @@ class Course extends Model
    
     public function media()
     {
-        return $this->hasMany(Batch::class, 'course_id', 'id');
+        return $this->hasMany(CourseMedia::class, 'course_id', 'id');
     }
     public function batch()
     {
@@ -65,5 +65,3 @@ class Course extends Model
         return $this->hasMany(InstructorCourse::class,'course_id','id');
     }
 }
-
-
