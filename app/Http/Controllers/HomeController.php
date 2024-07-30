@@ -27,7 +27,7 @@ class HomeController extends Controller
 
         $live_content = Training::latest('id')->get();
         $counter = Counter::latest('id')->get();
-        $categories = Category::latest('id')->get();
+        $categories = Category::oldest('id')->get();
         $blogs = Blog::latest('id')->get();
         $courses = Course::with('batch','media')->get();
       

@@ -80,7 +80,7 @@
                                                     <div class="row g-3 align-center">
                                                         <div class="row mb-3">
                                                             <label for="course-title" class="col-sm-2 col-form-label">Course
-                                                                Title</label>
+                                                                Title <span class="text-danger">*</span></label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="course_title"
                                                                     name="course_title" placeholder="course title">
@@ -98,7 +98,7 @@
                                                         <div class="row mb-3">
                                                             <label for="course_short_desc"
                                                                 class="col-sm-2 col-form-label">Short
-                                                                description</label>
+                                                                description <span class="text-danger">*</span> </label>
                                                             <div class="col-sm-10">
                                                                 <div class="form-group">
                                                                     <textarea class="form-control form-control-sm py-2 mb-2" id="course_short_desc" name="course_short_desc"></textarea>
@@ -120,7 +120,7 @@
 
                                                         <div class="row mb-3">
                                                             <label for="Description"
-                                                                class="col-sm-2 col-form-label">Description</label>
+                                                                class="col-sm-2 col-form-label">Description <span class="text-danger">*</span></label>
                                                             <div class="col-sm-10">
                                                                 <textarea name="description" id="description" class="form-control py-3 m-1 p-3 your_summernote description" rows="4"
                                                                     cols="4"></textarea>
@@ -137,7 +137,7 @@
                                                         <div class="row mb-3">
                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">
 
-                                                                Category</label>
+                                                                Category <span class="text-danger">*</span></label>
                                                             <div class="col-sm-10">
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap">
@@ -159,7 +159,7 @@
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">
-                                                                Level</label>
+                                                                Level <span class="text-danger">*</span></label>
                                                             <div class="col-sm-10">
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap">
@@ -181,7 +181,7 @@
                                                         <div class="row mb-3">
                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">
                                                                 Language
-                                                                Made in</label>
+                                                                Made in </label>
                                                             <div class="col-sm-10">
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap">
@@ -201,7 +201,7 @@
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="inputEmail3" class="col-sm-2 col-form-label">
-                                                                Create as a</label>
+                                                                Create as a <span class="text-danger">*</span></label>
                                                             <div class="col-sm-10">
                                                                 <div class="form-group">
                                                                     <div class="form-control-wrap">
@@ -252,7 +252,7 @@
                                                        
                                                         <div class="row mb-3">
                                                             <label for="course-title" class="col-sm-2 col-form-label">Course
-                                                                Duration </label>
+                                                                Duration <span class="text-danger">*</span></label>
                                                             <div class="col-sm-10">
                                                                 <input type="text" class="form-control" id="duration"
                                                                     name="duration" placeholder="course duration">
@@ -260,7 +260,7 @@
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="course-title" class="col-sm-2 col-form-label">Course
-                                                                Enroll Date </label>
+                                                                Enroll Date <span class="text-danger">*</span></label>
                                                             <div class="col-sm-10">
                                                                 <input type="date" class="form-control" id="enroll_date" name="enroll_date" placeholder="course schedules">
                                                             </div>
@@ -287,7 +287,7 @@
                                                                 <div class="row mb-3">
                                                                     <label for="coursePrice"
                                                                         class="col-sm-2 col-form-label">Course
-                                                                        Price</label>
+                                                                        Price <span class="text-danger">*</span></label>
                                                                     <div class="col-sm-10">
                                                                         <div class="form-group">
                                                                             <input type="number"
@@ -304,7 +304,7 @@
                                                                         Price (Bangla)</label>
                                                                     <div class="col-sm-10">
                                                                         <div class="form-group">
-                                                                            <input type="number"
+                                                                            <input type="text"
                                                                                 class="form-control form-control-sm"
                                                                                 placeholder="Enter course price banlga"
                                                                                 id="price_bn" name="price_bn">
@@ -337,7 +337,7 @@
                                                                 <div class="row mb-3">
                                                                     <label for="Expiry period"
                                                                         class="col-sm-2 col-form-label">Expiry period
-                                                                    </label>
+                                                                    </label> 
                                                                     <div class="col-sm-10">
                                                                         <div class="form-group">
                                                                             <div class="form-control-wrap">
@@ -371,10 +371,7 @@
                                                                                     </li>
                                                                                 </ul>
                                                                             </div>
-                                                                           
                                                                         </div>
-    
-    
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -389,8 +386,8 @@
                                                             <div class="row mb-3 ">
                                                                 <label for="faq_question"
                                                                     class="col-sm-2 col-form-label ">Course
-                                                                    FAQ
-                                                                </label>
+                                                                    FAQ <span class="text-danger">*</span>
+                                                                </label> 
                                                                 <div class="col-sm-8">
                                                                     <div class="form-group">
                                                                         <input type="text" class="form-control"
@@ -427,8 +424,8 @@
 
                                                             <div class="row mb-3">
                                                                 <label for="requirement"
-                                                                    class="col-sm-2 col-form-label">Requirments
-                                                                </label>
+                                                                    class="col-sm-2 col-form-label">Requirments <span class="text-danger">*</span>
+                                                                </label> 
                                                                 <div class="col-sm-8">
                                                                     <div class="form-group">
                                                                         <input type="text" class="form-control"
@@ -508,7 +505,7 @@
                                                         <div class="input_fields_wrap">
                                                             <!-- Course thumbnail -->
                                                             <div class="row mb-3">
-                                                                <label class="col-sm-2 col-form-label">Course Thumbnail</label>
+                                                                <label class="col-sm-2 col-form-label">Course Thumbnail <span class="text-danger">*</span></label>
                                                                 <div class="col-sm-10">
                                                                     <div class="image-group">
                                                                         <div class="gallery card">
@@ -534,7 +531,7 @@
                                             <div class="tab-pane" id="tabItem9">
                                                 <div class="row mb-3">
                                                     <label for="coursePrice"class="col-sm-2 col-form-label">Meta
-                                                        keywords</label>
+                                                        keywords  <span class="text-danger">*</span></label>
                                                     <div class="col-sm-10">
                                                         <div class="form-group">
                                                             <input type="text" class="form-control form-control-sm"
@@ -545,7 +542,7 @@
                                                 </div>
                                                 <div class="row mb-3">
                                                     <label for="coursePrice"class="col-sm-2 col-form-label">Meta
-                                                        description</label>
+                                                        description <span class="text-danger">*</span></label> 
                                                     <div class="col-sm-10">
                                                         <div class="form-group">
                                                             <textarea class="form-control form-control-sm py-2 mb-2" id="meta_description" name="meta_description"></textarea>
