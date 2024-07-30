@@ -105,7 +105,7 @@
                     </div>
                 </section>
                 <div class="all_course_button">
-                    <a href="" class="btn btn-secondary">সব দেখুন<i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ route('course.list') }}" class="btn btn-secondary">সব দেখুন<i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>

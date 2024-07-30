@@ -12,226 +12,80 @@
                         <span>আমাদের কোর্সসমুহ <i class="fas fa-book"></i></span>
                     </div>
                     <div class="row all_courses_category">
-                        <div class="col-md-3">
-                            <div class="card category_card">
-                                <div class="card-body category_body d-flex ">
-                                    <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-laptop"></i></a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>Web & App Development</h6>
-                                        <p>• ২৯ কোর্স • ৫ ওয়ার্কশপ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card category_card ">
-                                <div class="card-body category_body d-flex ">
-                                    <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-bell"></i></a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>Product Management & Design</h6>
-                                        <p>• ১২ কোর্স • ৩ ওয়ার্কশপ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card category_card">
-                                <div class="card-body category_body d-flex ">
-                                    <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-briefcase"></i></a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>Business & Marketing</h6>
-                                        <p>• ৭ কোর্স</p>
+                        
+                        @if ($categories->isNotEmpty())
+                        @foreach ($categories as $category)
+                            <div class="col-md-3">
+                                <div class="card category_card">
+                                    <div class="card-body category_body d-flex">
+                                        <div class="category_icon">
+                                            <a class="laptop pr-1" href="">
+                                                @if (isset($category))
+                                                    <img src="{{ asset('uploaded_files/category/' . $category->cat_icon) }}"
+                                                        height="40" alt="" />
+                                                @else
+                                                    <img src="{{ asset('/') }}frontend/assets/images/application-development.png"
+                                                        height="40" alt="" />
+                                                @endif
+                                            </a>
+                                        </div>
+                                        <div class="category_name">
+                                            <h6>{{ $category->category_name ?? '' }}</h6>
+                                            <p class="pl-1"> {{ $category->courses->count() ?? '' }} কোর্স </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card category_card">
-                                <div class="card-body category_body d-flex ">
-                                    <div class="category_icon">
-                                        <a class="laptop" href=""><i class="fas fa-server"></i></a>
-                                    </div>
-                                    <div class="category_name">
-                                        <h6>Data Engineering</h6>
-                                        <p>• ৬ কোর্স • ১ ওয়ার্কশপ</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                    @endif
+
                     </div>
                 </section>
                 <section class="courses">
                     <div class="row">
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
+                        @if ($courses->isNotEmpty())
+                        @foreach ($courses as $course)
+                            <div class="col-md-3">
+                                <div class="card course_card">
+                                    <div class="card-header">
+                                      
+                                            @if ($course->media->isNotEmpty())
+                                                @foreach ($course->media as $media)
+                                                    <img src="{{ asset('uploaded_files/course_thumbnails/' . $media->course_thumbnail) }}"
+                                                        class="card-img-top" alt="...">
+                                                @endforeach
+                                            @else
+                                                <img src="{{ asset('frontend/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg') }}"
+                                                    class="card-img-top" alt="...">
+                                            @endif
+                                            @if ($course->media->isNotEmpty())
+                                            @foreach ($course->batch as $batch)
+                                        <div class="course_btn">
+                                            <a href="">{{ $batch->batch_no ?? '' }}</a>
+                                            <a href=""><i class="fab fa-mendeley"></i>{{ $batch->total_seat ?? '' }} সিট বাকি</a>
+                                          
+                                            
+                                            <a href="" class="countdown" data-start-date="{{ $batch->class_start }}">
+                                                <i class="fas fa-clock"></i>
+                                                <span class="days-left"></span> দিন বাকি
+                                            </a>
+                                        </div>
+                                        @endforeach
+                                        @endif
                                     </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
+                                    <div class="card-body course_text">
+                                        <h5 class="card-title">{{ $course->course_title ?? '' }}</h5>
+                                        <a href="{{ route('course.details',$course->slug) }}" class="btn btn-secondary">বিস্তারিত দেখি<i
+                                                class="fas fa-arrow-right"></i></a>
                                     </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                                    </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                                    </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                                    </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                                    </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                                    </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                                    </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card course_card" style="width: 18rem;">
-                                <div class="card-header">
-                                    <div class="course_img">
-                                        <img src="{{ asset('frontend') }}/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg"
-                                            class="card-img-top" alt="...">
-                                    </div>
-                                    <div class="course_btn">
-                                        <a href="">ব্যাচ ২</a>
-                                        <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                        <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                                    </div>
-                                </div>
-                                <div class="card-body course_text">
-                                    <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                                    <a href="#" class="btn btn-secondary">বিস্তারিত দেখি<i
-                                            class="fas fa-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                    @endif
                     </div>
                 </section>
                 <div class="all_course_button">
-                    <a href="" class="btn btn-secondary">আরও দেখুন<i class="fas fa-arrow-right"></i></a>
+                    <a href="{{ route('course.list') }}" class="btn btn-secondary">আরও দেখুন<i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </section>

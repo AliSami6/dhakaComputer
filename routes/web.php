@@ -13,7 +13,6 @@ use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\QuizController;
 use App\Http\Controllers\Backend\BatchController;
 use App\Http\Controllers\Backend\AdminsController;
-use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CounterController;
@@ -28,6 +27,8 @@ use App\Http\Controllers\Backend\WhyChooseController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\Backend\EnrollmentController;
 use App\Http\Controllers\Backend\InstructorController;
+use App\Http\Controllers\Backend\BlogFeatureController;
+use App\Http\Controllers\Backend\FeatureBlogController;
 use App\Http\Controllers\Backend\LiveCourseContentController;
 
 /*
@@ -219,19 +220,19 @@ Route::prefix('admin')->group(function () {
         // ------------------------------------------- End Student -------------------------------------------------------------------//
 
         // ----------------------------------------- Coupon -------------------------------------------------------------------------//
-        Route::controller(CouponController::class)->group(function () {
-            Route::get('/coupons', 'couponList')->name('coupons.courses');
-            Route::get('/create-coupons', 'CreateCopons')->name('create.coupons');
-        });
+        // Route::controller(BlogFeatureController::class)->group(function () {
+        //     Route::get('/coupons', 'couponList')->name('coupons.courses');
+        //     Route::get('/create-coupons', 'CreateCopons')->name('create.coupons');
+        // });
 
         // ------------------------------------------- End Coupon -------------------------------------------------------------------//
         Route::controller(SliderController::class)->group(function () {
             Route::get('/slider/create', 'create')->name('slider.create');
             Route::post('/slider/store', 'store')->name('slider.save');
         });
-        Route::controller(WhyChooseController::class)->group(function () {
-            Route::get('/choose_us/create', 'create')->name('chooseus.create');
-            Route::post('/choose_us/store', 'store')->name('chooseus.save');
+        Route::controller(FeatureBlogController::class)->group(function () {
+            Route::get('/blog_feature/create', 'create')->name('blog.feature.create');
+            Route::post('/blog_feature/store', 'store')->name('blog.feature.save');
         });
         Route::controller(BlogController::class)->group(function () {
             Route::get('/blog/list', 'index')->name('blog.index');

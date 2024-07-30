@@ -178,10 +178,9 @@ class HomeController extends Controller
     }
     public function coursesAll()
     {
-        $categories = Category::get();
-        $instructors = Instructor::get();
-        $courses = Course::with('categories',  'meta',  'instructors.instructor')->latest('id')->take(4)->get();
-        return view('frontend.pages.course_grid');
+        $categories = Category::oldest('id')->get();
+        $courses =  Course::with('batch','media')->get();
+        return view('frontend.pages.course_grid',['categories'=>$categories,'courses'=>$courses]);
     }
     public function autocomplete(Request $request)
     {
