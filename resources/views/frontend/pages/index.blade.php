@@ -95,7 +95,7 @@
                                         </div>
                                         <div class="card-body course_text">
                                             <h5 class="card-title">{{ $course->course_title ?? '' }}</h5>
-                                            <a href="course-details.html" class="btn btn-secondary">বিস্তারিত দেখি<i
+                                            <a href="{{ route('course.details',$course->slug) }}" class="btn btn-secondary">বিস্তারিত দেখি<i
                                                     class="fas fa-arrow-right"></i></a>
                                         </div>
                                     </div>

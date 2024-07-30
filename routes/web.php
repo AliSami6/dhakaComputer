@@ -74,9 +74,10 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/course_autocomplete', 'autocomplete')->name('autocomplete');
     Route::get('/course_filter', 'coursesFilter')->name('course.filter');
     Route::get('/course_list','coursesAll')->name('course.list');
+    Route::get('/course_details/{keyword}','CourseDetails')->name('course.details');
     Route::get('/blog_list','BlogList')->name('all.blog');
- });
-
+});
+ 
 
  Route::controller(UserLoginController::class)->group(function () {
     Route::get('/register', 'register')->name('signUp');
@@ -97,7 +98,7 @@ Route::middleware(['auth.custom'])->group(function () {
     Route::post('/update_student_profile/{id}', [HomeController::class, 'UpdateStudentProfile'])->name('update.my_profile');
 });
 
-Route::get('/course_details/{keyword}', [HomeController::class, 'CourseDetails'])->name('course.details');
+
 Route::post('/order', [OrderController::class, 'store'])->name('order.save');
 
 Route::get('/instructor_profile/{id}', [HomeController::class, 'InstructorProfile'])->name('ins.profile');

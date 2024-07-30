@@ -166,24 +166,14 @@ class HomeController extends Controller
 
     public function CourseDetails($keyword)
     {
-        $course = Course::with('categories', 'prices', 'meta', 'instructors', 'sections.lessons', 'studentEnrollments.student')
-            ->whereHas('meta', function ($query) use ($keyword) {
-                $query->where('keyword', $keyword);
-            })
+        $course = Course::with('categories','instructors','sections.lessons','studentEnrollments.student','batch','faqs','requirements','media')
+            ->where('slug',$keyword)
             ->first();
-
-        // If you need to count lessons for each section and sum total lessons
-        $totalLessons = 0;
-        $sectionsWithLessonCount = $course->sections->map(function ($section) use (&$totalLessons) {
-            $section->lesson_count = $section->lessons->count();
-            $totalLessons += $section->lesson_count;
-            return $section;
-        });
-
+            $live_content = Training::oldest('id')->get();
+      
         return view('frontend.pages.course_details', [
             'course' => $course,
-            'sectionsWithLessonCount' => $sectionsWithLessonCount,
-            'totalLessons' => $totalLessons,
+            'live_content' => $live_content
         ]);
     }
     public function coursesAll()

@@ -3,196 +3,282 @@
 @push('styles')
 @endpush
 @section('content')
-    <main>
-        <!-- breadcrumb-area -->
-        <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay"
-            data-background="{{ asset('/') }}frontend/assets/img/banner/banner-bg-3.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-12">
-                        <div class="breadcrumb__content p-relative z-index-1">
-                            <h3 class="breadcrumb__title mb-20">Course Details</h3>
-                            <div class="breadcrumb__list">
-                                <span><a href="index.html">Home</a></span>
-                                <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                                <span><a href="course-list.html">Courses</a></span>
-                                <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                                <span class="sub-page-black">Course Details</span>
-                            </div>
-                        </div>
+
+    <section id="course_details">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="course_details_title">
+                        <h4>{{ $course->course_title ?? '' }}</h4>
+                        <p>{!! $course->course_short_desc !!}
+                        </p>
                     </div>
-                </div>
-            </div>
-        </section>
-        <!-- breadcrumb-area-end -->
-
-        <!-- course-details-area -->
-        <section class="c-details-area pt-120 pb-50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-12">
-                        <div class="c-details-wrapper mr-25">
-                            
-                            <div class="course-details-content mb-45">
-                                <div class="tpcourse__category mb-15">
-                                    <ul class="tpcourse__price-list d-flex align-items-center">
-                                        <li><a class="c-color-green"
-                                                href="#">{{ $course->categories->category_name }}</a></li>
-                                    </ul>
-                                </div>
-                                <div class="tpcourse__ava-title mb-25">
-                                    <h4 class="c-details-title"><a href="#">{{ $course->course_title }}</a></h4>
-                                </div>
-                                <div class="tpcourse__meta course-details-list">
-                                    <ul class="d-flex align-items-center">
-                                        <li>
-                                            <div class="rating-gold d-flex align-items-center">
-                                                <p>4.7</p>
-                                                <i class="fi fi-ss-star"></i>
-                                                <i class="fi fi-ss-star"></i>
-                                                <i class="fi fi-ss-star"></i>
-                                                <i class="fi fi-ss-star"></i>
-                                                <i class="fi fi-rs-star"></i>
-                                                <span>(125)</span>
-                                            </div>
-                                        </li>
-                                        <li> <span>35 Classes</span></li>
-                                        <li><span>291 Students</span></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="c-details-about mb-40">
-                                <h5 class="tp-c-details-title mb-20">About This Course</h5>
-                                <p>{{ $course->course_short_desc }}.</p>
-
-                            </div>
-                    
-            
-                            <div class="row">
-                                @if ($course->instructors->isNotEmpty())
-                                @foreach ($course->instructors as $instructorCourse)
-                                <div class="col-lg-4 col-md-6 col-12">
-                                   <div class="tp-instruc-item">
-                                      <div class="tp-instructor text-center p-relative mb-40">
-                                         <div class="tp-instructor__thumb mb-25">
-                                            <img src="{{ asset('uploaded_files/Instructor/' . $instructorCourse->instructor->image) }}" alt="{{ $instructorCourse->instructor->first_name }}">
-                                         </div>
-                                         <div class="tp-instructor__content">
-                                           
-                                            <h4 class="tp-instructor__title tp-instructor__title-info p-relative mb-35 mt-5"><a >  {{ $instructorCourse->instructor->first_name .' '.$instructorCourse->instructor->last_name }}</a></h4>
-                                            <p class="card-text">{{ $instructorCourse->instructor->professions->first()->professions }}</p>
-                                           
-                                         </div>
-                                      </div>
-                                   </div>
-                                </div>
-                                @endforeach
-                                @endif
-                             </div>
-                        </div>
+                    <div class="course_details_payment">
+                        @if ($course->batch->isNotEmpty())
+                            @foreach ($course->batch as $batch)
+                                <a href="#" class="btn btn-warning">{{ $batch->batch_no }} এ ভর্তি হোন <i
+                                        class="fas fa-arrow-right"></i></a>
+                            @endforeach
+                        @else
+                            <a href="#" class="btn btn-warning">No batches available <i
+                                    class="fas fa-arrow-right"></i></a>
+                        @endif
+                        <span>৳ {{ $course->price }}</span>
                     </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="c-details-sidebar">
-                            @php
-                                $students = DB::table('students')
-                                    ->where('email', auth()->user()->email)
-                                    ->first();
-                                $studentCourse = DB::table('student_enrollments')
-                                    ->where('course_id', $course->id)
-                                    ->where('student_id', $students->id)
-                                    ->first();
-                            @endphp
-                            <div class="course-details-widget">
-                                <div class="cd-video-price mt-2">
-                                    @if ($studentCourse != null)
-                                        <div class="pricing-video text-center mb-15">
-                                            <h4 class="card-title p-1 text-success mt-4">You are enrolled this course </h4>
-                                        </div>
-                                    @else
-                                        <h3 class="pricing-video text-center mb-15">$ {{ $course->prices->price }}</h3>
-                                        <div class="cd-pricing-btn text-center mb-30">
-                                            <a class="tp-vp-btn" href="{{ route('add_to_cart', $course->id) }}">Add To
-                                                Cart</a>
-                                        </div>
-                                    @endif
-                                </div>
-                                <div class="cd-information mb-35">
-                                    <ul>
-                                        <li><i class="fa-light fa-calendars"></i> <label>Lesson</label>
-                                            <span>{{ $totalLessons }}</span>
-                                        </li>
-                                        <li><i class="fi fi-sr-stats"></i> <label>Skill Level</label>
-                                            <span>{{ $course->level }}</span>
-                                        </li>
-                                        <li><i class="fi fi-rr-comments"></i> <label>Language</label>
-                                            <span>{{ $course->language }}</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="c-details-social">
-                                    <h5 class="cd-social-title mb-25">Share Now:</h5>
-                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- course-details-area-end -->
 
-
-        <!-- counter-area -->
-        <section class="tp-counter-area theme-bg pt-90">
-            <div class="counter-b-border">
-                <div class="container">
                     <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="counter-item mb-70">
-                                <div class="counter-item__content counter-white-text">
-                                    <h4 class="counter-item__title counter-left-title"><span class="counter">276</span>K
-                                    </h4>
-                                    <p>Worldwide Students</p>
+                        @if ($course->batch->isNotEmpty())
+
+                            @foreach ($course->batch as $batch)
+                                <div class="col-md-3">
+                                    <div class="card course_details_b_card">
+                                        <div class="card-body course_details_b_text">
+                                            <span class="course_details_icon_text">
+                                                <i class="fas fa-wifi"></i>{{ $batch->total_seat ?? '' }} সিট বাকি
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="counter-item mb-70">
-                                <div class="counter-item__content counter-white-text">
-                                    <h4 class="counter-item__title counter-left-title"><span class="counter">23</span>+
-                                    </h4>
-                                    <p>Years Experience</p>
+                            @endforeach
+                        @else
+                            <span class="course_details_icon_text">
+                                </i>No seats
+                            </span>
+                        @endif
+                        @if ($course->batch->isNotEmpty())
+
+                            @foreach ($course->batch as $batch)
+                                <div class="col-md-3">
+                                    <div class="card course_details_b_card">
+                                        <div class="card-body course_details_b_text">
+                                            <span class="course_details_icon_text">
+                                                <i class="fas fa-wifi"></i>{{ $batch->total_class ?? '' }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="counter-item mb-70">
-                                <div class="counter-item__content counter-white-text">
-                                    <h4 class="counter-item__title counter-left-title"><span class="counter">735</span>+
-                                    </h4>
-                                    <p>Professional Courses</p>
+                            @endforeach
+                        @else
+                            <span class="course_details_icon_text">
+                                </i>No class
+                            </span>
+                        @endif
+                        @if ($course->batch->isNotEmpty())
+                            @foreach ($course->batch as $batch)
+                                <div class="col-md-3">
+                                    <div class="card course_details_b_card">
+                                        <div class="card-body course_details_b_text">
+                                            <span class="course_details_icon_text">
+                                                <i class="fas fa-wifi"></i>{{ $batch->batch_code ?? '' }}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="counter-item mb-70">
-                                <div class="counter-item__content counter-white-text">
-                                    <h4 class="counter-item__title counter-left-title"><span class="counter">4.7</span>K+
-                                    </h4>
-                                    <p>Beautiful Review</p>
+                            @endforeach
+                        @else
+                            <span class="course_details_icon_text">
+                                No bath code
+                            </span>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="course_details_b_img">
+                        @if($course->media->isNotEmpty())
+                       @foreach($course->media as $media)
+                        <img src="{{ asset('uploaded_files/course_thumbnails/' . $media->course_thumbnail)}}">
+                        @endforeach
+                        @else
+                        <img src="{{ asset('/') }}frontend/assets/images/2023-12-04T11-05-21.903Z-Flutter.jpg">
+                        @endif
+                    </div>
+                </div>
+                <div class="card course_details_b_l_card">
+                    <div class="card-body">
+                        <div class="row">
+                            @if ($course->batch->isNotEmpty())
+                                @php
+                                    $batch = $course->batch->first(); // Get the first batch
+                                @endphp
+                                <div class="col-md-3 course_details_b_l_card_body">
+                                    <div class="course_details_l_text">
+                                        <span>ব্যাচ শুরু</span>
+                                        <p>{{ date('j F Y', strtotime($batch->class_start)) ?? '' }}</p>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-md-3 course_details_b_l_card_body">
+                                    <div class="course_details_l_text">
+                                        <span><i class="fas fa-video"></i> ক্লাস শুরু হবে </span>
+                                        <p>{{ $batch->class_rutine }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 course_details_b_l_card_body">
+                                    <div class="course_details_l_text">
+                                        <span><i class="fas fa-video"></i>ক্লাসের সময় </span>
+                                        <p>{{ $batch->class_time }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 course_details_b_l_card_body">
+                                    <div class="course_details_l_text">
+                                        <span><i class="fas fa-video"></i> ক্লাস</span>
+                                        <p>{{ $batch->class_type }}</p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
+                
             </div>
-        </section>
-        <!-- counter-area-end -->
+        </div>
+    </section>
+    <section id="course_category_nav">
+        <div class="container">
+            <ul class="nav justify-content-center category_course_item sticky-lg-top">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#category_course_section">কোর্সে আপনি
+                        পাচ্ছেন</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#course_4_u">কোর্সটি যাদের জন্য</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#our_instructor">ইন্সট্রাক্টর</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#course_details_faq">FAQ</a>
+                </li>
+            </ul>
+            <section id="category_course_section">
+                <div class="category_course_title">
+                    <h4>কোর্সে আপনি পাচ্ছেন</h4>
+                </div>
+                <div class="card category_course_card">
+                    <div class="card-body">
+                        <div class="row">
 
-    </main>
+                            @if ($live_content->isNotEmpty())
+                                @foreach ($live_content as $content)
+                                    <div class="col-md-4 category_home">
+                                        <div class="category_course_icon">
+                                            <a class="category_course_video" href="">
+                                                <img src="{{ asset('uploaded_files/training/' . $content->train_image) }}"
+                                                    height="50" alt="" />
+                                            </a>
+                                        </div>
+                                        <div class="category_course_name">
+                                            <h6>{{ $content->train_title ?? '' }}</h6>
+                                            <p>{!! $content->train_description !!}</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="course_4_u">
+                <div class="container">
+                    <div class="course_4_u_title">
+                        <h4>কোর্সটি আপনারই জন্য</h4>
+                    </div>
+                    <div class="course_4_u_description">
+                        <div class="row">
+                            @if ($course->requirements->isNotEmpty())
+                                @foreach ($course->requirements as $req)
+                                    <div class="col-md-4">
+                                        <div class="card course_4_u_card">
+                                            <div class="card-body course_4_u_text">
+                                                <span class="course_4_u_icon"> <i class="far fa-check-circle"></i>
+                                                    {{ $req->requirement ?? '' }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="our_instructor">
+                <div class="container">
+                    <div class="our_instructor_title">
+                        <h4>ইন্সট্রাক্টর</h4>
+                    </div>
+                    <div class="our_instructor_list">
+                        <div class="row">
+                            @if ($course->instructors->isNotEmpty())
+                                @foreach ($course->instructors as $instructorCourse)
+                                    <div class="col-md-4">
+                                        <div class="card mb-3" style="max-width: 540px;">
+                                            <div class="row g-0">
+                                                <div class="col-md-7">
+                                                    <div class="card-body our_instructors">
+                                                        <h5 class="card-title">
+                                                            {{ $instructorCourse->instructor->first_name . ' ' . $instructorCourse->instructor->last_name }}
+                                                        </h5>
+                                                        <p class="card-text">
+                                                            {{ $instructorCourse->instructor->designations->first()->designation }}
+                                                        </p>
+                                                        <a href="#" class="btn btn-info"><i
+                                                                class="far fa-check-circle"></i>
+                                                            {{ $instructorCourse->instructor->professions->first()->professions }}</a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 our_instructor_img">
+                                                    <img src="{{ asset('uploaded_files/Instructor/' . $instructorCourse->instructor->image) }}"
+                                                        class="img-fluid rounded-start"
+                                                        alt="{{ $instructorCourse->instructor->first_name }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="course_details_faq">
+                <div class="container">
+                    <div class="course_details_faq_title">
+                        <h4>প্রায়ই জিজ্ঞেস করা প্রশ্ন</h4>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            @if ($course->faqs->isNotEmpty())
+                                @foreach ($course->faqs as $key => $faq)
+                                    <div class="accordion accordion-flush" id="accordionFlush{{ $faq->course_id }}">
+                                        <div class="accordion-item faq_item">
+                                            <h2 class="accordion-header faq_header"
+                                                id="flush-heading{{ $faq->id }}">
+                                                <button class="accordion-button collapsed" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#flush-collapse{{ $faq->id }}"
+                                                    aria-expanded="false"
+                                                    aria-controls="flush-collapse{{ $faq->id }}">
+                                                    {{ $key + 1 }}. {{ $faq->faq_question }}
+                                                </button>
+                                            </h2>
+                                            <div id="flush-collapse{{ $faq->id }}"
+                                                class="accordion-collapse collapse"
+                                                aria-labelledby="flush-heading{{ $faq->id }}"
+                                                data-bs-parent="#accordionFlush{{ $faq->course_id }}">
+                                                <div class="accordion-body faq_text">{{ $faq->faq_answer }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
 @endsection
 @push('scripts')
 @endpush

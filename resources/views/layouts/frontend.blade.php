@@ -34,7 +34,7 @@
 
     <nav class="navbar navbar-expand-lg navbar_nav sticky-lg-top">
         <div class="container-fluid">
-            <a class="navbar-brand nav_img" href="index.html">
+            <a class="navbar-brand nav_img" href="{{ route('index') }}">
                 @if (isset($web_settings->logo))
                     <img src="{{ asset('uploaded_files/website/logo/' . $web_settings->logo) }}">
                 @else
