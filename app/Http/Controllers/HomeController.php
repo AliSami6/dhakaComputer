@@ -6,10 +6,12 @@ use App\Models\Blog;
 use App\Models\Page;
 use App\Models\Course;
 use App\Models\Enroll;
+use App\Models\Counter;
 use App\Models\Lession;
 use App\Models\Section;
 use App\Models\Student;
 use App\Models\Category;
+use App\Models\Training;
 use App\Models\Instructor;
 use Illuminate\Http\Request;
 use App\Models\InstructorCourse;
@@ -23,6 +25,8 @@ class HomeController extends Controller
     public function index()
     {
 
+        $live_content = Training::latest('id')->get();
+        $counter = Counter::latest('id')->get();
         $categories = Category::latest('id')->get();
         $blogs = Blog::latest('id')->get();
         $courses = Course::with('batch','media')->get();
@@ -30,7 +34,11 @@ class HomeController extends Controller
         $instructors = Instructor::where('status', 'Active')->get();
        $web_settings = DB::table('website_infos')->first();
       
-        return view('frontend.pages.index',['web_settings'=>$web_settings,'categories'=>$categories,'courses'=>$courses]);
+        return view('frontend.pages.index',['web_settings'=>$web_settings,
+        'categories'=>$categories,
+        'live_content'=>$live_content,
+        'counter'=>$counter,
+        'courses'=>$courses]);
     }
     public function aboutPage()
     {

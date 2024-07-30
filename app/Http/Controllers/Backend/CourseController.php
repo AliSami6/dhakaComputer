@@ -161,7 +161,7 @@ class CourseController extends Controller
             'duration' => $request->duration ?? 0,
             'enroll_date' => $request->enroll_date ?? 0,
         ];
-
+dd($courseData);
         // Create course
         $course = Course::create($courseData);
 

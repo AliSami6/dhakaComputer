@@ -242,66 +242,19 @@
             <div class="card live_course_card">
                 <div class="card-body">
                     <div class="row">
+                        @if($live_content->isNotEmpty())
+                        @foreach($live_content as $content)
                         <div class="col-md-4 live_home">
                             <div class="live_course_icon">
                                 <a class="live_course_video" href=""><i class="fas fa-play"></i></i></a>
                             </div>
                             <div class="live_course_name">
-                                <h6>ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সেস</h6>
-                                <p>জয়েন করুন গাইডলাইন সমৃদ্ধ ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সে, শুরু করুন আপনার ক্যারিয়ারের
-                                    জার্নি।</p>
+                                <h6>{{$content->train_title ?? ''}}</h6>
+                                <p>{!!$content->train_description !!}</p>
                             </div>
                         </div>
-                        <div class="col-md-4 live_home">
-                            <div class="live_course_icon">
-                                <a class="live_course_video" href=""><i class="fas fa-play"></i></i></a>
-                            </div>
-                            <div class="live_course_name">
-                                <h6>ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সেস</h6>
-                                <p>জয়েন করুন গাইডলাইন সমৃদ্ধ ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সে, শুরু করুন আপনার ক্যারিয়ারের
-                                    জার্নি।</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 live_home">
-                            <div class="live_course_icon">
-                                <a class="live_course_video" href=""><i class="fas fa-play"></i></i></a>
-                            </div>
-                            <div class="live_course_name">
-                                <h6>ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সেস</h6>
-                                <p>জয়েন করুন গাইডলাইন সমৃদ্ধ ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সে, শুরু করুন আপনার ক্যারিয়ারের
-                                    জার্নি।</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 live_home">
-                            <div class="live_course_icon">
-                                <a class="live_course_video" href=""><i class="fas fa-play"></i></i></a>
-                            </div>
-                            <div class="live_course_name">
-                                <h6>ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সেস</h6>
-                                <p>জয়েন করুন গাইডলাইন সমৃদ্ধ ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সে, শুরু করুন আপনার ক্যারিয়ারের
-                                    জার্নি।</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 live_home">
-                            <div class="live_course_icon">
-                                <a class="live_course_video" href=""><i class="fas fa-play"></i></i></a>
-                            </div>
-                            <div class="live_course_name">
-                                <h6>ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সেস</h6>
-                                <p>জয়েন করুন গাইডলাইন সমৃদ্ধ ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সে, শুরু করুন আপনার ক্যারিয়ারের
-                                    জার্নি।</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 live_home">
-                            <div class="live_course_icon">
-                                <a class="live_course_video" href=""><i class="fas fa-play"></i></i></a>
-                            </div>
-                            <div class="live_course_name">
-                                <h6>ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সেস</h6>
-                                <p>জয়েন করুন গাইডলাইন সমৃদ্ধ ইন্ডাস্ট্রি ফোকাসড লাইভ কোর্সে, শুরু করুন আপনার ক্যারিয়ারের
-                                    জার্নি।</p>
-                            </div>
-                        </div>
+                        @endforeach
+                       @endif
                     </div>
                 </div>
             </div>
@@ -312,46 +265,21 @@
             <div class="container">
                 <div class="course_count">
                     <div class="row">
+                        @if($counter->isNotEmpty())
+                        @foreach($counter as $count)
                         <div class="col-md-3">
                             <div class="card count_card">
-                                <div class="card-body count_body_1">
+                                <div class="card-body count_body_1" style="background:{{$count->count_color}}">
                                     <div class="count_list">
-                                        <h6 class="counter">৭০০+</h6>
-                                        <p>জব প্লেসমেন্ট</p>
+                                        <h6 class="counter">{{$count->count_number ?? ''}}+</h6>
+                                        <p>{{$count->count_title ?? ''}}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="card count_card">
-                                <div class="card-body count_body_2">
-                                    <div class="count_list">
-                                        <h6 class="counter">৭০০+</h6>
-                                        <p>জব প্লেসমেন্ট</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card count_card">
-                                <div class="card-body count_body_3">
-                                    <div class="count_list">
-                                        <h6 class="counter">৭০০+</h6>
-                                        <p>জব প্লেসমেন্ট</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card count_card">
-                                <div class="card-body count_body_4">
-                                    <div class="count_list">
-                                        <h6 class="counter">৭০০+</h6>
-                                        <p>জব প্লেসমেন্ট</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                        @endif
+                     
                     </div>
                 </div>
                 <div class="course_graduate">
