@@ -98,6 +98,24 @@
                                 </div>
                             @endforeach
                         @endif
+                             <div class="col-md-3">
+                        <div class="card course_card">
+                           <div class="card-header">
+                              <div class="course_img">
+                                 <img src="{{asset('/')}}frontend/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg" class="card-img-top" alt="...">
+                              </div>
+                              <div class="course_btn">
+                                 <a href="">ব্যাচ ২</a>
+                                 <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
+                                 <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
+                              </div>
+                           </div>
+                           <div class="card-body course_text">
+                              <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
+                              <a href="course-details.html" class="btn btn-secondary">বিস্তারিত দেখি<i class="fas fa-arrow-right"></i></a>
+                           </div>
+                        </div>
+                     </div>
                     </div>
                 </section>
                 <div class="all_course_button">
