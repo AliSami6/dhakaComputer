@@ -25,8 +25,8 @@ class HomeController extends Controller
     public function index()
     {
 
-        $live_content = Training::latest('id')->get();
-        $counter = Counter::latest('id')->get();
+        $live_content = Training::oldest('id')->get();
+        $counter = Counter::oldest('id')->get();
         $categories = Category::oldest('id')->get();
         $blogs = Blog::latest('id')->get();
         $courses = Course::with('batch','media')->get();

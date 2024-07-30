@@ -68,7 +68,7 @@
                                 <div class="col-md-3">
                                     <div class="card course_card">
                                         <div class="card-header">
-                                            @if (isset($course))
+                                          
                                                 @if ($course->media->isNotEmpty())
                                                     @foreach ($course->media as $media)
                                                         <img src="{{ asset('uploaded_files/course_thumbnails/' . $media->course_thumbnail) }}"
@@ -78,16 +78,20 @@
                                                     <img src="{{ asset('frontend/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg') }}"
                                                         class="card-img-top" alt="...">
                                                 @endif
-                                            @else
-                                                <img src="{{ asset('frontend/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg') }}"
-                                                    class="card-img-top" alt="...">
-                                            @endif
-
+                                                @if ($course->media->isNotEmpty())
+                                                @foreach ($course->batch as $batch)
                                             <div class="course_btn">
-                                                <a href="">ব্যাচ ২</a>
-                                                <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                                <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
+                                                <a href="">{{ $batch->batch_no ?? '' }}</a>
+                                                <a href=""><i class="fab fa-mendeley"></i>{{ $batch->total_seat ?? '' }} সিট বাকি</a>
+                                              
+                                                
+                                                <a href="" class="countdown" data-start-date="{{ $batch->class_start }}">
+                                                    <i class="fas fa-clock"></i>
+                                                    <span class="days-left"></span> দিন বাকি
+                                                </a>
                                             </div>
+                                            @endforeach
+                                            @endif
                                         </div>
                                         <div class="card-body course_text">
                                             <h5 class="card-title">{{ $course->course_title ?? '' }}</h5>
@@ -98,24 +102,6 @@
                                 </div>
                             @endforeach
                         @endif
-                             <div class="col-md-3">
-                        <div class="card course_card">
-                           <div class="card-header">
-                              <div class="course_img">
-                                 <img src="{{asset('/')}}frontend/assets/images/2024-06-05T12-44-58.450Z-Full-Stack-Web-Development-with-Python-and-Django-2.jpg" class="card-img-top" alt="...">
-                              </div>
-                              <div class="course_btn">
-                                 <a href="">ব্যাচ ২</a>
-                                 <a href=""><i class="fab fa-mendeley"></i>১০৮ সিট বাকি</a>
-                                 <a href=""><i class="fas fa-clock"></i>১৭ দিন বাকি</a>
-                              </div>
-                           </div>
-                           <div class="card-body course_text">
-                              <h5 class="card-title">Full Stack Web Development with Python, Django & React</h5>
-                              <a href="course-details.html" class="btn btn-secondary">বিস্তারিত দেখি<i class="fas fa-arrow-right"></i></a>
-                           </div>
-                        </div>
-                     </div>
                     </div>
                 </section>
                 <div class="all_course_button">
@@ -133,119 +119,30 @@
                         <p>নিচের অপশন গুলো থেকে আপনার গোল সিলেক্ট করে শেখা শুরু করুন</p>
                     </div>
                     <div class="row">
+                        @if ($categories->isNotEmpty())
+                        @foreach ($categories as $category)
                         <div class="col-lg-3 mb-4 col-md-3">
                             <div class="card carrier_card">
                                 <div class="card-body carrier_body ">
                                     <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i class="fas fa-laptop"></i></a>
+                                        <a class="carrier_laptop" href="">
+                                            <img src="{{ asset('uploaded_files/category/' . $category->cat_icon) }}"
+                                            height="50" alt="" />
+                                        </a>
                                     </div>
                                     <div class="carrier_name">
-                                        <h6>Web & App Development</h6>
+                                        <h6>{{ $category->category_name }}</h6>
                                         <ul class="carrier_text">
-                                            <li>২৯ কোর্স</li>
-                                            <li>৫ ওয়ার্কশপ</li>
+                                            <li>{{ $category->courses->count() ?? '' }} কোর্স</li>
+                                         
                                         </ul>
                                         <!-- <p>•  • </p> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 mb-4 col-md-3">
-                            <div class="card carrier_card">
-                                <div class="card-body carrier_body">
-                                    <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i class="fas fa-bell"></i></a>
-                                    </div>
-                                    <div class="carrier_name">
-                                        <h6>Product Management & Design</h6>
-                                        <ul class="carrier_text">
-                                            <li>২৯ কোর্স</li>
-                                            <li>৫ ওয়ার্কশপ</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-4 col-md-3">
-                            <div class="card carrier_card">
-                                <div class="card-body carrier_body ">
-                                    <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i class="fas fa-briefcase"></i></a>
-                                    </div>
-                                    <div class="carrier_name">
-                                        <h6>Business & Marketing</h6>
-                                        <ul class="carrier_text">
-                                            <li>২৯ কোর্স</li>
-                                            <li>৫ ওয়ার্কশপ</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-4 col-md-3">
-                            <div class="card carrier_card">
-                                <div class="card-body carrier_body">
-                                    <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i class="fas fa-server"></i></a>
-                                    </div>
-                                    <div class="carrier_name">
-                                        <h6>Data Engineering</h6>
-                                        <ul class="carrier_text">
-                                            <li>২৯ কোর্স</li>
-                                            <li>৫ ওয়ার্কশপ</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-4 col-md-3">
-                            <div class="card carrier_card">
-                                <div class="card-body carrier_body">
-                                    <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i class="fab fa-wpressr"></i></a>
-                                    </div>
-                                    <div class="carrier_name">
-                                        <h6>Creatives</h6>
-                                        <ul class="carrier_text">
-                                            <li>২৯ কোর্স</li>
-                                            <li>৫ ওয়ার্কশপ</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-4 col-md-3">
-                            <div class="card carrier_card">
-                                <div class="card-body carrier_body">
-                                    <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i class="fab fa-steam-symbol"></i></a>
-                                    </div>
-                                    <div class="carrier_name">
-                                        <h6>Blockchain Development</h6>
-                                        <ul class="carrier_text">
-                                            <li>২৯ কোর্স</li>
-                                            <li>৫ ওয়ার্কশপ</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 mb-4 col-md-3">
-                            <div class="card carrier_card">
-                                <div class="card-body carrier_body">
-                                    <div class="carrier_icon">
-                                        <a class="carrier_laptop" href=""><i class="fas fa-lock"></i></a>
-                                    </div>
-                                    <div class="carrier_name">
-                                        <h6>Cyber Security</h6>
-                                        <ul class="carrier_text">
-                                            <li>২৯ কোর্স</li>
-                                            <li>৫ ওয়ার্কশপ</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                     @endforeach
+                     @endif
                     </div>
                 </section>
             </div>
@@ -260,19 +157,22 @@
             <div class="card live_course_card">
                 <div class="card-body">
                     <div class="row">
-                        @if($live_content->isNotEmpty())
-                        @foreach($live_content as $content)
-                        <div class="col-md-4 live_home">
-                            <div class="live_course_icon">
-                                <a class="live_course_video" href=""><i class="fas fa-play"></i></i></a>
-                            </div>
-                            <div class="live_course_name">
-                                <h6>{{$content->train_title ?? ''}}</h6>
-                                <p>{!!$content->train_description !!}</p>
-                            </div>
-                        </div>
-                        @endforeach
-                       @endif
+                        @if ($live_content->isNotEmpty())
+                            @foreach ($live_content as $content)
+                                <div class="col-md-4 live_home">
+                                    <div class="live_course_icon">
+                                        <a class="live_course_video" href="">
+                                            <img src="{{ asset('uploaded_files/training/' . $content->train_image) }}"
+                                            height="50" alt="" />
+                                        </a>
+                                    </div>
+                                    <div class="live_course_name">
+                                        <h6>{{ $content->train_title ?? '' }}</h6>
+                                        <p>{!! $content->train_description !!}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -283,21 +183,21 @@
             <div class="container">
                 <div class="course_count">
                     <div class="row">
-                        @if($counter->isNotEmpty())
-                        @foreach($counter as $count)
-                        <div class="col-md-3">
-                            <div class="card count_card">
-                                <div class="card-body count_body_1" style="background:{{$count->count_color}}">
-                                    <div class="count_list">
-                                        <h6 class="counter">{{$count->count_number ?? ''}}+</h6>
-                                        <p>{{$count->count_title ?? ''}}</p>
+                        @if ($counter->isNotEmpty())
+                            @foreach ($counter as $count)
+                                <div class="col-md-3">
+                                    <div class="card count_card">
+                                        <div class="card-body count_body_1" style="background:{{ $count->count_color }}">
+                                            <div class="count_list">
+                                                <h6 class="counter">{{ $count->count_number ?? '' }}</h6>
+                                                <p>{{ $count->count_title ?? '' }}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
                         @endif
-                     
+
                     </div>
                 </div>
                 <div class="course_graduate">
@@ -484,4 +384,21 @@
     </div>
 @endsection
 @push('scripts')
+<script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+            const countdownElements = document.querySelectorAll('.countdown');
+
+            countdownElements.forEach(function (element) {
+                const startDate = new Date(element.getAttribute('data-start-date'));
+                const currentDate = new Date();
+                
+                // Calculate the difference in days
+                const diffInMilliseconds = startDate - currentDate;
+                const diffInDays = Math.ceil(diffInMilliseconds / (1000 * 60 * 60 * 24));
+
+                // Update the span with the calculated days
+                element.querySelector('.days-left').textContent = diffInDays;
+            });
+        });
+</script>
 @endpush

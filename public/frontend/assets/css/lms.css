@@ -337,9 +337,8 @@
 	margin-bottom: 5px;
 }
 
-.carrier_laptop i {
-	color: darkblue;
-	font-size: 35px;
+.carrier_laptop img {
+	width: 50px;
 }
 
 .carrier_name {
@@ -401,9 +400,8 @@
 	margin-bottom: 5px;
 }
 
-.live_course_video i {
-	color: #FF0000;
-	font-size: 35px;
+.live_course_video img {
+	width: 45px;
 }
 
 .live_course_name {

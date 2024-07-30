@@ -195,7 +195,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/add-batch', 'create')->name('create.batch');
             Route::post('/add_new_batch/save', 'store')->name('batch.save');
             Route::get('/edit_batch/{id}', 'edit')->name('edit.batch');
-            Route::post('/batch/update', 'update')->name('batch.update');
+            Route::post('/batch/update/{id}', 'update')->name('batch.update');
             Route::delete('/batch/delete/{id}', 'destroy')->name('batch.delete');
         });
 
