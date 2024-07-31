@@ -16,30 +16,18 @@
                             @csrf
                             <div class="mb-4">
                                 <div class="form-group">
-                                    <label for="phone_no" class="form-label form_label">Phone Number
+                                    <label for="contactNumber" class="form-label form_label">Phone Number
                                         <span>*</span></label>
-                                    <input type="text" class="form-control @error('phone_no') is-invalid @enderror"
-                                        id="phone_no" name="phone_no">
-                                    @error('phone_no')
+                                    <input type="text" class="form-control @error('contactNumber') is-invalid @enderror"
+                                        id="phone_no" name="contactNumber">
+                                    @error('contactNumber')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                             </div>
-                            <div class="mb-4">
-                                <div class="form-group">
-                                    <label for="password" class="form-label form_label">Password
-                                        <span>*</span></label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                        id="password" name="password">
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                           
                             <div class="form-group submit_btn mt-4">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </div>

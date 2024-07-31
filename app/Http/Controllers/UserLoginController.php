@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserLoginController extends Controller
 {
-     public function login()
+    public function login()
     {
         return view('frontend.authentication.login');
     }
@@ -18,27 +18,25 @@ class UserLoginController extends Controller
     {
         $request->validate(
             [
-                'phone_no' => ['required','min:11','numeric'],
-                'password' => ['required', 'string', 'min:8'],
+                'contactNumber' => ['required'],
             ],
             [
-                'phone_no.required' => 'Phone Number is required',
-                'password.required' => 'Password is required',
+                'contactNumber.required' => 'Phone Number is required',
             ],
         );
-
-        // Attempt to log the user in
-        if (Auth::attempt(['phone_no' => $request->phone_no, 'password' => $request->password])) {
+    
+        // Retrieve the user by contactNumber
+        $user = User::where('contactNumber', $request->contactNumber)->first();
+    
+        if ($user) {
+            // Manually log in the user
+            Auth::login($user);
             return redirect()->route('student.profile')->with('success', 'Login Successfully');
-        }else{
+        } else {
             return redirect()->route('signUp')->with('success', 'Complete Registration First');
         }
-
-        // If authentication fails, redirect back with an error message
-        return redirect()
-            ->back()
-            ->with(['error' => 'Invalid credentials provided.']);
     }
+    
     public function register()
     {
         return view('frontend.authentication.register');
@@ -48,33 +46,77 @@ class UserLoginController extends Controller
     {
         $request->validate(
             [
-                'first_name' => 'required',
-                'string',
-                'max:255',
-                'last_name' => 'required',
-                'string',
-                'max:255',
-                'phone_no' => 'required',
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'password' => ['required', 'string', 'min:8'],
+                'applicantName' => 'required|string|max:255',
+                'fatherName' => 'required|string|max:255',
+                'fatherOccupation' => 'required|string|max:255',
+                'motherName' => 'required|string|max:255',
+                'nationalId' => 'required|string|max:255',
+                'occupation' => 'required',
+                'education' => 'required',
+                'motherOccupation' => 'required|string|max:255',
+                'presentAddress' => 'required',
+                'permanentAddress' => 'required',
+                'contactNumber' => 'required',
+                'emailAddress' => 'required|string|email|unique:users',
+                'dob' => 'required|string',
+                'registrationNumber' => 'required|string|max:255',
+                'race' => 'required',
+                'gender' => 'required',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+                'courseDay' => 'required|integer|min:1',
+                'courseTime' => 'required|integer|min:1',
             ],
             [
-                'first_name.required' => 'First Name is required',
-                'last_name.required' => 'Last Name is required',
-                'phone_no.required' => 'Phone Number is required',
-                'email.required' => 'Email is required',
-                'password.required' => 'Password is required',
+                'applicantName.required' => 'Applicant Name is required',
+                'fatherName.required' => 'Father Name is required',
+                'fatherOccupation.required' => 'Father Occupation is required',
+                'motherName.required' => 'Mother Name is required',
+                'nationalId.required' => 'National ID is required',
+                'occupation.required' => 'Occupation is required',
+                'education.required' => 'Education is required',
+                'motherOccupation.required' => 'Mother Occupation is required',
+                'contactNumber.required' => 'Contact Number is required',
+                'contactNumber.unique' => 'Contact Number already exists',
+                'emailAddress.required' => 'Email Address is required',
+                'emailAddress.unique' => 'Email Address already exists',
+                'registrationNumber.required' => 'Registration Number is required',
+                'race.required' => 'Race is required',
+                'gender.required' => 'Gender is required',
+                'courseDay.required' => 'Course Day is required',
+                'courseTime.required' => 'Course Time is required',
             ],
         );
+        
+        if ($request->hasFile('image')) {
+          
+            $image = $this->image_upload($request->file('image'), 'uploaded_files/users/',90,80);
+          } 
+       
         User::create([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-            'phone_no' => $request->phone_no,
-            'password' => Hash::make($request->password),
+            'applicantName' => $request->applicantName,
+            'fatherName' => $request->fatherName,
+            'fatherOccupation' => $request->fatherOccupation,
+            'motherName' => $request->motherName,
+            'nationalId' => $request->nationalId,
+            'occupation' => $request->occupation,
+            'education' => $request->education,
+            'motherOccupation' => $request->motherOccupation,
+            'presentAddress' => $request->presentAddress,
+            'permanentAddress' => $request->permanentAddress,
+            'contactNumber' => $request->contactNumber,
+            'emailAddress' => $request->emailAddress,
+            'dob' => $request->dob,
+            'registrationNumber' => $request->registrationNumber,
+            'race' => $request->race,
+            'gender' => $request->gender,
+            'image' =>  $image,
+            'courseDay' => $request->courseDay,
+            'courseTime' => $request->courseTime,
         ]);
+
         return redirect()->route('sign_in')->with('success', 'Registration Successfully');
     }
+
     public function logoutData()
     {
         Auth::logout();

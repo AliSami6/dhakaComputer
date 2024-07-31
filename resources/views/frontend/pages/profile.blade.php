@@ -13,22 +13,53 @@
 @section('student_content')
 <main>
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Sidenav Light</h1>
-        <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-            <li class="breadcrumb-item active">Sidenav Light</li>
-        </ol>
-        <div class="card mb-4">
-            <div class="card-body">
-                This page is an example of using the light side navigation option. By appending the
-                <code>.sb-sidenav-light</code>
-                class to the
-                <code>.sb-sidenav</code>
-                class, the side navigation will take on a light color scheme. The
-                <code>.sb-sidenav-dark</code>
-                is also available for a darker option.
+        <h1 class="mt-4">আমার কোর্সসমূহ</h1>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="card mb-4" style="width: 18rem;">
+                    <img src="{{asset('/')}}frontend/assets/images/wb2.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
             </div>
+            <div class="col-lg-3">
+                <div class="card mb-4" style="width: 18rem;">
+                    <img src="{{asset('/')}}frontend/assets/images/wb1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card mb-4" style="width: 18rem;">
+                    <img src="{{asset('/')}}frontend/assets/images/wb1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card mb-4" style="width: 18rem;">
+                    <img src="{{asset('/')}}frontend/assets/images/wb1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+            </div>
+            
         </div>
+       
+        
+   
     </div>
 </main>
 @endsection
