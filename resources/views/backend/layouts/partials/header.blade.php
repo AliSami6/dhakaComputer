@@ -1,4 +1,7 @@
 <!-- header area start -->
+  @php
+        $web_settings = DB::table('website_infos')->first();
+    @endphp
 <div class="nk-header nk-header-fixed is-light">
     <div class="container-fluid">
         <div class="nk-header-wrap">
@@ -6,9 +9,9 @@
                 <a href="#" class="nk-nav-toggle nk-quick-nav-icon" data-target="sidebarMenu"><em class="icon ni ni-menu"></em></a>
             </div>
             <div class="nk-header-brand d-xl-none">
-                <a href="html/index.html" class="logo-link">
-                    <img class="logo-light logo-img" src="{{ asset('/') }}backend/assets/images/logo.png" srcset="{{ asset('/') }}backend/assets/images/logo2x.png 2x" alt="logo">
-                    <img class="logo-dark logo-img" src="{{ asset('/') }}backend/assets/images/logo-dark.png" srcset="{{ asset('/') }}backend/assets/images/logo-dark2x.png 2x" alt="logo-dark">
+                <a href="{{route('admin.dashboard')}}" class="logo-link">
+                    <img class="logo-light logo-img" src="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" srcset="{{asset('uploaded_files/website/logo/'.$web_settings->logo) }}" alt="logo">
+                    <img class="logo-dark logo-img" src="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" srcset="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" alt="logo-dark">
                 </a>
             </div><!-- .nk-header-brand -->
             <div class="nk-header-search ms-3 ms-xl-0">

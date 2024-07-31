@@ -2,14 +2,18 @@
  @php
      $usr = Auth::guard('admin')->user();
  @endphp
+
+   @php
+        $web_settings = DB::table('website_infos')->first();
+    @endphp
    <!-- sidebar @s -->
   <div class="nk-sidebar nk-sidebar-fixed is-light " data-content="sidebarMenu">
     <div class="nk-sidebar-element nk-sidebar-head">
         <div class="nk-sidebar-brand">
             <a href="html/index.html" class="logo-link nk-sidebar-logo">
-                <img class="logo-light logo-img" src="{{ asset('/') }}backend/assets/images/logo.png" srcset="{{ asset('/') }}backend/assets/images/logo2x.png 2x" alt="logo">
-                <img class="logo-dark logo-img" src="{{ asset('/') }}backend/assets/images/logo-dark.png" srcset="{{ asset('/') }}backend/assets/images/logo-dark2x.png 2x" alt="logo-dark">
-                <img class="logo-small logo-img logo-img-small" src="{{ asset('/') }}backend/assets/images/logo-small.png" srcset="{{ asset('/') }}backend/assets/images/logo-small2x.png 2x" alt="logo-small">
+                <img class="logo-light logo-img" src="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" srcset="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" alt="logo">
+                <img class="logo-dark logo-img" src="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" srcset="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" alt="logo-dark">
+                <img class="logo-small logo-img logo-img-small" src="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" srcset="{{ asset('uploaded_files/website/logo/'.$web_settings->logo) }}" alt="logo-small">
             </a>
         </div>
         <div class="nk-menu-trigger me-n2">
@@ -34,8 +38,7 @@
                             <span class="nk-menu-text">Admins</span>
                         </a>
                     </li>
-                   
-                      
+                                     
                     <li class="nk-menu-item has-sub">
                         <a href="{{ route('courseList') }}" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-book-fill"></em></span>
@@ -64,13 +67,16 @@
                             </li>
                           
                         </ul><!-- .nk-menu-sub -->
-                    </li><!-- .nk-menu-item -->
+                    </li>
+                    <!-- .nk-menu-item -->
+
                     <li class="nk-menu-item">
                         <a href="{{ route('students.all') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
                             <span class="nk-menu-text">Students</span>
                         </a>
-                    </li><!-- .nk-menu-item -->
+                    </li>
+                    <!-- .nk-menu-item -->
                     <li class="nk-menu-item has-sub">
                         <a href="#" class="nk-menu-link nk-menu-toggle">
                             <span class="nk-menu-icon"><em class="icon ni ni-property-add"></em></span>
@@ -95,6 +101,12 @@
                         <a href="{{ route('blog.feature.create') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-menu-circled"></em></span>
                             <span class="nk-menu-text">Blog Feature </span>
+                        </a>
+                    </li>
+                      <li class="nk-menu-item">
+                        <a href="{{ route('blog.category.index') }}" class="nk-menu-link">
+                            <span class="nk-menu-icon"><em class="icon ni ni-menu-circled"></em></span>
+                            <span class="nk-menu-text">Blog Caegory </span>
                         </a>
                     </li>
                      <li class="nk-menu-item">

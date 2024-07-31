@@ -7,23 +7,27 @@
 @endpush
 @section('content')
 
-      <section class="pb-5">
+    <section class="pb-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 mt-5">
                 <h2 class="blog-title">Blog Of The Day</h2>
                 <div class="line"></div>
                 <div class="blog_card mt-3 mb-3">
+                    @if(isset($blogFeature))
+                     <img src="{{ asset('uploaded_files/blog/feature/'.$blogFeature->blog_feature_banner_image) }}" class="card-img-top" alt="...">
+                    @else
                     <img src="{{ asset('frontend') }}/assets/images/Blog.png" class="card-img-top" alt="...">
+                    @endif
                     <div class="card-body">
-                      <h4 class="blog_card-title mt-3 mb-3">ডিজিটাল মার্কেটিং এর গুরুত্বপূর্ণ টিপস এবং ট্রিকস</h4>
-                      <p class="blog_card-text mb-3">ফেইসবুকে স্ক্রল করতে করতে আমরা প্রায়শই আমাদের আগ্রহের প্রোডাক্টগুলোর বিজ্ঞাপন দেখি। কখনো কি ভেবে দেখেছেন, আপনার পছন্দ অনুযায়ী কেন আপনাকে...</p>
-                      <p class="blog_card-text mb-3"><small class="text-body-secondary">12 March 2024</small></p>
+                      <h4 class="blog_card-title mt-3 mb-3">{{$blogFeature->blog_feature_banner_title ?? ''}}</h4>
+                      <p class="blog_card-text mb-3">{!! $blogFeature->blog_feature_banner_short_desc !!} </p>
+                      <p class="blog_card-text mb-3"><small class="text-body-secondary">{{date('j F y',strtotime($blogFeature->created_at))}}</small></p>
                     </div>
                   </div>
                   
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 mt-5">
                 <h2 class="blog-title">Featured Blogs</h2>
                 <div class="featured-blogs">
                     <ul class="blog-list">

@@ -9,17 +9,20 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\Backend\BlogController;
+
+
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\QuizController;
 use App\Http\Controllers\Backend\BatchController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\CourseController;
-use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\LessionController;
 use App\Http\Controllers\Backend\SectionController;
 use App\Http\Controllers\Backend\StudentController;
+use App\Http\Controllers\FeatureWithBlogController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ResourceController;
 use App\Http\Controllers\Backend\SettingsController;
@@ -76,9 +79,11 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/course_filter', 'coursesFilter')->name('course.filter');
     Route::get('/course_list','coursesAll')->name('course.list');
     Route::get('/course_details/{keyword}','CourseDetails')->name('course.details');
+   
+});
+Route::controller(FeatureWithBlogController::class)->group(function(){
     Route::get('/blog_list','BlogList')->name('all.blog');
 });
- 
 
  Route::controller(UserLoginController::class)->group(function () {
     Route::get('/register', 'register')->name('signUp');
@@ -226,9 +231,13 @@ Route::prefix('admin')->group(function () {
         // });
 
         // ------------------------------------------- End Coupon -------------------------------------------------------------------//
-        Route::controller(SliderController::class)->group(function () {
-            Route::get('/slider/create', 'create')->name('slider.create');
-            Route::post('/slider/store', 'store')->name('slider.save');
+        Route::controller(BlogCategoryController::class)->group(function () {
+            Route::get('/blog/category', 'index')->name('blog.category.index');
+            Route::get('/blog/category/create', 'create')->name('blog.category.create');
+            Route::post('/blog/category/store', 'store')->name('blog.category.save');
+            Route::get('/blog/category/edit/{id}', 'edit')->name('blog.category.edit');
+            Route::post('/blog/category/update/{id}', 'update')->name('blog.category.update');
+            Route::delete('/blog/category/delete/{id}', 'destroy')->name('blog.category.delete');
         });
         Route::controller(FeatureBlogController::class)->group(function () {
             Route::get('/blog_feature/create', 'create')->name('blog.feature.create');

@@ -19,7 +19,7 @@
                                 <div class="card category_card">
                                     <div class="card-body category_body d-flex">
                                         <div class="category_icon">
-                                            <a class="laptop pr-1" href="">
+                                            <a class="laptop pr-1" href="{{route('course.category_list',$category->id)}}" target="_blank">
                                                 @if (isset($category))
                                                     <img src="{{ asset('uploaded_files/category/' . $category->cat_icon) }}"
                                                         height="40" alt="" />
@@ -95,89 +95,22 @@
 @endsection
 @push('scripts')
     <script>
-        $(document).ready(function() {
-            function fetchCourses() {
-                let category = $('#category').val();
-                let selectedLevels = [];
-                let selectedCoursePrices = [];
-                let selectedInstructors = [];
+      
 
-                $('.levels:checked').each(function() {
-                    selectedLevels.push($(this).val());
-                });
+          document.addEventListener('DOMContentLoaded', function () {
+            const countdownElements = document.querySelectorAll('.countdown');
 
-                $('.one:checked').each(function() {
-                    selectedCoursePrices.push($(this).val());
-                });
+            countdownElements.forEach(function (element) {
+                const startDate = new Date(element.getAttribute('data-start-date'));
+                const currentDate = new Date();
+                
+                // Calculate the difference in days
+                const diffInMilliseconds = startDate - currentDate;
+                const diffInDays = Math.ceil(diffInMilliseconds / (1000 * 60 * 60 * 24));
 
-                $('.instructor:checked').each(function() {
-                    selectedInstructors.push($(this).val());
-                });
-
-                $.ajax({
-                    url: '/course_filter',
-                    method: 'GET',
-                    data: {
-                        category: category,
-                        level: selectedLevels,
-                        is_free: selectedCoursePrices,
-                        instructors: selectedInstructors
-                    },
-                    success: function(response) {
-                        $('.coursePriceOrFilterOrCategory').empty();
-                        if (response.courses.length) {
-                            response.courses.forEach(function(course) {
-                                let courseHtml = `
-                            <div class="tpcourse tp-list-course mb-40" id="CourseFilter">
-                                <div class="row g-0">
-                                    <div class="col-xl-4 course-thumb-width">
-                                        <div class="tpcourse__thumb p-relative w-img fix">
-                                            <a href="/course_details/${course.meta.keyword}">
-                                                <img src="/uploaded_files/course_thumbnails/${course.media.course_thumbnail}" alt="course-thumb">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-8 course-text-width">
-                                        <div class="course-list-content">
-                                            <div class="tpcourse__category mb-10">
-                                                <ul class="tpcourse__price-list d-flex align-items-center">
-                                                    <li>
-                                                        <a class="c-color-green">${course.categories.category_name}</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="tpcourse__ava-title mb-15">
-                                                <h4 class="tpcourse__title tp-cours-title-color">
-                                                    <a href="/course_details/${course.meta.keyword}">${course.course_title}</a>
-                                                </h4>
-                                            </div>
-                                            <div class="tpcourse__rating d-flex align-items-center justify-content-between">
-                                                <div class="tpcourse__pricing">
-                                                    <h5 class="price-title">$${course.prices.price}</h5>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                                $('.coursePriceOrFilterOrCategory').append(courseHtml);
-                            });
-                        } else {
-                            $('.coursePriceOrFilterOrCategory').append(
-                                '<p>No courses found matching the criteria.</p>');
-                        }
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            }
-
-            $('#category').change(fetchCourses);
-            $('.levels').change(fetchCourses);
-            $('.one').change(fetchCourses);
-            $('.instructor').change(fetchCourses);
+                // Update the span with the calculated days
+                element.querySelector('.days-left').textContent = diffInDays;
+            });
         });
     </script>
 @endpush

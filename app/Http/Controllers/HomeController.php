@@ -72,10 +72,7 @@ class HomeController extends Controller
         $my_course = Course::with('sections', 'sections.lessons', 'sections.quizes', 'instructors.instructor')->where('id', $id)->first();
         return view('frontend.pages.course_metarials', compact('my_course'));
     }
-    public function BlogList()
-    {
-        return view('frontend.pages.blog');
-    }
+    
     public function CourseLesson($lesson)
     {
         $my_lesson = Lession::where('lession_title', $lesson)->first();
@@ -245,4 +242,5 @@ class HomeController extends Controller
     {
         return view('frontend.pages.thank');
     }
+    
 }

@@ -125,7 +125,7 @@
                             <div class="card carrier_card">
                                 <div class="card-body carrier_body ">
                                     <div class="carrier_icon">
-                                        <a class="carrier_laptop" href="">
+                                        <a class="carrier_laptop" href="{{route('course.category_list',$category->id)}}" target="_blank">
                                             <img src="{{ asset('uploaded_files/category/' . $category->cat_icon) }}"
                                             height="50" alt="" />
                                         </a>
@@ -133,8 +133,7 @@
                                     <div class="carrier_name">
                                         <h6>{{ $category->category_name }}</h6>
                                         <ul class="carrier_text">
-                                            <li>{{ $category->courses->count() ?? '' }} কোর্স</li>
-                                         
+                                            <li class="mb-3">{{ $category->courses->count() ?? '' }} কোর্স</li>
                                         </ul>
                                         <!-- <p>•  • </p> -->
                                     </div>
