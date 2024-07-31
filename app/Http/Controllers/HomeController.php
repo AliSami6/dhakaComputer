@@ -24,21 +24,16 @@ class HomeController extends Controller
 {
     public function index()
     {
-
         $live_content = Training::oldest('id')->get();
         $counter = Counter::oldest('id')->get();
         $categories = Category::oldest('id')->get();
         $blogs = Blog::latest('id')->get();
-        $courses = Course::with('batch','media')->get();
-      
+        $courses = Course::with('batch', 'media')->get();
+
         $instructors = Instructor::where('status', 'Active')->get();
-       $web_settings = DB::table('website_infos')->first();
-      
-        return view('frontend.pages.index',['web_settings'=>$web_settings,
-        'categories'=>$categories,
-        'live_content'=>$live_content,
-        'counter'=>$counter,
-        'courses'=>$courses]);
+        $web_settings = DB::table('website_infos')->first();
+
+        return view('frontend.pages.index', ['web_settings' => $web_settings, 'categories' => $categories, 'live_content' => $live_content, 'counter' => $counter, 'courses' => $courses]);
     }
     public function aboutPage()
     {
@@ -77,7 +72,8 @@ class HomeController extends Controller
         $my_course = Course::with('sections', 'sections.lessons', 'sections.quizes', 'instructors.instructor')->where('id', $id)->first();
         return view('frontend.pages.course_metarials', compact('my_course'));
     }
-    public function BlogList(){
+    public function BlogList()
+    {
         return view('frontend.pages.blog');
     }
     public function CourseLesson($lesson)
@@ -166,21 +162,19 @@ class HomeController extends Controller
 
     public function CourseDetails($keyword)
     {
-        $course = Course::with('categories','instructors','sections.lessons','studentEnrollments.student','batch','faqs','requirements','media')
-            ->where('slug',$keyword)
-            ->first();
-            $live_content = Training::oldest('id')->get();
-      
+        $course = Course::with('categories', 'instructors', 'sections.lessons', 'studentEnrollments.student', 'batch', 'faqs', 'requirements', 'media')->where('slug', $keyword)->first();
+        $live_content = Training::oldest('id')->get();
+
         return view('frontend.pages.course_details', [
             'course' => $course,
-            'live_content' => $live_content
+            'live_content' => $live_content,
         ]);
     }
     public function coursesAll()
     {
         $categories = Category::oldest('id')->get();
-        $courses =  Course::with('batch','media')->get();
-        return view('frontend.pages.course_grid',['categories'=>$categories,'courses'=>$courses]);
+        $courses = Course::with('batch', 'media')->get();
+        return view('frontend.pages.course_grid', ['categories' => $categories, 'courses' => $courses]);
     }
     public function autocomplete(Request $request)
     {
@@ -207,15 +201,16 @@ class HomeController extends Controller
 
     public function CourseCategory($id)
     {
-        $categories = Category::get();
-        $instructors = Instructor::get();
-        $courses = Course::with('categories', 'prices', 'media', 'instructors.instructor')->where('category_id', $id)->get();
-        return view('frontend.pages.course_grid', [
+        $categories = Category::with('courses')->get();
+        $courses = Course::where('category_id', $id)->get();
+
+        return view('frontend.pages.course_cat', [
             'categories' => $categories,
-            'instructors' => $instructors,
             'courses' => $courses,
+            'currentCategory' => Category::find($id),
         ]);
     }
+
     public function coursesFilter(Request $request)
     {
         $query = Course::query();
