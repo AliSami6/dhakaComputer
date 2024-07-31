@@ -238,9 +238,9 @@ class HomeController extends Controller
             'courses' => $courses,
         ]);
     }
-    public function ThankYouPage()
+    public function studentProfiles()
     {
-        return view('frontend.pages.thank');
+        return view('frontend.pages.profile');
     }
     
 }

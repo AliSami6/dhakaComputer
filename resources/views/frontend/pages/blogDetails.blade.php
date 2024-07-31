@@ -63,34 +63,34 @@
         <div class="line"></div>
         <div class="row">
             <div class="col lg-12">
-                <div class="Social_icon pt-3">
-                    <ul>
-                        <li>
-                            <a href="">
-                                <i class="fa-brands fa-facebook"></i>
+                <div class="Social_icon pt-3 mb-3">
+                    <ul class="list-group list-group-horizontal" style="list-style: none;">
+                        <li class="mr-1">
+                            <a href="" class="p-2">
+                                <i class="fa-brands fa-facebook fs-2 "></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="">
-                                <i class="fa-brands fa-linkedin"></i>
+                        <li class="mr-1">
+                            <a href="" class="p-2">
+                                <i class="fa-brands fa-linkedin fs-2 "></i>
 
                             </a>
                         </li>
-                        <li>
-                            <a href="">
-                                <i class="fa-brands fa-x-twitter"></i>
+                        <li class="mr-1">
+                            <a href="" class="p-2">
+                                <i class="fa-brands fa-x-twitter fs-2"></i>
 
                             </a>
                         </li>
-                        <li>
+                        <li class="mr-1" class="p-2">
                             <a href="">
-                                <i class="fa-regular fa-message"></i>
+                                <i class="fa-regular fa-message fs-2"></i>
 
                             </a>
                         </li>
 
                     </ul>
-
+                  
                 </div>
             </div>
         </div>

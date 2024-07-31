@@ -1,167 +1,238 @@
 @extends('layouts.frontend')
 @section('title', 'Registration')
 @push('styles')
-<style>
-.basic-login {
-    background-color: #f8f9fa; /* Light background color */
-    padding: 50px; /* Padding for inner content */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-}
-
-.or-divide {
-    font-weight: bold; /* Bold text */
-    color: #333; /* Dark text color */
-    margin-top: 10px; /* Adjust spacing */
-}
-
-.or-divide span {
-    padding: 0 10px; /* Add padding around the 'or' text */
-}
-
-.form-control {
-    width: 100%;
-    height: 50px;
-    background-color: var(--tp-grey-1); /* Light grey background */
-    border: 1px solid var(--tp-grey-1); /* Light grey border */
-    padding: 0 20px; /* Padding inside input fields */
-    border-radius: 25px; /* Rounded corners */
-    margin-bottom: 15px; /* Adjust space between inputs */
-}
-.btn-primary {
-    background-color: #ff6652; /* Primary button color */
-    border-color: #ff6652; /* Primary button border color */
-    color: #fff; /* Button text color */
-}
-
-.btn-outline-primary {
-    color: #ff6652; /* Primary button text color */
-    border-color: #ff6652; /* Primary button border color */
-}
-
-.btn-primary:hover,
-.btn-outline-primary:hover {
-    opacity: 0.8; /* Reduce opacity on hover for visual feedback */
-    color: #ff6652; /* Hover state text color */
-    border-color: #ff6652; /* Hover state border color */
-}
-
-
-</style>
+    <style>
+        
+    </style>
 @endpush
 @section('content')
-    <main>
 
-        <!-- breadcrumb-area -->
-        <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay"
-            data-background="{{ asset('/') }}frontend/assets/img/banner/banner-bg-3.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-12">
-                        <div class="breadcrumb__content p-relative z-index-1">
-                            <h3 class="breadcrumb__title mb-20">Register</h3>
-                            <div class="breadcrumb__list">
-                                <span><a href="{{ route('index') }}">Home</a></span>
-                                <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                                <span><a href="#">Pages</a></span>
-                                <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                                <span class="sub-page-black">Register</span>
+    <div class="container mt-5 mb-5">
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="registration_from text-center text-danger">Registration Form 55555555</h4>
+                        <form method="POST" action="{{ route('register.save') }}">
+                            @csrf
+                            <div class="mb-3">
+
+
+                                <div class="form-group">
+                                    <label for="applicantName" class="form-label form_label">Applicant's Name
+                                        <span>*</span></label>
+                                    <input type="text" class="form-control @error('applicantName') is-invalid @enderror"
+                                        id="applicantName" name="applicantName">
+                                    @error('applicantName')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="fatherName" class="form-label form_label">Father's Name:</label>
+                                        <input type="text" class="form-control" id="fatherName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="fatherOccupation" class="form-label form_label">Occupation:</label>
+                                        <input type="text" class="form-control" id="fatherOccupation" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="motherName" class="form-label form_label">Mother's Name:</label>
+                                        <input type="text" class="form-control" id="motherName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="motherOccupation" class="form-label form_label">Occupation:</label>
+                                        <input type="text" class="form-control" id="motherOccupation" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="presentAddress" class="form-label form_label"> Present Address:</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                                        value="option2">
+                                    <label class="form-check-label form_label_1" for="exampleRadios2">
+                                        Permanent Address Same as Present
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="permanentAddress" class="form-label form_label">Permanent Address:</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="contactNumber" class="form-label form_label">Contact No.:</label>
+                                        <input type="text" class="form-control" id="telephone" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="emailAddress" class="form-label form_label">Email:</label>
+                                        <input type="text" class="form-control" id="telephone" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="dob" class="form-label form_label">Date of birth:</label>
+                                        <input type="date" class="form-control" id="dob" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="registrationNumber" class="form-label form_label">Reg. No.:</label>
+                                        <input type="text" class="form-control" id="registrationNumber" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="race" class="form-label form_label">Race:</label>
+                                <div class="form-check form_check d-inline-block">
+                                    <input class="form-check-input" type="radio" name="race" id="exampleRadios2"
+                                        value="muslim">
+                                    <label class="form-check-label form_label_1" for="exampleRadios2">
+                                        Muslim
+                                    </label>
+                                </div>
+                                <div class="form-check form_check d-inline-block">
+                                    <input class="form-check-input" type="radio" name="race" id="exampleRadios2"
+                                        value="hindu">
+                                    <label class="form-check-label form_label_1" for="exampleRadios2">
+                                        Hindu
+                                    </label>
+                                </div>
+                                <div class="form-check form_check d-inline-block">
+                                    <input class="form-check-input" type="radio" name="race" id="exampleRadios2"
+                                        value="buddist">
+                                    <label class="form-check-label form_label_1" for="exampleRadios2">
+                                        Buddist
+                                    </label>
+                                </div>
+                                <div class="form-check form_check d-inline-block">
+                                    <input class="form-check-input" type="radio" name="race" id="exampleRadios2"
+                                        value="christan">
+                                    <label class="form-check-label form_label_1" for="exampleRadios2">
+                                        Christan
+                                    </label>
+                                </div>
+                                <!-- <input type="text" class="form-control" id="race" required> -->
+                            </div>
+
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="sex" class="form-label form_label">Gender</label>
+                                        <div class="form-check gender_check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gender" id="male"
+                                                value="Male">
+                                            <label class="form-check-label form_label_1" for="male">Male</label>
+                                        </div>
+                                        <div class="form-check gender_check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="gender" id="female"
+                                                value="Female">
+                                            <label class="form-check-label form_label_1" for="female">Female</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="occupation" class="form-label form_label">Occupation:</label>
+                                        <select class="form-select form_select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">Student</option>
+                                            <option value="2">Business</option>
+                                            <option value="3">Service</option>
+                                            <option value="4">Housewife</option>
+                                            <option value="5">Others</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="nationalId" class="form-label form_label">National ID No.:</label>
+                                        <input type="text" class="form-control" id="nationalId" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="education" class="form-label form_label">Education:</label>
+                                        <select class="form-select form_select" aria-label="Default select example">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">PEC/JSC</option>
+                                            <option value="2">SSC</option>
+                                            <option value="3">HSC</option>
+                                            <option value="4"></option>
+                                            <option value="5"></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="photo" class="form-label form_label">Photo:</label>
+                                        <label for="image" class="label_img">
+                                            <div class="img_output">
+                                                <img id="output" width="180" height="200" alt="Image Here"
+                                                    style="display:none;" />
+                                            </div>
+                                            <input type="file" name="image" id="image">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="courseDay" class="form-label form_label">Course Day:</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="saturday" value="Saturday">
+                                        <label class="form-check-label form_label_1" for="saturday">Saturday</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="monday" value="Monday">
+                                        <label class="form-check-label form_label_1" for="monday">Monday</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="courseTime" class="form-label form_label">Time:</label>
+                                <div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="courseTime" id="time1"
+                                            value="9:00 am - 11:00 am">
+                                        <label class="form-check-label form_label_1" for="time1">9:00 am - 11:00
+                                            am</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="courseTime" id="time2"
+                                            value="11:00 am - 1:00 pm">
+                                        <label class="form-check-label form_label_1" for="time2">11:00 am - 1:00
+                                            pm</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group submit_btn mt-4">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- breadcrumb-area-end -->
-
-        <!-- login-area-strat -->
-        <section class="login-area pt-70 pb-70">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="basic-login
-                         rounded-0 bg-blend-screen" style="padding: 50px; background-color: aliceblue;">
-                            <h3 class="text-center mb-4">Signup From Here</h3>
-                            <form method="POST" action="{{ route('register.save') }}">
-                                @csrf
-                    
-                                <div class="form-group">
-                                    <label for="first_name">First Name <span>*</span></label>
-                                    <input id="first_name" class="form-control @error('first_name') is-invalid @enderror"
-                                        type="text" name="first_name" placeholder="Enter First Name" />
-                                    @error('first_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="last_name">Last Name <span>*</span></label>
-                                    <input id="last_name" class="form-control @error('last_name') is-invalid @enderror"
-                                        type="text" name="last_name" placeholder="Enter Last Name" />
-                                    @error('last_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="email">Email Address <span>*</span></label>
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" placeholder="Email address..." />
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="phone_no">Phone Number <span>*</span></label>
-                                    <input id="phone_no" class="form-control @error('phone_no') is-invalid @enderror"
-                                        type="text" name="phone_no" placeholder="Enter Phone Number" />
-                                    @error('phone_no')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                    
-                                <div class="form-group">
-                                    <label for="password">Password <span>*</span></label>
-                                    <input id="password" type="password" name="password"
-                                        class="form-control @error('password') is-invalid @enderror"
-                                        placeholder="Enter password..." />
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                    
-                                <div class="form-group mt-4">
-                                    <button type="submit" class="btn tp-btn btn-block">Register Now</button>
-                                </div>
-                    
-                                <div class="or-divide text-center mb-3"><span>or</span></div>
-                    
-                                <div class="text-center">
-                                    <a href="{{ route('sign_in') }}" class="btn tp-btn btn-block">Login Now</a>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    
-                </div>
-            </section>
-            <!-- login-area-strat-end -->
-
-
-        </main>
-
-    @endsection
-    @push('scripts')
-        <script></script>
-    @endpush
+        </div>
+    </div>
+@endsection
+@push('scripts')
+    <script></script>
+@endpush

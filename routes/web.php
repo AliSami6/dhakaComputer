@@ -78,6 +78,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/course_autocomplete', 'autocomplete')->name('autocomplete');
     Route::get('/course_filter', 'coursesFilter')->name('course.filter');
     Route::get('/course_list','coursesAll')->name('course.list');
+    Route::get('/student','studentProfiles')->name('student.profile');
     Route::get('/course_details/{keyword}','CourseDetails')->name('course.details');
    
 });

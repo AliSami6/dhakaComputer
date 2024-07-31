@@ -29,7 +29,9 @@ class UserLoginController extends Controller
 
         // Attempt to log the user in
         if (Auth::attempt(['phone_no' => $request->phone_no, 'password' => $request->password])) {
-            return redirect()->route('my_profile')->with('success', 'Login Successfully');
+            return redirect()->route('student.profile')->with('success', 'Login Successfully');
+        }else{
+            return redirect()->route('signUp')->with('success', 'Complete Registration First');
         }
 
         // If authentication fails, redirect back with an error message

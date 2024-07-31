@@ -20,12 +20,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/lms.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/responsive.css">
-    <link rel="stylesheet" type="text/css"
-        href="{{ asset('frontend') }}/assets/plugins/font-awesome/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/plugins/font-awesome/css/fontawesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="{{ asset('/') }}backend/assets/css/toastr.min.css" />
     @stack('styles')
     <style></style>
 </head>
@@ -86,7 +85,7 @@
                             <li><a class="dropdown-item" href="#">Menu item</a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-primary" href="login.html">LOG IN <i class="fas fa-arrow-right"></i></a>
+                    <a class="btn btn-primary" href="{{ route('sign_in') }}">LOG IN <i class="fas fa-arrow-right"></i></a>
                     <!-- <a href="">SIGN UP</a> -->
                 </div>
             </div>
@@ -157,19 +156,19 @@
                     <ul class="page_link_part2">
                         <li class="page_link_part3">
                             <i class="fa-solid fa-envelope"></i>
-                            <a href="">support@ostad.app</a>
+                            <a href="">{{ $web_settings->site_email ?? '' }}</a>
                         </li>
                         <li class="page_link_part3">
                         <li class="page_link_part3">
                             <i class="fa-solid fa-location-dot"></i>
-                            <a href="">Ka-6/a, Navana Sylvania, Baridhara Road, Nadda, Gulshan-2, Dhaka-1212</a>
+                            <a href="">{!! $web_settings->address !!}</a>
                         </li>
                         </li>
                     </ul>
                 </div>
                 <div class="col-md-3">
                     <div class="page_link_part1">
-                        <span>COMPANY</span>
+                        <span>{{ $web_settings->site_name ?? '' }}</span>
                     </div>
                     <ul class="page_link_part2">
                         <li class="page_link_part3">
@@ -190,7 +189,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer_bottom border-top-1">
-                        <p class="text-center footer-bottom-text">2024 &#169;<span>All right reserved.</span></p>
+                        <p class="text-center footer-bottom-text">{{ date('Y') }} &#169;<span>All right reserved.</span></p>
                     </div>
                 </div>
             </div>
@@ -201,6 +200,58 @@
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/plugins/font-awesome/js/fontawesome.min.js">
     </script>
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/js/lms.js"></script>
+    <script src="{{ asset('/') }}backend/assets/js/toastr.min.js"></script>
+    <script>
+        // toastr message
+        function flashMessage(status, message) {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+
+            switch (status) {
+                case 'success':
+                    toastr.success(message, 'Success');
+                    break;
+
+                case 'error':
+                    toastr.error(message, 'Error');
+                    break;
+
+                case 'warning':
+                    toastr.warning(message, 'Warning');
+                    break;
+
+                case 'info':
+                    toastr.info(message, 'Info');
+                    break;
+            }
+        }
+
+        // session toastr
+        @if (session()->get('success'))
+            flashMessage('success', "{{ session()->get('success') }}");
+        @elseif (session()->get('error'))
+            flashMessage('error', "{{ session()->get('error') }}");
+        @elseif (session()->get('info'))
+            flashMessage('info', "{{ session()->get('info') }}");
+        @elseif (session()->get('warning'))
+            flashMessage('warning', "{{ session()->get('warning') }}");
+        @endif
+    </script>
     @stack('scripts')
 </body>
 
