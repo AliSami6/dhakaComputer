@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Blog;
+use Illuminate\Support\Str;
+use App\Models\BlogCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\CreateRequest;
@@ -14,7 +16,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blog = Blog::latest('id')->get();
+        $blog = Blog::with('blogCategory')->latest('id')->get();
         return view('backend.pages.blog.index',compact('blog'));
     }
 
@@ -23,7 +25,8 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('backend.pages.blog.create');
+        $blogCategories = BlogCategory::get();
+        return view('backend.pages.blog.create',['blogCategories'=>$blogCategories]);
     }
 
     /**
@@ -38,9 +41,11 @@ class BlogController extends Controller
             return redirect()->back()->with('error', 'Image is required!');
         }
         Blog::create([
-            'blog_category' => $request->blog_category,
+            'blog_category_id' => $request->blog_category_id,
             'blog_title' => $request->blog_title,
-            'blog_content' => $request->blog_content,
+            'slug' =>Str::slug($request->blog_title) ,
+            'blog_description' => $request->blog_description,
+            'is_featured' => $request->is_featured,
             'blog_image' =>  $image
         ]);
         return redirect()->route('blog.index')->with('success', 'Blog Created !');
@@ -59,9 +64,11 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
-        $blog = Blog::find($id);
-        return view('backend.pages.blog.edit',compact('blog'));
+        $blog = Blog::findOrFail($id); // Better to use findOrFail for error handling
+        $blogCategories = BlogCategory::all(); // Assuming you have a BlogCategory model
+        return view('backend.pages.blog.edit', compact('blog', 'blogCategories'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -75,9 +82,10 @@ class BlogController extends Controller
             $image = $blog->blog_image;
         }
         $blog->update([
-            'blog_category' => $request->blog_category,
+            'blog_category_id' => $request->blog_category_id,
             'blog_title' => $request->blog_title,
-            'blog_content' => $request->blog_content,
+            'blog_description' => $request->blog_description,
+            'is_featured' => $request->is_featured,
             'blog_image' =>  $image
         ]);
         return redirect()->route('blog.index')->with('success', 'Blog Updated !');

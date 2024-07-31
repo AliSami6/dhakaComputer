@@ -93,7 +93,7 @@
                                                 <span>Seo</span>
                                             </a>
                                         </li>
-                                       
+
                                         <li class="nav-item">
                                             <a class="nav-link" data-bs-toggle="tab" href="#tabItem10">
                                                 <em class="icon ni ni-done"></em>
@@ -240,7 +240,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                          
+
 
                                             <div class="tab-pane" id="tabItem5">
                                                 <div class="card-inner">
@@ -268,22 +268,7 @@
                                                                     value="{{ $editCourses->course_title_bn }}">
                                                             </div>
                                                         </div>
-                                                        <div class="row mb-3">
-                                                            <label for="course-title" class="col-sm-2 col-form-label">
-                                                                About</label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="about"
-                                                                    name="about" placeholder="course about" value="{{ $editCourses->about }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-3">
-                                                            <label for="course-title" class="col-sm-2 col-form-label">
-                                                                About (Bangla) </label>
-                                                            <div class="col-sm-10">
-                                                                <input type="text" class="form-control" id="course_about_bn"
-                                                                    name="course_about_bn" placeholder="course about bangla"  value="{{ $editCourses->course_about_bn }}">
-                                                            </div>
-                                                        </div>
+
                                                         <div class="row mb-3">
                                                             <label for="course_short_desc"
                                                                 class="col-sm-2 col-form-label">Short
@@ -313,10 +298,11 @@
                                                         </div>
                                                         <div class="row mb-3">
                                                             <label for="Description"
-                                                                class="col-sm-2 col-form-label">Description (Bangla)</label>
+                                                                class="col-sm-2 col-form-label">Description
+                                                                (Bangla)</label>
                                                             <div class="col-sm-10">
-                                                                <textarea name="description_bn" id="description_bn" class="form-control py-3 m-1 p-3 your_summernote description" rows="4"
-                                                                    cols="4">{!! htmlspecialchars_decode($editCourses->description_bn) !!}</textarea>
+                                                                <textarea name="description_bn" id="description_bn" class="form-control py-3 m-1 p-3 your_summernote description"
+                                                                    rows="4" cols="4">{!! htmlspecialchars_decode($editCourses->description_bn) !!}</textarea>
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -450,11 +436,11 @@
                                                         <div class="row mb-3">
                                                             <label for="course-title"
                                                                 class="col-sm-2 col-form-label">Enroll Date
-                                                                 </label>
+                                                            </label>
                                                             <div class="col-sm-10">
-                                                                <input type="date" class="form-control" id="schedules"
-                                                                    name="schedules" placeholder="course schedules"
-                                                                    value="{{ $editCourses->schedules }}">
+                                                                <input type="date" class="form-control" id="enroll_date"
+                                                                    name="enroll_date" placeholder="course enroll date"
+                                                                    value="{{ $editCourses->enroll_date }}">
                                                             </div>
                                                         </div>
                                                         <div class="row mb-3">
@@ -499,11 +485,12 @@
                                                                         Price (Bangla)</label>
                                                                     <div class="col-sm-10">
                                                                         <div class="form-group">
-                                                                            <input type="number"
+                                                                            <input type="text"
                                                                                 class="form-control form-control-sm"
                                                                                 placeholder="Enter course price banlga"
-                                                                                id="price_bn" name="price_bn"  value="{{ $editCourses->price_bn }}">
-                                                                           
+                                                                                id="price_bn" name="price_bn"
+                                                                                value="{{ $editCourses->price_bn }}">
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -814,57 +801,7 @@
                                                                 <div class="course_objectives_expands"></div>
                                                             </div>
                                                         </div>
-                                                        <div class="row g-3 align-center">
-                                                            <div class="are_eligible_fields">
-                                                                @foreach ($eligibles as $eligible)
-                                                                    <div class="row mb-3 eligible-group"
-                                                                        data-id="{{ $eligible->id }}">
-                                                                        <label for="eligible"
-                                                                            class="col-sm-2 col-form-label">Who Are
-                                                                            Eligible</label>
-                                                                        <div class="col-sm-8">
-                                                                            <div class="form-group">
-                                                                                <input type="text" class="form-control"
-                                                                                    id="eligible"
-                                                                                    name="course_eligible[]"
-                                                                                    placeholder="Provide Objective"
-                                                                                    value="{{ $eligible->course_eligible }}">
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-sm-2">
-                                                                            <button type="button"
-                                                                                class="btn btn-sm btn-danger e_remove_eligible_row">
-                                                                                <em class="icon ni ni-minus"></em>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                            <div class="are_eligible_fields">
-                                                                <div class="row mb-3 ">
-                                                                    <label for="course_eligible"
-                                                                        class="col-sm-2 col-form-label">Who Are
-                                                                        Eligible</label>
-                                                                    <div class="col-sm-8">
-                                                                        <div class="form-group">
-                                                                            <input type="text" class="form-control"
-                                                                                id="course_eligible"
-                                                                                name="course_eligible[]"
-                                                                                placeholder="Provide eligibility">
-                                                                            <span
-                                                                                class="text-danger course_eligible"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <button type="button"
-                                                                            class="btn btn-sm btn-primary add_eligible_field_button">
-                                                                            <em class="icon ni ni-plus"></em>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="course_eligible_expands"></div>
-                                                            </div>
-                                                        </div>
+
 
 
                                                     </div>
@@ -1094,27 +1031,7 @@
             $(document).on('click', '.remove_objectives_field_button', function() {
                 $(this).closest('.row').remove(); // Remove the entire row containing the Outco
             });
-            let eligible = 1;
-            $('.add_eligible_field_button').click(function() {
-                eligible++;
-                var Eligible = '<div class="row mb-3 course_eligible">' +
-                    '<label for="outcomes" class="col-sm-2 col-form-label form-label"></label>' +
-                    '<div class="col-sm-8">' +
-                    '<div class="form-group">' +
-                    '<input type="text" class="form-control" id="course_eligible' + counter +
-                    '" name="course_eligible[]" placeholder="Provide Eligibility">' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="col-sm-2">' +
-                    '<button type="button" class="btn btn-sm btn-danger remove_eligible_field_button"><em class="icon ni ni-minus"></em></button>' +
-                    '</div>' +
-                    '</div>';
-                $('.course_eligible_expands').append(Eligible);
-            });
 
-            $(document).on('click', '.remove_eligible_field_button', function() {
-                $(this).closest('.row').remove(); // Remove the entire row containing the Outco
-            });
 
             $.ajaxSetup({
                 headers: {
@@ -1319,54 +1236,6 @@
                     }
                 });
             });
-            // Handle Eligible row deletion with confirmation
-            $(document).on('click', '.e_remove_eligible_row', function() {
-                var eligibleGroup = $(this).closest('.eligible-group');
-                var eligibleId = eligibleGroup.data('id');
-
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: '/admin/eligible/' + eligibleId,
-                            type: 'GET', // Consider changing this to DELETE if you're following RESTful conventions
-                            data: {
-                                _token: '{{ csrf_token() }}'
-                            },
-                            success: function(response) {
-                                if (response.status === 'success') {
-                                    eligibleGroup.remove();
-                                    Swal.fire(
-                                        'Deleted!',
-                                        'The eligible row has been deleted.',
-                                        'success'
-                                    );
-                                } else {
-                                    Swal.fire(
-                                        'Error!',
-                                        'Failed to delete the eligible row.',
-                                        'error'
-                                    );
-                                }
-                            },
-                            error: function() {
-                                Swal.fire(
-                                    'Error!',
-                                    'Failed to delete the eligible row.',
-                                    'error'
-                                );
-                            }
-                        });
-                    }
-                });
-            });
 
 
             $('#updateCourseForm').on('submit', function(e) {
@@ -1376,12 +1245,15 @@
 
                 // Remove existing description and meta_description to prevent duplication
                 formData.delete('description');
+                formData.delete('description_bn');
                 formData.delete('meta_description');
 
                 let courseDescription = $('textarea[name="description"]').val();
+                let courseDescription_bn = $('textarea[name="description_bn"]').val();
                 let courseMetaDescription = $('textarea[name="meta_description"]').val();
 
                 formData.append('description', courseDescription);
+                formData.append('description_bn', courseDescription_bn);
                 formData.append('meta_description', courseMetaDescription);
 
                 // Collect FAQ questions and answers
@@ -1411,10 +1283,6 @@
                 }).get().filter(value => value !== "");
                 formData.append('courseObjectivs', JSON.stringify(courseObjectivs));
 
-                let courseEligibles = $('input[name="course_eligible[]"]').map(function() {
-                    return $(this).val();
-                }).get().filter(value => value !== "");
-                formData.append('courseEligibles', JSON.stringify(courseEligibles));
 
                 $.ajax({
                     url: $(this).attr('action'),

@@ -49,8 +49,7 @@
                                                 </th>
                                                 <th class="nk-tb-col tb-col-mb"><span class="sub-text">Blog Title</span>
                                                 </th>
-                                                <th class="nk-tb-col tb-col-md"><span class="sub-text">Blog Content</span>
-                                                </th>
+                                               
 
                                                 <th class="nk-tb-col nk-tb-col-tools text-end">
                                                 </th>
@@ -64,7 +63,7 @@
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-card">
                                                                 <div class="user-info">
-                                                                    <img class="w-50"
+                                                                    <img class="" width="100"
                                                                         src="{{ asset('uploaded_files/blog/' . $list->blog_image) }}" />
                                                                 </div>
                                                             </div>
@@ -73,7 +72,7 @@
                                                             <div class="user-card">
                                                                 <div class="user-info">
                                                                     <span
-                                                                        class="tb-lead text-gray">{{ $list->blog_category }}</span>
+                                                                        class="tb-lead text-gray">{{ $list->blogCategory->blog_category }}</span>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -87,12 +86,6 @@
                                                         </td>
 
 
-                                                        <td class="nk-tb-col tb-col-md">
-                                                            <div class="user-info">
-                                                                <span
-                                                                    class="tb-lead text-gray">{{ $list->blog_content }}</span>
-                                                            </div>
-                                                        </td>
 
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">

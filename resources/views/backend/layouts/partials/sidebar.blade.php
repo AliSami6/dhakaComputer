@@ -99,14 +99,14 @@
                     </li>
                     <li class="nk-menu-item">
                         <a href="{{ route('blog.feature.create') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-menu-circled"></em></span>
+                            <span class="nk-menu-icon"><em class="icon ni ni-notice"></em></span>
                             <span class="nk-menu-text">Blog Feature </span>
                         </a>
                     </li>
                       <li class="nk-menu-item">
                         <a href="{{ route('blog.category.index') }}" class="nk-menu-link">
-                            <span class="nk-menu-icon"><em class="icon ni ni-menu-circled"></em></span>
-                            <span class="nk-menu-text">Blog Caegory </span>
+                            <span class="nk-menu-icon"><em class="icon ni ni-cc-alt2"></em></em></span>
+                            <span class="nk-menu-text">Blog Category </span>
                         </a>
                     </li>
                      <li class="nk-menu-item">

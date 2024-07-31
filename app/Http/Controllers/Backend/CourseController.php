@@ -266,6 +266,7 @@ class CourseController extends Controller
             'faq_answer' => 'nullable|array',
             'requirement' => 'nullable|array',
             'outcome' => 'nullable|array',
+            'objectives' => 'nullable|array', // Added this line for objectives
             'price' => 'nullable|numeric',
             'is_free' => 'nullable|integer|in:0,1',
             'discounted_price' => 'nullable|numeric',
@@ -274,19 +275,19 @@ class CourseController extends Controller
             'keyword' => 'nullable|string|max:255',
             'meta_description' => 'nullable',
         ]);
-
+    
         // Check if validation fails
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
+    
         // Find the course by ID
         $course = Course::find($id);
-
+    
         if (!$course) {
             return response()->json(['status' => 'error', 'message' => 'Course not found'], 404);
         }
-
+    
         // Update the course using mass assignment
         $courseData = [
             'course_title' => $request->course_title,
@@ -308,18 +309,21 @@ class CourseController extends Controller
             'duration' => $request->duration ?? 0,
             'enroll_date' => $request->enroll_date ?? 0,
         ];
-
+    
         $course->update(array_filter($courseData)); // Use array_filter to remove null values
-
+    
         // Save new FAQ questions and answers
         if ($request->has('faq_question')) {
             foreach ($request->faq_question as $key => $question) {
                 if (!empty($question)) {
-                    CourseFaq::updateOrCreate(['course_id' => $course->id, 'faq_question' => $question], ['faq_answer' => $request->faq_answer[$key] ?? '']);
+                    CourseFaq::updateOrCreate(
+                        ['course_id' => $course->id, 'faq_question' => $question],
+                        ['faq_answer' => $request->faq_answer[$key] ?? '']
+                    );
                 }
             }
         }
-
+    
         // Save new requirements
         if ($request->has('requirement')) {
             CourseRequirements::where('course_id', $course->id)->delete();
@@ -332,7 +336,7 @@ class CourseController extends Controller
                 }
             }
         }
-
+    
         // Save new outcomes
         if ($request->has('outcome')) {
             CourseOutcome::where('course_id', $course->id)->delete();
@@ -345,7 +349,8 @@ class CourseController extends Controller
                 }
             }
         }
-
+    
+        // Save new objectives
         if ($request->has('objectives')) {
             CourseObjective::where('course_id', $course->id)->delete();
             foreach ($request->objectives as $objective) {
@@ -357,7 +362,8 @@ class CourseController extends Controller
                 }
             }
         }
-
+    
+        // Handle file upload for course thumbnail
         if ($request->hasFile('course_thumbnail')) {
             $destination = 'uploaded_files/course_thumbnails/' . $course->media->course_thumbnail;
             if (File::exists($destination)) {
@@ -369,22 +375,22 @@ class CourseController extends Controller
             $file->move('uploaded_files/course_thumbnails/', $filename);
             $course->media->course_thumbnail = $filename;
         }
-
+    
         // Prepare the data to update
         $updateData = array_filter([
             'course_thumbnail' => isset($filename) ? $filename : null, // Use new filename if available
         ]);
-
+    
         // Remove 'course_thumbnail' key if it wasn't updated
         if (!isset($filename)) {
             unset($updateData['course_thumbnail']);
         }
-
+    
         // Update course media details if there's any data to update
         if (!empty($updateData)) {
             $course->media->update($updateData);
         }
-
+    
         // Update course meta details
         if ($request->hasAny(['keyword', 'slug', 'meta_description'])) {
             $course->meta->update(
@@ -392,15 +398,13 @@ class CourseController extends Controller
                     'keyword' => $request->keyword,
                     'slug' => Str::slug($request->keyword),
                     'meta_description' => $request->meta_description,
-                ]),
+                ])
             );
         }
-        if ($updateData) {
-            return response()->json(['status' => 'success', 'message' => 'Successfully updated']);
-        } else {
-            return response()->json(['status' => 'error', 'message' => 'An Error Occured']);
-        }
+    
+        return response()->json(['status' => 'success', 'message' => 'Successfully updated']);
     }
+    
     public function courseStatusUpdate($id, $status)
     {
         $course = Course::findOrFail($id);

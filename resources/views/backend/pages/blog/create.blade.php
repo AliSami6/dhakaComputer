@@ -1,7 +1,8 @@
 @extends('backend.layouts.master')
 @section('title', 'Create Blog')
 @section('styles')
-
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 @endsection
 @section('admin-content')
     <div class="nk-content">
@@ -32,20 +33,26 @@
                                 <form action="{{ route('blog.save') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row g-4">
-                                      
-                                        <div class="col-lg-6">
+
+                                        <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label class="form-label" for="hero_title">Blog Category</label>
-                                                <div class="form-control-wrap">
-                                                    <input type="text" class="form-control" id="blog_category"
-                                                        name="blog_category" value="{{ old('blog_category') }}">
-                                                </div>
-                                                @if ($errors->has('blog_category'))
-                                                    <span class="text-danger">{{ $errors->first('blog_category') }}</span>
+                                                <select class="form-select js-select2 py-2 mb-2" id="blog_category_id"
+                                                    name="blog_category_id" data-placeholder="Select a category">
+                                                    @if ($blogCategories->isNotEmpty())
+                                                        @foreach ($blogCategories as $blogcategory)
+                                                            <option value="{{ $blogcategory->id }}">
+                                                                {{ $blogcategory->blog_category }}
+                                                            </option>
+                                                        @endforeach
+                                                    @endif
+                                                </select>
+                                                @if ($errors->has('blog_category_id'))
+                                                    <span class="text-danger">{{ $errors->first('blog_category_id') }}</span>
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
                                             <div class="form-group">
                                                 <label class="form-label" for="phone-no-1">Blog Title</label>
                                                 <div class="form-control-wrap">
@@ -57,20 +64,35 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
                                             <div class="form-group">
-                                                <label class="form-label" for="hero_title">Blog Content</label>
-                                                <div class="form-control-wrap">
-                                                    <textarea class="form-control form-control-sm py-2 mb-2" id="blog_content" name="blog_content">
-                                                      
-                                                    </textarea>
+                                                <div class="form-control-wrap mt-1">
+                                                    <div class="custom-control custom-control-lg custom-checkbox mt-4">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck2" name="is_featured" value="1">
+                                                        <label class="custom-control-label" for="customCheck2">Blog Featured</label>
+                                                    </div>
                                                 </div>
-                                                @if ($errors->has('blog_content'))
-                                                    <span class="text-danger">{{ $errors->first('blog_content') }}</span>
+                                                @if ($errors->has('is_featured'))
+                                                    <span class="text-danger">{{ $errors->first('is_featured') }}</span>
                                                 @endif
                                             </div>
                                         </div>
-                                         <div class="col-sm-6 col-lg-6 col-xxl-3">
+                                        
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-label" for="hero_title">Blog Description </label>
+                                                <div class="form-control-wrap">
+                                                    <textarea class="form-control form-control-sm py-2 mb-2 your_summernote" id="blog_description" name="blog_description">
+                                                      
+                                                    </textarea>
+                                                </div>
+                                                @if ($errors->has('blog_description'))
+                                                    <span class="text-danger">{{ $errors->first('blog_description') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-6 col-lg-6 col-xxl-3">
                                             <div class="gallery card" style="width:70%">
                                                 <a class="gallery-image popup-image" href="">
                                                     <img class="w-100 rounded-top blog-image-preview"
@@ -116,10 +138,18 @@
 
 @endsection
 @section('script_js')
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+   <script>
+     $('.your_summernote').summernote({
+                tabsize: 2,
+                height: 200
+            });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const blogImageInput = document.getElementById('blog_image');
             const blogImagePreview = document.querySelector('.blog-image-preview');
+
             function previewSelectedImage(input, preview) {
                 const file = input.files[0];
                 if (file) {
@@ -132,7 +162,7 @@
             }
             if (blogImageInput) {
                 blogImageInput.addEventListener('change', function() {
-                    previewSelectedImage(blogImageInput,blogImagePreview);
+                    previewSelectedImage(blogImageInput, blogImagePreview);
                 });
             }
         });

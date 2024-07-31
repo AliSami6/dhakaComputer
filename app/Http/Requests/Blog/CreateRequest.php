@@ -22,9 +22,9 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'blog_category_id' => 'required|string|min:2|max:255',
+            'blog_category_id' => 'required|integer',
             'blog_title' => 'required|string|min:2|max:255',
-            'blog_content' => 'required|string|min:2|max:255',
+            'blog_description' => 'required',
             'blog_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }

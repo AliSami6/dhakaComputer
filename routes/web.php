@@ -83,6 +83,7 @@ Route::controller(HomeController::class)->group(function () {
 });
 Route::controller(FeatureWithBlogController::class)->group(function(){
     Route::get('/blog_list','BlogList')->name('all.blog');
+    Route::get('/blog_details/{slug}','BlogDetails')->name('blog.details');
 });
 
  Route::controller(UserLoginController::class)->group(function () {
