@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -18,7 +19,7 @@ class CartController extends Controller
  public function addToCart($id)
 {
     $course = Course::findOrFail($id);
-    $cart = session()->get('cart', []);
+    $cart = Session::get('cart', []);
 
     if (isset($cart[$id])) {
         $cart[$id]['quantity']++;
@@ -32,7 +33,7 @@ class CartController extends Controller
         ];
     }
 
-    session()->put('cart', $cart);
+    Session::put('cart', $cart);
     return redirect()->route('process_cheakout')->with('success', 'Added to cart successfully!');
 }
 
@@ -40,9 +41,9 @@ class CartController extends Controller
     public function update(Request $request)
     {
         if ($request->id && $request->quantity) {
-            $cart = session()->get('cart');
+            $cart = Session::get('cart');
             $cart[$request->id]['quantity'] = $request->quantity;
-            session()->put('cart', $cart);
+            Session::put('cart', $cart);
             return response()->json(['status' => 'success', 'message' => 'Cart successfully updated!']);
         }
         return response()->json(['status' => 'error', 'message' => 'Cart not updated!']);
@@ -51,10 +52,10 @@ class CartController extends Controller
     public function remove(Request $request)
     {
         if ($request->id) {
-            $cart = session()->get('cart');
+            $cart = Session::get('cart');
             if (isset($cart[$request->id])) {
                 unset($cart[$request->id]);
-                session()->put('cart', $cart);
+                Session::put('cart', $cart);
             }
             return response()->json(['status' => 'success', 'message' => 'Cart Successfully removed!']);
         }

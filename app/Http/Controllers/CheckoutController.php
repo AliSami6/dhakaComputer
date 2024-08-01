@@ -61,8 +61,8 @@ class CheckoutController extends Controller
         // Get the first course item from the cart
         $firstCartItem = reset($cart); // reset() will return the first item in the array
     
-        // try {
-        //     DB::beginTransaction();
+        try {
+            DB::beginTransaction();
     
             // Initialize total
             $total = 0;
@@ -125,12 +125,12 @@ class CheckoutController extends Controller
 
             }
     
-            // DB::commit();
+            DB::commit();
             return redirect()->route('index')->with('success', 'Order placed successfully!');
-        // } catch (\Exception $exp) {
-        //     DB::rollBack();
-        //     return redirect()->back()->with('error', 'Something went wrong!');
-        // }
+        } catch (\Exception $exp) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Something went wrong!');
+        }
     }
     
 }
