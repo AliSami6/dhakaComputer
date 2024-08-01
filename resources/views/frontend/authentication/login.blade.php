@@ -47,7 +47,6 @@
             padding: 10px 20px;
             font-size: 16px;
             font-weight: bold;
-            cursor: pointer;
             color:#fff;
         }
         .custom-btn-primary:hover {
@@ -80,7 +79,10 @@
                         </div>
                        
                         <div class="form-group custom-submit-btn">
-                            <button type="submit" class="btn custom-btn-primary">Submit</button>
+                            <div class="card-footer">
+                                <button type="submit" class="btn custom-btn-primary">Submit</button>
+                            </div>
+                         
                         </div>
                     </form>
                     

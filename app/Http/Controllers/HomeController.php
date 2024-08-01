@@ -114,47 +114,45 @@ class HomeController extends Controller
             return redirect()->back()->with('warning', 'Complete Your Order');
         }
     }
-    public function EditStudentProfile($id)
+    public function StudentBatch()
     {
-        $students = Student::where('email', Auth::user()->email)
-            ->orWhere('id', $id)
-            ->first();
-        if ($students != null) {
-            return view('frontend.pages.update_profile', [
-                'students' => $students,
-            ]);
-        } else {
-            return redirect()->back()->with('warning', 'Complete Your Order');
-        }
+        return view('frontend.pages.my_batch');
+    
     }
     public function UpdateStudentProfile(Request $request, $id)
     {
-        $students = Student::where('email', Auth::user()->email)
+        $students = User::where('emailAddress ', Auth::user()->emailAddress )
             ->orWhere('id', $id)
             ->first();
         if (!empty($request->file('image'))) {
-            $image = $this->image_upload($request->file('image'), 'uploaded_files/students/', 90, 80);
+            $image = $this->image_updated($request->file('image'), 'uploaded_files/users/', $students->image);
             $students->update([
-                'firstName' => $request->firstName,
-                'lastName' => $request->lastName,
-                'date_of_birth' => $request->date_of_birth,
-                'nationality' => $request->nationality,
-                'country' => $request->country,
-                'address_one' => $request->address_one,
+                'applicantName' => $request->applicantName,
+                'fatherName' => $request->fatherName,
+                'fatherOccupation' => $request->fatherOccupation,
+                'motherName' => $request->motherName,
+                'nationalId' => $request->nationalId,
+                'occupation' => $request->occupation,
+                'motherOccupation' => $request->motherOccupation,
+                'presentAddress' => $request->presentAddress,
+                'permanentAddress' => $request->permanentAddress,
                 'image' => $image,
             ]);
         } else {
             $students->update([
-                'firstName' => $request->firstName,
-                'lastName' => $request->lastName,
-                'date_of_birth' => $request->date_of_birth,
-                'nationality' => $request->nationality,
-                'country' => $request->country,
-                'address_one' => $request->address_one,
+                'applicantName' => $request->applicantName,
+                'fatherName' => $request->fatherName,
+                'fatherOccupation' => $request->fatherOccupation,
+                'motherName' => $request->motherName,
+                'nationalId' => $request->nationalId,
+                'occupation' => $request->occupation,
+                'motherOccupation' => $request->motherOccupation,
+                'presentAddress' => $request->presentAddress,
+                'permanentAddress' => $request->permanentAddress
             ]);
         }
 
-        return redirect()->back()->with('success', 'Student updated successfully!!');
+        return redirect()->route('student.profile')->with('success', 'Student updated successfully!!');
     }
 
     public function CourseDetails($keyword)
@@ -241,6 +239,49 @@ class HomeController extends Controller
     public function studentProfiles()
     {
         return view('frontend.pages.profile');
+    }
+    public function My_Wallet(){
+        return view('frontend.pages.my_wallet');
+    }
+    public function UpdateUserProfile(Request $request)
+    {
+       
+        $students = User::where('emailAddress', Auth::user()->emailAddress)->first();
+        if (!empty($request->file('image'))) {
+            $image = $this->image_updated($request->file('image'), 'uploaded_files/users/', $students->image);
+            $students->update([
+                'applicantName' => $request->applicantName,
+                'fatherName' => $request->fatherName,
+                'fatherOccupation' => $request->fatherOccupation,
+                'motherName' => $request->motherName,
+                'nationalId' => $request->nationalId,
+                'occupation' => $request->occupation,
+                'motherOccupation' => $request->motherOccupation,
+                'presentAddress' => $request->presentAddress,
+                'permanentAddress' => $request->permanentAddress,
+                'image' => $image,
+            ]);
+        } else {
+            $students->update([
+                'applicantName' => $request->applicantName,
+                'fatherName' => $request->fatherName,
+                'fatherOccupation' => $request->fatherOccupation,
+                'motherName' => $request->motherName,
+                'nationalId' => $request->nationalId,
+                'occupation' => $request->occupation,
+                'motherOccupation' => $request->motherOccupation,
+                'presentAddress' => $request->presentAddress,
+                'permanentAddress' => $request->permanentAddress
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'User data updated successfully!!');
+    }
+    public function studentCourse(){
+        return view('frontend.pages.student_course');
+    }
+    public function LiveClass(){
+        return view('frontend.pages.my_live_class');
     }
     
 }

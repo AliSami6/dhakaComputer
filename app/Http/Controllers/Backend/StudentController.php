@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\User;
 use App\Models\Course;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -17,8 +18,9 @@ class StudentController extends Controller
     public function index()
     {
         $courses = Course::where('course_status','Active')->get();
+        $users = User::get();
         $students = Student::with('enrollments.course','courseofstudents')->get();
-        return view('backend.pages.students.student', ['courses' => $courses, 'students' => $students]);
+        return view('backend.pages.students.student', ['courses' => $courses, 'students' => $students,'users'=>$users]);
     }
 
     /**
@@ -35,19 +37,13 @@ class StudentController extends Controller
     {
     
         $validator = Validator::make($request->all(), [
-            'firstName' => 'required|string|min:2|max:100',
-            'lastName' => 'required|string|min:2|max:100',
-            'fathersName' => 'required|string|min:2|max:100',
-            'profession' => 'required|string|min:2|max:100',
+            'studentsName' => 'required|string|min:2|max:100',
             'course_id' => 'required',
-            'email' => 'required|email|string',
-            'password' => 'required|min:8',
-            'phone_no' => 'required|string',
-            'date_of_birth' => 'required|string',
+            'user_id' => 'required',
             'address' => 'required',
-            'city' => 'required',
-            'country' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'city' => 'required|string|max:255',
+            'division' => 'required|string|max:255',
+            'country' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
@@ -56,28 +52,16 @@ class StudentController extends Controller
             ]);
         }
       
-         if (!empty($request->file('image'))) {
-            $image = $this->image_upload($request->file('image'), 'uploaded_files/students/', 90, 80);
-        } else {
-            return response()->json(['error' => 'Image is required']);
-        }
         $student = Student::create([
-            'firstName' => $request->firstName,
-            'lastName' => $request->lastName,
-            'fathersName' => $request->fathersName,
-            'profession' => $request->profession,
+            'studentsName' => $request->studentsName,
             'course_id' => $request->course_id,
-            'email' => $request->email,
-            'password' =>Hash::make($request->password),
-            'phone_no' => $request->phone_no,
-            'date_of_birth' => $request->date_of_birth,
+            'user_id' => $request->user_id,
             'address' => $request->address,
             'city' => $request->city,
             'division' => $request->division,
             'country' => $request->country,
             'status' => 'Active',
-            'payment_status' => 'Due',
-            'image'=> $image
+            'payment_status' => 'Due'
         ]);
 
         if ($student) {
@@ -137,18 +121,16 @@ class StudentController extends Controller
     public function UpdateStudentDetails(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'firstName' => 'string|min:2|max:100',
-            'lastName' => 'string|min:2|max:100',
-            'fathersName' => 'required|string|min:2|max:100',
-            'profession' => 'required|string|min:2|max:100',
-            'course_id' => 'required',
-            'email' => 'email|string',
-            'phone_no' => 'numeric',
-            'date_of_birth' => 'string',
+            'studentsName' => 'string|min:2|max:100',
+            'course_id' => 'required|integer',
+            'user_id' => 'required|integer',
+            'address' => 'required|string|min:2|max:100',
             'address' => 'string',
             'city' => 'string',
+            'division' => 'string',
             'country' => 'string',
         ]);
+
 
         if ($validator->fails()) {
             return response()->json([
@@ -157,37 +139,24 @@ class StudentController extends Controller
         }
         
         $editStudents = Student::find($id);
-        if (!empty($request->file('image'))) {
-            $image = $this->image_updated($request->file('image'), 'uploaded_files/students/', $editStudents->image);
-        } else {
-            $image = $editStudents->image;
-        }
+       
+       
         $editStudents->update([
-            'firstName' => $request->firstName,
-            'lastName' => $request->lastName,
-            'fathersName' => $request->fathersName,
-            'profession' => $request->profession,
+            'studentsName' => $request->studentsName,
             'course_id' => $request->course_id,
-            'email' => $request->email,
-            'password' =>Hash::make($request->password),
-            'phone_no' => $request->phone_no,
-            'date_of_birth' => $request->date_of_birth,
+            'user_id' => $request->user_id,
             'address' => $request->address,
             'city' => $request->city,
             'division' => $request->division,
             'country' => $request->country,
             'status' => 'Active',
-            'payment_status' => 'Due',
-            'image'=> $image
+            'payment_status' => 'Due'
         ]);
         return redirect()->back()->with('success', 'Updated Successfully');
     }
     public function deleteStudents($id){
         $students = Student::find($id);
-        if (!is_null($students)) {
-            $this->imageDelete('uploaded_files/students/'.$students->image);
-            $students->delete();
-        }
+       
         return back()->with('success','Student Deleted Successfully!');
 
     }

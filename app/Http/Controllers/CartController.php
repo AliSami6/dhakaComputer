@@ -26,15 +26,14 @@ class CartController extends Controller
         $cart[$id] = [
             'course_id' => $course->id,
             'course_title' => $course->course_title,
-            'course_thumbnail' => $course->media->course_thumbnail,
-            'price' => $course->prices->price,
-            'discounted_price' => $course->prices->discounted_price,
+            'price' => $course->price,
+            'discounted_price' => $course->discounted_price,
             'quantity' => 1,
         ];
     }
 
     session()->put('cart', $cart);
-    return redirect()->back()->with('success', 'Added to cart successfully!');
+    return redirect()->route('process_cheakout')->with('success', 'Added to cart successfully!');
 }
 
 

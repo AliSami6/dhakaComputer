@@ -16,9 +16,6 @@ return new class extends Migration
             $table->string('studentsName');
             $table->foreignId('course_id')->constrained('courses')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->string('email');
-            $table->string('image')->nullable();
-            $table->string('phone_no');
             $table->string('address')->nullable();
             $table->string('city')->nullable();
             $table->string('division')->nullable();

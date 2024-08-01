@@ -115,7 +115,7 @@ class UserLoginController extends Controller
 
         return redirect()->route('sign_in')->with('success', 'Registration Successfully');
     }
-
+  
     public function logoutData()
     {
         Auth::logout();

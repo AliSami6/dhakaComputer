@@ -24,46 +24,13 @@
                             <div class="row gy-4">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="firstName">First Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="firstName"
-                                            placeholder="First name" name="firstName">
+                                        <label class="form-label" for="studentsName">Student Name <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="studentsName"
+                                            placeholder="Student name" name="studentsName">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="lastName">Last Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="lastName"
-                                            placeholder="Last name" name="lastName">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="fathersName">Father's Name <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="fathersName"
-                                            placeholder="Father's Name" name="fathersName">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="profession">Father's Profession <span class="text-danger">*</span> </label>
-                                        <input type="text" class="form-control" id="profession"
-                                            placeholder="Father's Name" name="profession">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="email">Email Address <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" id="email"
-                                            placeholder="Email Address" name="email">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
-                                        <input type="password" class="form-control" id="password"
-                                            placeholder="Enter Password" name="password">
-                                    </div>
-                                </div>
+                               
+                             
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">Course to Enroll <span class="text-danger">*</span></label>
@@ -78,28 +45,22 @@
                                         </div>
                                     </div>
                                 </div>
-                               
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label" for="phone_no">Phone Number <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="phone_no"
-                                            placeholder="Phone Number" name="phone_no">
+                                        <label class="form-label">User <span class="text-danger">*</span></label>
+                                        <div class="form-control-wrap">
+                                            <select class="form-select js-select2" name="user_id"
+                                                data-placeholder="Select user">
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->applicantName }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="birth-day">Date of Birth</label>
-                                        <input type="text" class="form-control date-picker" id="date_of_birth"
-                                            name="date_of_birth" placeholder="Date of Birth">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="form-label" for="birth-day">Image</label>
-                                        <input type="file" class="form-control" id="image"
-                                            name="image" placeholder="Upload image">
-                                    </div>
-                                </div>
+                              
+                            
                                
                                
                             </div>

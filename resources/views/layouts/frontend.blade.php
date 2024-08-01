@@ -87,8 +87,15 @@
                             <li><a class="dropdown-item" href="#">Menu item</a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-primary" href="{{ route('sign_in') }}">LOG IN <i
-                            class="fas fa-arrow-right"></i></a>
+                    @if (Route::has('sign_in'))
+                        @auth
+                            <a class="btn btn-primary" href="{{ route('student.profile') }}">Dashboard <i
+                                    class="fas fa-arrow-right"></i></a>
+                        @else
+                            <a class="btn btn-primary" href="{{ route('sign_in') }}">LOG IN <i
+                                    class="fas fa-arrow-right"></i></a>
+                        @endauth
+                    @endif
                     <!-- <a href="">SIGN UP</a> -->
                 </div>
             </div>

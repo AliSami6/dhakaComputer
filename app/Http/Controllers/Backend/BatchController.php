@@ -61,7 +61,7 @@ class BatchController extends Controller
     public function edit( $id)
     {
         $batch = Batch::find($id);
-        $courses = Course::get();
+        $courses = Course::where('course_status','Active')->get();
         return view('backend.pages.courses.batch.edit',compact('batch','courses'));
     }
 

@@ -158,14 +158,14 @@
                         </a>
                         
                     </li>
-                    {{-- <li class="nk-menu-item">
-                        <a href="{{ route('profiles') }}" class="nk-menu-link">
+                    <li class="nk-menu-item">
+                        <a href="{{ route('live.index') }}" class="nk-menu-link">
                             <span class="nk-menu-icon"><em class="icon ni ni-account-setting-fill"></em></span>
-                            <span class="nk-menu-text">Admin profile</span>
+                            <span class="nk-menu-text">Live Class</span>
                         </a>
                     </li>
                    
-                   --}}
+                  
                    {{-- <li class="nk-menu-heading">
                         <h6 class="overline-title text-primary-alt">Return to</h6>
                     </li><!-- .nk-menu-item -->

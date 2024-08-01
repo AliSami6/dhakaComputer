@@ -16,13 +16,16 @@
                     <div class="course_details_payment">
                         @if ($course->batch->isNotEmpty())
                             @foreach ($course->batch as $batch)
-                                <a href="#" class="btn btn-warning">{{ $batch->batch_no }} এ ভর্তি হোন <i
-                                        class="fas fa-arrow-right"></i></a>
+                                <a href="{{ route('add_to_cart', $course->id) }}" class="btn btn-warning">
+                                    {{ $batch->batch_no }} এ ভর্তি হোন <i class="fas fa-arrow-right"></i>
+                                </a>
                             @endforeach
                         @else
                             <a href="#" class="btn btn-warning">No batches available <i
                                     class="fas fa-arrow-right"></i></a>
                         @endif
+
+
                         <span>৳ {{ $course->price }}</span>
                     </div>
 
@@ -84,12 +87,12 @@
                 </div>
                 <div class="col-md-6">
                     <div class="course_details_b_img">
-                        @if($course->media->isNotEmpty())
-                       @foreach($course->media as $media)
-                        <img src="{{ asset('uploaded_files/course_thumbnails/' . $media->course_thumbnail)}}">
-                        @endforeach
+                        @if ($course->media->isNotEmpty())
+                            @foreach ($course->media as $media)
+                                <img src="{{ asset('uploaded_files/course_thumbnails/' . $media->course_thumbnail) }}">
+                            @endforeach
                         @else
-                        <img src="{{ asset('/') }}frontend/assets/images/2023-12-04T11-05-21.903Z-Flutter.jpg">
+                            <img src="{{ asset('/') }}frontend/assets/images/2023-12-04T11-05-21.903Z-Flutter.jpg">
                         @endif
                     </div>
                 </div>
@@ -128,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                
+
             </div>
         </div>
     </section>

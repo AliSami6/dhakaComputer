@@ -233,7 +233,7 @@
                                             <div class="nk-tb-col"><span class="sub-text">Students</span></div>
                                             <div class="nk-tb-col tb-col-mb"><span
                                                     class="sub-text d-lg-flex d-none">Enrolled Courses</span></div>
-                                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
+                                          
                                             <div class="nk-tb-col tb-col-lg"><span class="sub-text">Country</span></div>
                                             <div class="nk-tb-col tb-col-lg"><span class="sub-text">Payment</span></div>
                                             <div class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></div>
@@ -301,9 +301,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="nk-tb-col tb-col-md">
-                                                        <span>{{ $student->phone_no }}</span>
-                                                    </div>
+                                                  
                                                     <div class="nk-tb-col tb-col-lg">
                                                         <span>{{ $student->country }}</span>
                                                     </div>

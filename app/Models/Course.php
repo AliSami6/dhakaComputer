@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Section;
 use App\Models\Category;
+use App\Models\LiveClass;
 use App\Models\InstructorCourse;
 use App\Models\StudentEnrollment;
 use Illuminate\Database\Eloquent\Model;
@@ -63,5 +64,8 @@ class Course extends Model
     public function instructors()
     {
         return $this->hasMany(InstructorCourse::class,'course_id','id');
+    }
+    public function liveclass(){
+        return $this->hasMany(LiveClass::class,'course_id','id');
     }
 }

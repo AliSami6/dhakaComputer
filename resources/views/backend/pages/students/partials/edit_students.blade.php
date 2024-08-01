@@ -21,28 +21,11 @@
                         <div class="row gy-4">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="firstName">First Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="firstName" value="{{$editStudents->firstName}}" placeholder="Enter First Name" name="firstName">
+                                    <label class="form-label" for="studentsName">Students Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="studentsName" value="{{$editStudents->studentsName ?? ''}}" placeholder="Enter Student Name" name="studentsName">
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="lastName">Last Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="lastName" value="{{ $editStudents->lastName }}" placeholder="Enter Last Name" name="lastName">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="fathersName">Father's Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="fathersName" value="{{ $editStudents->fathersName }}" placeholder="Enter Father's Name" name="fathersName">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="profession">Father Profession <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="profession"  placeholder="Enter profession" name="profession"  value="{{ $editStudents->profession }}">
-                                </div>
-                            </div>
+                            
                            
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -58,41 +41,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="email">Email Address <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="email"
-                                        placeholder="Email Address" name="email" value="{{ $editStudents->email }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="password"
-                                        placeholder="Enter Password" name="password" value="{{ $editStudents->password }}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="phone-no">Phone Number <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="phone_no" value="{{ $editStudents->phone_no }}" placeholder="Phone Number" name="phone_no">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="date_of_birth">Date of Birth</label>
-                                    <input type="text" class="form-control date-picker" id="date_of_birth" value="{{ $editStudents->date_of_birth }}" placeholder="Date of Birth" name="date_of_birth">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="birth-day">Image</label>
-                                    <input type="file" class="form-control" id="image"
-                                        name="image" placeholder="Upload image">
-                                </div>
-                            </div>
-                          
-                          
+                       
                         </div>
                     </div><!-- .tab-pane -->
                     <div class="tab-pane" id="address">
@@ -100,7 +49,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="address">Address <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="address" name="address"  value="{{ $editStudents->address }}">
+                                    <input type="text" class="form-control" id="address" name="address"  value="{{ $editStudents->address ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -113,13 +62,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="division">Division</label>
-                                    <input type="text" class="form-control" id="division" name="division" value="{{ $editStudents->division }}">
+                                    <input type="text" class="form-control" id="division" name="division" value="{{ $editStudents->division ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-label" for="country">Country <span class="text-danger">*</span> </label>
-                                    <input type="text" class="form-control" id="country" value="{{ $editStudents->country }}"
+                                    <input type="text" class="form-control" id="country" value="{{ $editStudents->country ?? ''}}"
                                         name="country">
                                 </div>
                             </div>

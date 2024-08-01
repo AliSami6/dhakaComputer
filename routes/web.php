@@ -16,7 +16,6 @@ use App\Http\Controllers\Backend\QuizController;
 use App\Http\Controllers\Backend\BatchController;
 use App\Http\Controllers\Backend\AdminsController;
 use App\Http\Controllers\Backend\CourseController;
-use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\LessionController;
@@ -26,12 +25,14 @@ use App\Http\Controllers\FeatureWithBlogController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ResourceController;
 use App\Http\Controllers\Backend\SettingsController;
+use App\Http\Controllers\Backend\LiveClassController;
 use App\Http\Controllers\Backend\WhyChooseController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\Backend\EnrollmentController;
 use App\Http\Controllers\Backend\InstructorController;
 use App\Http\Controllers\Backend\BlogFeatureController;
 use App\Http\Controllers\Backend\FeatureBlogController;
+use App\Http\Controllers\Backend\BlogCategoryController;
 use App\Http\Controllers\Backend\LiveCourseContentController;
 
 /*
@@ -78,7 +79,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/course_autocomplete', 'autocomplete')->name('autocomplete');
     Route::get('/course_filter', 'coursesFilter')->name('course.filter');
     Route::get('/course_list','coursesAll')->name('course.list');
-    Route::get('/student','studentProfiles')->name('student.profile');
+ 
+    Route::get('/wallet','My_Wallet')->name('student.wallet');
     Route::get('/course_details/{keyword}','CourseDetails')->name('course.details');
    
 });
@@ -90,6 +92,7 @@ Route::controller(FeatureWithBlogController::class)->group(function(){
  Route::controller(UserLoginController::class)->group(function () {
     Route::get('/register', 'register')->name('signUp');
     Route::post('/register', 'registerFormSave')->name('register.save');
+    Route::post('/update/user', 'UpdateUserProfile')->name('user.update');
     Route::get('/signin', 'login')->name('sign_in');
     Route::post('/signin', 'LoginDataCheck')->name('login.save');
     Route::post('/logout/data', 'logoutData')->name('logout.name');
@@ -101,8 +104,11 @@ Route::controller(FeatureWithBlogController::class)->group(function(){
 Route::middleware(['auth.custom'])->group(function () {
     Route::get('/course_metarials/{id}', [HomeController::class, 'CourseMetarials'])->name('course.metarials');
     Route::get('/course_lession/{lesson}', [HomeController::class, 'CourseLesson'])->name('course.lesson');
-    Route::get('/student_profile', [HomeController::class, 'StudentProfile'])->name('my_profile');
-    Route::get('/update_student_profile/{id}', [HomeController::class, 'EditStudentProfile'])->name('edit.my_profile');
+    Route::get('/student',[HomeController::class, 'studentProfiles'])->name('student.profile');
+    Route::post('/update/user',[HomeController::class, 'UpdateUserProfile'])->name('user.update');
+    Route::get('/student/course',[HomeController::class, 'studentCourse'])->name('student.course');
+    Route::get('/student/batch', [HomeController::class, 'StudentBatch'])->name('student.batch');
+    Route::get('/student/live_class', [HomeController::class, 'LiveClass'])->name('student.live_class');
     Route::post('/update_student_profile/{id}', [HomeController::class, 'UpdateStudentProfile'])->name('update.my_profile');
 });
 
@@ -260,6 +266,15 @@ Route::prefix('admin')->group(function () {
             Route::get('/live_course_content/edit/{id}', 'edit')->name('content.edit');
             Route::post('/live_course_content/edit/{id}', 'update')->name('content.update');
             Route::delete('/live_course_content/deleted/{id}', 'destroy')->name('content.destroy');
+        });
+
+        Route::controller(LiveClassController::class)->group(function () {
+            Route::get('/live_course', 'index')->name('live.index');
+            Route::get('/live_courselive_course/create', 'create')->name('live.create');
+            Route::post('/live_course/store', 'store')->name('live.save');
+            Route::get('/live_course/edit/{id}', 'edit')->name('live.edit');
+            Route::post('/live_course/edit/{id}', 'update')->name('live.update');
+            Route::delete('/live_course/deleted/{id}', 'destroy')->name('live.destroy');
         });
 
           Route::controller(CounterController::class)->group(function () {

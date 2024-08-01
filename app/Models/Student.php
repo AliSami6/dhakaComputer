@@ -10,8 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Student extends Model
 {
     use HasFactory;
-    protected $fillable = ['firstName','lastName','fathersName','profession','course_id','email','password','image','phone_no','date_of_birth','address','city','division','country','status','payment_status'];
-
+    protected $fillable = ['studentsName','course_id','user_id','address','city','division','country','status','payment_status'];
+    										
     public function enrollments()
     {
         return $this->hasMany(StudentEnrollment::class,'student_id','id');
