@@ -51,6 +51,7 @@
                                         <div class="form-control-wrap">
                                             <select class="form-select js-select2" name="user_id"
                                                 data-placeholder="Select user">
+                                                @php $users = DB::table('users')->get(); @endphp
                                                 @foreach ($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->applicantName }}
                                                     </option>

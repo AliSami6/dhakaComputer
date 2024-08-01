@@ -30,15 +30,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @if($studentEnrollCourses->isNotEmpty())
+                                @foreach($studentEnrollCourses as $enroll)
                                 <tr>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john@example.com</td>
-                                    <td>john@example.com</td>
-                                    <td>john@example.com</td>
-                                    <td>john@example.com</td>
+                                    <td>{{ $enroll->course->batch->batch_no?? '' }}</td>
+                                    <td>{{ $enroll->course->batch->batch_code?? '' }}</td>
+                                    <td>{{ $enroll->course->batch->class_rutine?? '' }}</td>
+                                    <td>{{ $enroll->course->batch->class_start?? '' }}</td>
+                                    <td>{{ $enroll->course->batch->class_time?? '' }}</td>
+                                    <td>{{ $enroll->course->batch->total_class?? '' }}</td>
+                                   
                                 </tr>
-                             
+                                @endforeach
+                             @endif
                             </tbody>
                         </table>
                     </div>

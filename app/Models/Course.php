@@ -54,7 +54,7 @@ class Course extends Model
     }
     public function batch()
     {
-        return $this->hasMany(Batch::class,'course_id','id');
+        return $this->hasOne(Batch::class, 'course_id');
     }
 
     public function meta()

@@ -70,7 +70,7 @@
                                                 </div>
                                             </div> --}}
                                             <div class="nk-tb-col"><span class="sub-text">User</span></div>
-                                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Phone</span></div>
+                                           
                                             <div class="nk-tb-col tb-col-mb"><span class="sub-text">Enrolled Courses</span>
                                             </div>
                                             <div class="nk-tb-col tb-col-lg"><span class="sub-text">Enrollment date</span>
@@ -116,12 +116,12 @@
                                                         <a href="#">
                                                             <div class="user-card">
                                                                 <div class="user-avatar bg-primary">
-                                                                    <span>{{ $enroll->studentEnrollment->student->firstName[0] }}</span>
+                                                                    <span>{{ $enroll->studentEnrollment->student->studentsName[0] }}</span>
                                                                 </div>
                                                                 <div class="user-info">
                                                                     <span
-                                                                        class="tb-lead">{{ $enroll->studentEnrollment->student->firstName }}
-                                                                        {{ $enroll->studentEnrollment->student->lastName }}
+                                                                        class="tb-lead">{{ $enroll->studentEnrollment->student->studentsName }}
+                                                                     
                                                                         <span
                                                                             class="dot dot-success d-md-none ms-1"></span></span>
                                                                     <span>{{ $enroll->studentEnrollment->student->email }}
@@ -130,9 +130,7 @@
                                                             </div>
                                                         </a>
                                                     </div>
-                                                    <div class="nk-tb-col tb-col-md">
-                                                        <span>{{ $enroll->studentEnrollment->student->phone_no }} </span>
-                                                    </div>
+                                                 
                                                     <div class="nk-tb-col tb-col-mb">
                                                         @if ($enroll->studentEnrollment)
                                                             <div class="text-primary tb-lead">

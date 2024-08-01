@@ -249,11 +249,11 @@
                                                         <a href="html/lms/students-details.html">
                                                             <div class="user-card">
                                                                 <div class="user-avatar bg-primary">
-                                                                    <span>{{ $student->firstName[0] }}</span>
+                                                                    <span>{{ $student->studentsName[0] }}</span>
                                                                 </div>
                                                                 <div class="user-info">
                                                                     <span
-                                                                        class="tb-lead">{{ $student->firstName . ' ' . $student->lastName }}
+                                                                        class="tb-lead">{{ $student->studentsName }}
                                                                         <span
                                                                             class="dot dot-success d-md-none ms-1"></span></span>
                                                                     <span>{{ $student->email }}</span>

@@ -30,15 +30,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john@example.com</td>
-                                    <td>john@example.com</td>
-                                    <td>john@example.com</td>
-                                    <td>john@example.com</td>
-                                </tr>
-                             
+                                @if($live_class->isNotEmpty())
+                                @foreach($live_class as $enroll)
+                                    @foreach($enroll->course->liveclass as $class)
+                                        <tr>
+                                            <td>{{ $enroll->course->course_title ?? '' }}</td>
+                                            <td>{{ date('j F y', strtotime($class->class_date)) }}</td>
+                                            <td>{{ $class->start_time ?? '' }}</td>
+                                            <td>{{ $class->end_time ?? '' }}</td>
+                                            <td>{{ $class->metting_link ?? '' }}</td>
+                                            <td>{{ $class->metting_platform ?? '' }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>

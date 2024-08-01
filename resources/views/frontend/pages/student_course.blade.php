@@ -23,54 +23,22 @@
                 <div class="card-body ">
 
                     <div class="row">
-                        <div class="col-lg-3">
-                            <div class="card mb-4" style="width: 18rem;">
-                                <img src="{{ asset('/') }}frontend/assets/images/wb2.jpg" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-
-                                    <a href="#" class="btn btn-secondary">Go somewhere</a>
+                        @foreach ($enrollmentClass as $enroll)
+                            <div class="col-lg-3">
+                                <div class="card mb-4" style="width: 18rem;">
+                                    @foreach($enroll->studentEnrollment->course->media as $img)
+                                    <img src="{{asset('uploaded_files/course_thumbnails/'.$img->course_thumbnail)  ?? asset('frontend/assets/images/default.jpg') }}" class="card-img-top" alt="{{ $enroll->studentEnrollment->course->course_title }}">
+                                   @endforeach
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $enroll->studentEnrollment->course->course_title }}</h5>
+                                       
+                                        <a href="{{ route('course.details', $enroll->studentEnrollment->course->slug) }}" class="btn btn-primary">Go somewhere</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card mb-4" style="width: 18rem;">
-                                <img src="{{ asset('/') }}frontend/assets/images/wb1.jpg" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card mb-4" style="width: 18rem;">
-                                <img src="{{ asset('/') }}frontend/assets/images/wb1.jpg" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <div class="card mb-4" style="width: 18rem;">
-                                <img src="{{ asset('/') }}frontend/assets/images/wb1.jpg" class="card-img-top"
-                                    alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">Some quick example text to build on the card title and make up the
-                                        bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
+                    
                 </div>
             </div>
         </div>
