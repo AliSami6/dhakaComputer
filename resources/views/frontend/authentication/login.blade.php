@@ -2,42 +2,93 @@
 @section('title', 'Login Page')
 @push('styles')
     <style>
-        
+         .custom-container {
+            margin-top: 50px;
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: 
+        }
+        .custom-card-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+           
+        }
+        .custom-card {
+            width:40%;
+           
+        }
+        .custom-card-body {
+            width: 100%;
+        }
+        .custom-registration-form {
+            text-align: center;
+            color: #dc3545;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        .custom-form {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .custom-form-label {
+            font-weight: bold;
+        }
+        .custom-submit-btn {
+            margin-top: 14px;
+        }
+        .custom-btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color:#fff;
+        }
+        .custom-btn-primary:hover {
+            background-color: #0056b3;
+            color:#fff;
+        }
+      
     </style>
 @endpush
 @section('content')
-    <div class="container mt-5 mb-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-8">
-                <div class="card mt-3">
-                    <div class="card-body">
-                        <h4 class="registration_from text-center text-danger mt-4 mb-3">Login  Form</h4>
-                        <form method="POST" action="{{ route('login.save') }}" style="min-height: 400px; display: flex; flex-direction: column; justify-content: center;">
-                            @csrf
-                            <div class="mb-4">
-                                <div class="form-group">
-                                    <label for="contactNumber" class="form-label form_label">Phone Number
-                                        <span>*</span></label>
-                                    <input type="text" class="form-control @error('contactNumber') is-invalid @enderror"
-                                        id="phone_no" name="contactNumber">
-                                    @error('contactNumber')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+  <div class="container custom-container">
+        <div class="custom-card-wrapper">
+            <div class="card custom-card mt-3">
+                <div class="card-body custom-card-body">
+                    <h4 class="custom-registration-form">Login Form</h4>
+                    <form method="POST" action="{{ route('login.save') }}" class="custom-form">
+                        @csrf
+                        <div class="mb-4">
+                            <div class="form-group">
+                                <label for="contactNumber" class="form-label custom-form-label">Phone Number
+                                    <span>*</span></label>
+                                <input type="text" class="form-control @error('contactNumber') is-invalid @enderror"
+                                    id="phone_no" name="contactNumber">
+                                @error('contactNumber')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
-                           
-                            <div class="form-group submit_btn mt-4">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </form>
-                        
-                    </div>
+                        </div>
+                       
+                        <div class="form-group custom-submit-btn">
+                            <button type="submit" class="btn custom-btn-primary">Submit</button>
+                        </div>
+                    </form>
+                    
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
 @push('scripts')
     <script></script>

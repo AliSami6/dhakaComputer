@@ -24,19 +24,19 @@ class UserLoginController extends Controller
                 'contactNumber.required' => 'Phone Number is required',
             ],
         );
-    
+
         // Retrieve the user by contactNumber
         $user = User::where('contactNumber', $request->contactNumber)->first();
-    
+
         if ($user) {
             // Manually log in the user
             Auth::login($user);
             return redirect()->route('student.profile')->with('success', 'Login Successfully');
         } else {
-            return redirect()->route('signUp')->with('success', 'Complete Registration First');
+            return redirect()->route('signUp')->with('error', 'Complete Registration First');
         }
     }
-    
+
     public function register()
     {
         return view('frontend.authentication.register');
@@ -86,12 +86,11 @@ class UserLoginController extends Controller
                 'courseTime.required' => 'Course Time is required',
             ],
         );
-        
+
         if ($request->hasFile('image')) {
-          
-            $image = $this->image_upload($request->file('image'), 'uploaded_files/users/',90,80);
-          } 
-       
+            $image = $this->image_upload($request->file('image'), 'uploaded_files/users/', 90, 80);
+        }
+
         User::create([
             'applicantName' => $request->applicantName,
             'fatherName' => $request->fatherName,
@@ -109,7 +108,7 @@ class UserLoginController extends Controller
             'registrationNumber' => $request->registrationNumber,
             'race' => $request->race,
             'gender' => $request->gender,
-            'image' =>  $image,
+            'image' => $image,
             'courseDay' => $request->courseDay,
             'courseTime' => $request->courseTime,
         ]);

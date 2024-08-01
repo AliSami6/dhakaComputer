@@ -13,12 +13,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="registration_from text-center text-danger">Registration Form </h4>
+                        <h4 class="registration_from text-center text-danger mt-3">Registration Form </h4>
                         <form method="POST" action="{{ route('register.save') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-
-
                                 <div class="form-group">
                                     <label for="applicantName" class="form-label form_label">Applicant's Name
                                         <span>*</span></label>

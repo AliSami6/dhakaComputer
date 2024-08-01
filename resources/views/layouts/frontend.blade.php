@@ -20,11 +20,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/lms.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/css/responsive.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/assets/plugins/font-awesome/css/fontawesome.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('frontend') }}/assets/plugins/font-awesome/css/fontawesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap">
-    <link rel="stylesheet" href="{{ asset('/') }}backend/assets/css/toastr.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     @stack('styles')
     <style></style>
 </head>
@@ -85,7 +87,8 @@
                             <li><a class="dropdown-item" href="#">Menu item</a></li>
                         </ul>
                     </div>
-                    <a class="btn btn-primary" href="{{ route('sign_in') }}">LOG IN <i class="fas fa-arrow-right"></i></a>
+                    <a class="btn btn-primary" href="{{ route('sign_in') }}">LOG IN <i
+                            class="fas fa-arrow-right"></i></a>
                     <!-- <a href="">SIGN UP</a> -->
                 </div>
             </div>
@@ -189,7 +192,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer_bottom border-top-1">
-                        <p class="text-center footer-bottom-text">{{ date('Y') }} &#169;<span>All right reserved.</span></p>
+                        <p class="text-center footer-bottom-text">{{ date('Y') }} &#169;<span>All right
+                                reserved.</span></p>
                     </div>
                 </div>
             </div>
@@ -200,15 +204,17 @@
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/plugins/font-awesome/js/fontawesome.min.js">
     </script>
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/js/lms.js"></script>
-    <script src="{{ asset('/') }}backend/assets/js/toastr.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
         // toastr message
         function flashMessage(status, message) {
             toastr.options = {
-                "closeButton": false,
+                "closeButton": true,
                 "debug": false,
                 "newestOnTop": false,
-                "progressBar": false,
+                "progressBar": true,
                 "positionClass": "toast-top-right",
                 "preventDuplicates": false,
                 "onclick": null,
@@ -220,21 +226,18 @@
                 "hideEasing": "linear",
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
-            }
+            };
 
             switch (status) {
                 case 'success':
                     toastr.success(message, 'Success');
                     break;
-
                 case 'error':
                     toastr.error(message, 'Error');
                     break;
-
                 case 'warning':
                     toastr.warning(message, 'Warning');
                     break;
-
                 case 'info':
                     toastr.info(message, 'Info');
                     break;
