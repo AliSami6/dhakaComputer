@@ -3,461 +3,209 @@
 @push('styles')
 @endpush
 @section('content')
-    <main>
-
-        <!-- breadcrumb-area -->
-        <section class="breadcrumb__area include-bg pt-150 pb-150 breadcrumb__overlay"
-            data-background="{{ asset('/') }}frontend/assets/img/banner/banner-bg-3.jpg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xxl-12">
-                        <div class="breadcrumb__content p-relative z-index-1">
-                            <h3 class="breadcrumb__title mb-20">Checkout</h3>
-                            <div class="breadcrumb__list">
-                                <span><a href="index.html">Home</a></span>
-                                <span class="dvdr"><i class="fa-regular fa-angle-right"></i></span>
-                                <span class="sub-page-black">Checkout</span>
+<!-- form-area start -->
+<section class="coupon-area pt-5 pb-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="coupon-accordion">
+                    <!-- ACCORDION START -->
+                    @if (!auth()->check())
+                        <h3>Returning customer? <span id="showlogin" class="text-primary" style="cursor:pointer;">Click here to login</span></h3>
+                        <div id="checkout-login" class="coupon-content mt-3">
+                            <div class="coupon-info">
+                                <p class="coupon-text">If you are not a registered user, complete your registration first.</p>
+                                <form action="{{ route('login.save') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="phone_no" class="form-label">User Phone Number <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control @error('phone_no') is-invalid @enderror" id="phone_no" name="phone_no" />
+                                        @error('phone_no')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" />
+                                        @error('password')
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-primary" type="submit">Login</button>
+                                    </div>
+                                </form>
                             </div>
+                        </div>
+                    @endif
+                    <!-- ACCORDION END -->
+                </div>
+            </div>
+            <!-- Uncomment and modify this section if needed
+            <div class="col-md-6">
+                <div class="coupon-accordion">
+                    <h3>Have a coupon? <span id="showcoupon" class="text-primary" style="cursor:pointer;">Click here to enter your code</span></h3>
+                    <div id="checkout_coupon" class="coupon-checkout-content mt-3">
+                        <div class="coupon-info">
+                            <form action="#">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Coupon Code" />
+                                    <button class="btn btn-primary" type="submit">Apply Coupon</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- breadcrumb-area-end -->
+            -->
+        </div>
+    </div>
+</section>
+<!-- form-area end -->
 
-        <!-- coupon-area start -->
-        <section class="coupon-area pt-100 pb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="coupon-accordion">
-                            <!-- ACCORDION START -->
-                            @if (!auth()->check())
-                                <h3>Returning customer? <span id="showlogin">Click here to login</span></h3>
-                                <div id="checkout-login" class="coupon-content">
-                                    <div class="coupon-info">
-                                        <p class="coupon-text">if you are not registered user complete your registration
-                                            first..</p>
-                                        <form action="{{ route('login.save') }}" method="POST">
-                                            @csrf
-                                            <p class="form-row-first">
-                                                <label>User Phone Number <span class="required">*</span></label>
-                                                <input type="text" class=" @error('phone_no') is-invalid @enderror"
-                                                    id="phone_no" name="phone_no" />
-                                                <span class="text-danger">{{ $errors->first('phone_no') }}</span>
-                                            </p>
-                                            <p class="form-row-last">
-                                                <label>Password <span class="required">*</span></label>
-                                                <input type="password" name="password"
-                                                    class="@error('password') is-invalid @enderror" />
-                                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                                            </p>
-                                            <p class="form-row">
-                                                <button class="tp-btn-3 tp-btn" type="submit">Login</button>
-
-                                            </p>
-
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- ACCORDION END -->
-                            @endif
-                        </div>
-                    </div>
-                    {{-- <div class="col-md-6">
-                        <div class="coupon-accordion">
-                            <!-- ACCORDION START -->
-                            <h3>Have a coupon? <span id="showcoupon">Click here to enter your code</span></h3>
-                            <div id="checkout_coupon" class="coupon-checkout-content">
-                                <div class="coupon-info">
-                                    <form action="#">
-                                        <p class="checkout-coupon">
-                                            <input type="text" placeholder="Coupon Code" />
-                                            <button class="tp-btn-3" type="submit">Apply Coupon</button>
-                                        </p>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- ACCORDION END -->
-                        </div>
-                    </div> --}}
-                </div>
-            </div>
-        </section>
-        <!-- coupon-area end -->
-
-        <!-- checkout-area start -->
-        <section class="checkout-area pb-70">
-            <div class="container">
-                <form id="OrderFormID" action="{{ route('order') }}" method="POST">
-                    @csrf
-                    <!-- The rest of your form fields -->
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12">
-                            <div class="checkbox-form">
-                                <h3>Billing Details</h3>
-                            @if (auth()->user())
-                                @php
-                                    $students = DB::table('students')
-                                        ->where('email', auth()->user()->email)
-                                        ->first();
-                                @endphp
-                                @if(isset($students))
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>First Name </label>
-                                                <input type="text" placeholder="Input First Name" class="customer_name" name="firstName"
-                                                    value="{{ $students->firstName}}"
-                                                    style="border: none;" readonly />
-                                            </div>
-                                           
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Last Name </label>
-                                                <input type="text" placeholder="Input Last Name" name="lastName"
-                                                    value="{{ $students->lastName  }}"
-                                                   style="border: none;" readonly />
-                                            </div>
-                                           
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Nationality</label>
-                                                <input type="text" name="nationality" placeholder="Input Nationality"
-                                                    value="{{ $students->nationality}}"
-                                                   style="border: none;" readonly />
-                                            </div>
-                                         
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Address </label>
-                                                <input type="text" placeholder="Street address" name="address_one" class=""
-                                                    value="{{ $students->address_one}}"
-                                                   style="border: none;" readonly />
-                                            </div>
-                                         
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Address Optional </label>
-                                                <input type="text" placeholder="Apartment, suite, unit etc. (optional)"
-                                                    value="{{ $students->address_two}}"
-                                                    name="address_two" style="border: none;" readonly />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>State </label>
-                                                <input type="text" placeholder="Input State" name="state"
-                                                    value="{{ $students->state}}"
-                                                     style="border: none;" readonly />
-                                            </div>
-                                          
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Country </label>
-                                                <input type="text" placeholder="Input Country" name="country"
-                                                    value="{{ $students->country}}"
-                                                  style="border: none;" readonly />
-                                            </div>
-                                         
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Email Address </label>
-                                                <input type="email" placeholder="Input Email"
-                                                    value="{{ $students->email}}" class="cus_email"
-                                                  name="email" style="border: none;" readonly />
-                                            </div>
-                                         
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Phone </label>
-                                                <input type="text" placeholder="Phone Number"
-                                                    value="{{ $students->phone_no}}" id="phone_no" class="phone_no"
-                                                    name="phone_no" style="border: none;" readonly />
-                                            </div>
-                                      
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>First Name </label>
-                                                <input type="text" placeholder="Input First Name" name="firstName"
-                                                    value="{{ auth()->user()->first_name ?? 'Input First Name' }}"
-                                                    class="@error('firstName') is-invalid @enderror customer_name"  />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('firstName') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Last Name </label>
-                                                <input type="text" placeholder="Input Last Name" name="lastName"
-                                                    value="{{ auth()->user()->last_name ?? 'Input Last Name'}}"
-                                                    class="@error('lastName') is-invalid @enderror" />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('lastName') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Nationality</label>
-                                                <input type="text" name="nationality" placeholder="Input Nationality"
-                                                    value="{{ 'Input Nationality' }}"
-                                                    class="@error('nationality') is-invalid @enderror" />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('nationality') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Address </label>
-                                                <input type="text" placeholder="Street address" name="address_one" id="address"
-                                                    value="{{ $students->address_one ?? 'Input Address One' }}"
-                                                    class="@error('address_one') is-invalid @enderror address_one"  />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('address_one') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>Address Optional </label>
-                                                <input type="text" placeholder="Apartment, suite, unit etc. (optional)"
-                                                    value="{{ $students->address_two ?? 'Input Address Two' }}"
-                                                    class="@error('address_two') is-invalid @enderror" name="address_two"  />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('address_two') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="checkout-form-list">
-                                                <label>State </label>
-                                                <input type="text" placeholder="Input State" name="state"
-                                                    value="{{ $students->state ?? 'Input State' }}"
-                                                    class="@error('state') is-invalid @enderror" />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('state') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Country </label>
-                                                <input type="text" placeholder="Input Country" name="country"
-                                                    value="{{ $students->country ?? 'Input Country' }}"
-                                                    class="@error('country') is-invalid @enderror" />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('country') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Email Address </label>
-                                                <input type="email" placeholder="Input Email" id="email"
-                                                    value="{{ $students->email ?? (auth()->user()->email ?? 'Input Email') }}"
-                                                    class="@error('email') is-invalid @enderror cus_email" name="email" />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="checkout-form-list">
-                                                <label>Phone </label>
-                                                <input type="text" placeholder="Phone Number"
-                                                    value="{{ $students->phone_no ?? (auth()->user()->phone_no ?? 'Input Phone Number') }}"
-                                                    class="@error('phone_no') is-invalid @enderror phone_no" name="phone_no" />
-                                            </div>
-                                            <span class="text-danger" role="alert">
-                                                <strong>{{ $errors->first('phone_no') }}</strong>
-                                            </span>
-                                        </div>
-                                    </div>
-                                @endif
-                            @else
+<!-- checkout-area start -->
+<section class="checkout-area pb-5">
+    <div class="container">
+        <form id="OrderFormID" action="{{ route('order') }}" method="POST">
+            @csrf
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="checkbox-form">
+                        <h3>Billing Details</h3>
+                        @if (auth()->user())
+                            @php
+                                $students = DB::table('students')->where('email', auth()->user()->email)->first();
+                            @endphp
+                            @if(isset($students))
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>First Name <span class="required">*</span></label>
-                                            <input type="text" placeholder="Input First Name" name="firstName"
-                                                class="@error('firstName') is-invalid @enderror customer_name" />
+                                    @php
+                                        $fields = [
+                                            'firstName' => 'First Name',
+                                            'lastName' => 'Last Name',
+                                            'nationality' => 'Nationality',
+                                            'address_one' => 'Address',
+                                            'address_two' => 'Address Optional',
+                                            'state' => 'State',
+                                            'country' => 'Country',
+                                            'email' => 'Email Address',
+                                            'phone_no' => 'Phone'
+                                        ];
+                                    @endphp
+                                    @foreach ($fields as $field => $label)
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">{{ $label }}</label>
+                                            <input type="text" class="form-control" name="{{ $field }}" value="{{ $students->$field }}" readonly />
                                         </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('firstName') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Last Name <span class="required">*</span></label>
-                                            <input type="text" placeholder="Input Last Name" name="lastName"
-                                                class="@error('lastName') is-invalid @enderror" />
+                                    @endforeach
+                                </div>
+                            @else
+                                @php
+                                    $fields = [
+                                        'firstName' => 'First Name',
+                                        'lastName' => 'Last Name',
+                                        'nationality' => 'Nationality',
+                                        'address_one' => 'Address',
+                                        'address_two' => 'Address Optional',
+                                        'state' => 'State',
+                                        'country' => 'Country',
+                                        'email' => 'Email Address',
+                                        'phone_no' => 'Phone'
+                                    ];
+                                @endphp
+                                <div class="row">
+                                    @foreach ($fields as $field => $label)
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">{{ $label }} <span class="text-danger">*</span></label>
+                                            <input type="text" class="form-control @error($field) is-invalid @enderror" name="{{ $field }}" value="{{ auth()->user()->$field ?? 'Input ' . $label }}" />
+                                            @error($field)
+                                                <span class="invalid-feedback">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('lastName') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Nationality</label>
-                                            <input type="text" name="nationality" placeholder="Input Nationality"
-                                                class="@error('nationality') is-invalid @enderror" />
-                                        </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('nationality') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Address <span class="required">*</span></label>
-                                            <input type="text" placeholder="Street address" name="address_one"
-                                                class="@error('address_one') is-invalid @enderror address_one" />
-                                        </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('address_one') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)"
-                                                class="@error('address_two') is-invalid @enderror " name="address_two" />
-                                        </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('address_two') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>State <span class="required">*</span></label>
-                                            <input type="text" placeholder="Input State" name="state"
-                                                class="@error('state') is-invalid @enderror" />
-                                        </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('state') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Country <span class="required">*</span></label>
-                                            <input type="text" placeholder="Input Country" name="country"
-                                                class="@error('country') is-invalid @enderror" />
-                                        </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('country') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Email Address <span class="required">*</span></label>
-                                            <input type="email" placeholder="Input Email" name="email"
-                                                class="@error('email') is-invalid @enderror cus_email" />
-                                        </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Phone <span class="required">*</span></label>
-                                            <input type="text" placeholder="Phone Number" name="phone_no"
-                                                class="@error('phone_no') is-invalid @enderror phone_no" />
-                                        </div>
-                                        <span class="text-danger" role="alert">
-                                            <strong>{{ $errors->first('phone_no') }}</strong>
-                                        </span>
-                                    </div>
+                                    @endforeach
                                 </div>
                             @endif
-                            
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12">
-                            <div class="your-order mb-30">
-                                <h3>Your order</h3>
-                                <div class="your-order-table table-responsive">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th class="product-name">Course</th>
-                                                <th class="product-total">Price</th>
-                                                <th class="product-total">Quantity</th>
-                                                <th class="product-total">Total</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                                $total = 0;
-                                            @endphp
-                                            @if (session('cart'))
-                                                @foreach (session('cart') as $id => $details)
-                                                    @php
-                                                        $subtotal = $details['price'] * $details['quantity'];
-                                                        $total += $subtotal;
-                                                    @endphp
-
-                                                    <tr class="cart_item" data-id="{{ $id }}">
-                                                        <td class="product-name">
-                                                            {{ $details['course_title'] }} <strong
-                                                                class="product-quantity"> ×
-                                                                {{ $details['quantity'] }}</strong>
-                                                        </td>
-                                                        <td class="product-price">
-                                                            <span class="amount">${{ $details['price'] }}</span>
-                                                        </td>
-                                                        <td class="product-quantity">
-                                                            <div class="quantity">
-                                                                <strong class="product-quantity"> ×
-                                                                    {{ $details['quantity'] }}</strong>
-                                                            </div>
-                                                        </td>
-                                                        <td class="product-subtotal">
-                                                            <span class="amount">${{ $subtotal }}</span>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        </tbody>
-                                        <tfoot>
-
-                                            <tr class="order-total">
-                                                <th>Order Total</th>
-                                                <td><strong><span class="amount">${{ $total }}</span></strong></td>
-                                                @php
-                                                session(['amount' => $total]);
-                                            @endphp
-                                            
-
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                                <div class="payment-method">
-                                    <div class="order-button-payment mt-20" >
-                                        <button type="submit" class="tp-btn">Place order</button>
+                        @else
+                            @php
+                                $fields = [
+                                    'firstName' => 'First Name',
+                                    'lastName' => 'Last Name',
+                                    'nationality' => 'Nationality',
+                                    'address_one' => 'Address',
+                                    'address_two' => 'Address Optional',
+                                    'state' => 'State',
+                                    'country' => 'Country',
+                                    'email' => 'Email Address',
+                                    'phone_no' => 'Phone'
+                                ];
+                            @endphp
+                            <div class="row">
+                                @foreach ($fields as $field => $label)
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">{{ $label }} <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control @error($field) is-invalid @enderror" name="{{ $field }}" placeholder="Input {{ $label }}" />
+                                        @error($field)
+                                            <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                </div>
+                                @endforeach
                             </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="your-order mb-3">
+                        <h3>Your Order</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Course</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php
+                                        $total = 0;
+                                    @endphp
+                                    @if (session('cart'))
+                                        @foreach (session('cart') as $id => $details)
+                                            @php
+                                                $subtotal = $details['price'] * $details['quantity'];
+                                                $total += $subtotal;
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $details['course_title'] }}</td>
+                                                <td>${{ $details['price'] }}</td>
+                                                <td>{{ $details['quantity'] }}</td>
+                                                <td>${{ $subtotal }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="3">Order Total</th>
+                                        <td>${{ $total }}</td>
+                                        @php
+                                            session(['amount' => $total]);
+                                        @endphp
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-primary">Place order</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-        </section>
-        <!-- checkout-area end -->
+        </form>
+    </div>
+</section>
+<!-- checkout-area end -->
 
-    </main>
 @endsection
 @push('scripts')
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
