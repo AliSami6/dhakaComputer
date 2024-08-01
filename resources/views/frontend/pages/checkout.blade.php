@@ -78,26 +78,21 @@
                                         ->first();
                                 @endphp
                                 <div class="mb-3">
-                                    <label for="applicantName" class="form-label">Student Name </label>
-                                    <input type="text" class="form-control @error('applicantName') is-invalid @enderror"
-                                        id="applicantName" name="applicantName"
+                                    <label for="studentsName" class="form-label">Student Name </label>
+                                    <input type="text" class="form-control @error('studentsName') is-invalid @enderror"
+                                        id="studentsName" name="studentsName"
                                         value="{{ auth()->user()->applicantName ?? '' }}">
-                                    @error('applicantName')
+                                    @error('studentsName')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-                                
-                                   
-                                 
-                               
-
                                 <div class="mb-3">
                                     <label for="presentAddress" class="form-label">Present Address</label>
-                                    <textarea class="form-control @error('presentAddress') is-invalid @enderror" id="presentAddress" rows="4"
-                                        name="presentAddress">{!! auth()->user()->presentAddress !!}</textarea>
-                                    @error('presentAddress')
+                                    <textarea class="form-control @error('address') is-invalid @enderror" id="presentAddress" rows="4"
+                                        name="address">{!! auth()->user()->presentAddress !!}</textarea>
+                                    @error('address')
                                         <span class="invalid-feedback">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -131,167 +126,6 @@
                                     <input type="text" class="form-control @error('country') is-invalid @enderror"
                                         id="country" name="country">
                                     @error('country')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            @else
-                                <div class="mb-3">
-                                    <label for="applicantName" class="form-label">Student Name </label>
-                                    <input type="text" class="form-control @error('applicantName') is-invalid @enderror"
-                                        id="applicantName" name="applicantName">
-                                    @error('applicantName')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="fatherName" class="form-label">Father Name </label>
-                                    <input type="text" class="form-control @error('fatherName') is-invalid @enderror"
-                                        id="fatherName" name="fatherName">
-                                    @error('fatherName')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="fatherOccupation" class="form-label">Father Occupation </label>
-                                    <input type="text"
-                                        class="form-control @error('fatherOccupation') is-invalid @enderror"
-                                        id="fatherOccupation" name="fatherOccupation">
-                                    @error('fatherOccupation')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="motherName" class="form-label">Mother Name </label>
-                                    <input type="text" class="form-control @error('motherName') is-invalid @enderror"
-                                        id="motherName" name="motherName">
-                                    @error('motherName')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="motherOccupation" class="form-label">Mother Occupation </label>
-                                    <input type="text"
-                                        class="form-control @error('motherOccupation') is-invalid @enderror"
-                                        id="motherOccupation" name="motherOccupation">
-                                    @error('motherOccupation')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="nationalId" class="form-label"> National Id </label>
-                                    <input type="text" class="form-control @error('nationalId') is-invalid @enderror"
-                                        id="nationalId" name="nationalId">
-                                    @error('nationalId')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="education" class="form-label">Occupation</label>
-                                    <select class="form-select form_select  @error('occupation') is-invalid @enderror"
-                                        aria-label="Default select example" name="occupation">
-                                        <option selected>Open this select menu</option>
-                                        <option value="Student">Student</option>
-                                        <option value="Business">Business</option>
-                                        <option value="Service">Service</option>
-                                        <option value="Housewife">Housewife</option>
-                                        <option value="Others">Others</option>
-                                    </select>
-                                    @error('occupation')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="education" class="form-label">Education</label>
-                                    <select class="form-select form_select @error('education') is-invalid @enderror"
-                                        aria-label="Default select example" name="education">
-                                        <option selected>Open this select menu</option>
-                                        <option value="PEC/JSC">PEC/JSC</option>
-                                        <option value="SSC">SSC</option>
-                                        <option value="HSC">HSC</option>
-                                        <option value="Bechelor">Bechelor</option>
-                                        <option value="Masters">Masters</option>
-                                    </select>
-                                    @error('education')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="permanentAddress" class="form-label">Permanent address</label>
-                                    <textarea class="form-control @error('permanentAddress') is-invalid @enderror" id="permanentAddress" rows="4"
-                                        name="permanentAddress"></textarea>
-                                    @error('permanentAddress')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="presentAddress" class="form-label">Present address</label>
-                                    <textarea class="form-control @error('presentAddress') is-invalid @enderror" id="presentAddress" rows="4"
-                                        name="presentAddress"></textarea>
-                                    @error('presentAddress')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                                    <input type="email"
-                                        class="form-control @error('emailAddress') is-invalid @enderror"
-                                        id="emailAddress" name="emailAddress">
-                                    @error('emailAddress')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Contact Number</label>
-                                    <input type="text"
-                                        class="form-control @error('contactNumber') is-invalid @enderror"
-                                        id="contactNumber" name="contactNumber">
-                                    @error('contactNumber')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Birth Date</label>
-                                    <input type="date" class="form-control @error('dob') is-invalid @enderror"
-                                        id="dob" name="dob">
-                                    @error('dob')
-                                        <span class="invalid-feedback">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Registration
-                                        Number</label>
-                                    <input type="text"
-                                        class="form-control @error('registrationNumber') is-invalid @enderror"
-                                        id="registrationNumber" name="registrationNumber">
-                                    @error('registrationNumber')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

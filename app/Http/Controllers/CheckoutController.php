@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use session;
+
+use Illuminate\Support\Facades\Session;
+
 use App\User;
 use App\Models\Order;
 use App\Models\Course;
@@ -27,86 +29,61 @@ class CheckoutController extends Controller
     {
         // Ensure user is authenticated
         if (!Auth::check()) {
-            return redirect()->back()->with('error', 'Please log in Or Complet Registration to place an order.');
+            return redirect()->back()->with('error', 'Please log in or complete registration to place an order.');
         }
-
+      
         $request->validate(
             [
-                'applicantName' => 'required|string|max:255',
-                'fatherName' => 'required|string|max:255',
-                'fatherOccupation' => 'required|string|max:255',
-                'motherName' => 'required|string|max:255',
-                'nationalId' => 'required|string|max:255',
-                'occupation' => 'required',
-                'education' => 'required',
-                'motherOccupation' => 'required|string|max:255',
-                'presentAddress' => 'required',
-                'permanentAddress' => 'required',
-                'contactNumber' => 'required',
-                'emailAddress' => 'required|string|email|unique:users',
-                'dob' => 'required|string',
-                'registrationNumber' => 'required|string|max:255',
-                'race' => 'required',
-                'gender' => 'required',
-                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
-                'courseDay' => 'required|integer|min:1',
-                'courseTime' => 'required|integer|min:1',
+                'studentsName' => 'required|string|max:255',
+                'city' => 'required|string|max:255',
+                'division' => 'required|string|max:255',
+                'address' => 'required',
+                'country' => 'required|string|max:255',
             ],
             [
-                'applicantName.required' => 'Applicant Name is required',
-                'fatherName.required' => 'Father Name is required',
-                'fatherOccupation.required' => 'Father Occupation is required',
-                'motherName.required' => 'Mother Name is required',
-                'nationalId.required' => 'National ID is required',
-                'occupation.required' => 'Occupation is required',
-                'education.required' => 'Education is required',
-                'motherOccupation.required' => 'Mother Occupation is required',
-                'contactNumber.required' => 'Contact Number is required',
-                'contactNumber.unique' => 'Contact Number already exists',
-                'emailAddress.required' => 'Email Address is required',
-                'emailAddress.unique' => 'Email Address already exists',
-                'registrationNumber.required' => 'Registration Number is required',
-                'race.required' => 'Race is required',
-                'gender.required' => 'Gender is required',
-                'courseDay.required' => 'Course Day is required',
-                'courseTime.required' => 'Course Time is required',
+                'studentsName.required' => 'Student Name is required',
+                'city.required' => 'City is required',
+                'division.required' => 'Division is required',
+                'address.required' => 'Address is required',
+                'country.required' => 'Country is required',
             ],
         );
+   
         // Get cart items from session
-        $cart = session()->get('cart', []);
+        $cart = Session::get('cart', []);
 
+     
         // Check if the cart is not empty
         if (empty($cart)) {
             return redirect()->back()->with('error', 'Your cart is empty.');
         }
-
+    
         // Get the first course item from the cart
         $firstCartItem = reset($cart); // reset() will return the first item in the array
-
-        try {
-            DB::beginTransaction();
-
+    
+        // try {
+        //     DB::beginTransaction();
+    
             // Initialize total
             $total = 0;
-
+    
             // Loop through cart items and create Orders
             foreach ($cart as $cartItem) {
                 $course = Course::findOrFail($cartItem['course_id']);
-
+   
                 $subtotal = $cartItem['price'] * $cartItem['quantity'];
                 $total += $subtotal;
-
-                // Check if student already exists by email or phone number
-                $existStudent = Student::where('user_id', auth()->user()->id)
-                ->first();
-
+           
+                // Check if student already exists by user ID
+                $existStudent = Student::where('user_id', auth()->user()->id)->first();
+    
                 // Create a new Student or fetch existing one
                 if (!$existStudent) {
                     $student = Student::create([
-                        'studentsName' => $request->applicantName,
+                        'studentsName' => $request->studentsName,
                         'course_id' => $course->id,
                         'user_id' => auth()->user()->id,
-                        'address' => $request->presentAddress,
+                        'address' => $request->address,
                         'city' => $request->city,
                         'division' => $request->division,
                         'country' => $request->country,
@@ -116,6 +93,7 @@ class CheckoutController extends Controller
                 } else {
                     $student = $existStudent;
                 }
+              
                 $orderData = [
                     'course_id' => $course->id,
                     'student_id' => $student->id,
@@ -126,7 +104,7 @@ class CheckoutController extends Controller
                     'status' => 'Pending',
                     'quantity' => $cartItem['quantity'],
                 ];
-
+    
                 $order = Order::create($orderData);
                 $enrollmentID = StudentEnrollment::create([
                     'student_id' => $student->id,
@@ -142,13 +120,17 @@ class CheckoutController extends Controller
                     'current_address' => auth()->user()->presentAddress,
                     'studentID' => $studentID,
                 ]);
-                session()->forget('cart');
-            }
-            DB::commit();
-        } catch (\Exception $exp) {
-            DB::rollBack();
+    
+                Session::forget('cart');
 
-            return redirect()->back()->with('error', 'Something Went Wrong!');
-        }
+            }
+    
+            // DB::commit();
+            return redirect()->route('index')->with('success', 'Order placed successfully!');
+        // } catch (\Exception $exp) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', 'Something went wrong!');
+        // }
     }
+    
 }
