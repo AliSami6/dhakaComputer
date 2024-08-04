@@ -16,27 +16,28 @@ class CartController extends Controller
         return view('frontend.pages.cart');
     }
 
- public function addToCart($id)
-{
-    $course = Course::findOrFail($id);
-    $cart = Session::get('cart', []);
+    public function addToCart($id)
+    {
+        $course = Course::findOrFail($id);
+        $media = $course->media; // Fetch the related media with the thumbnail
 
-    if (isset($cart[$id])) {
-        $cart[$id]['quantity']++;
-    } else {
-        $cart[$id] = [
-            'course_id' => $course->id,
-            'course_title' => $course->course_title,
-            'price' => $course->price,
-            'discounted_price' => $course->discounted_price,
-            'quantity' => 1,
-        ];
+        $cart = Session::get('cart', []);
+
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = [
+                'course_id' => $course->id,
+                'course_title' => $course->course_title,
+                'price' => $course->price,
+                'discounted_price' => $course->discounted_price,
+                'quantity' => 1,
+            ];
+        }
+
+        Session::put('cart', $cart);
+        return redirect()->route('cart')->with('success', 'Added to cart successfully!');
     }
-
-    Session::put('cart', $cart);
-    return redirect()->route('process_cheakout')->with('success', 'Added to cart successfully!');
-}
-
 
     public function update(Request $request)
     {

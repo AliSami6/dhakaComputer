@@ -15,6 +15,7 @@ use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\QuizController;
 use App\Http\Controllers\Backend\BatchController;
 use App\Http\Controllers\Backend\AdminsController;
+use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\Backend\CourseController;
 use App\Http\Controllers\Backend\CounterController;
 use App\Http\Controllers\Backend\InvoiceController;
@@ -81,12 +82,12 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/course_list','coursesAll')->name('course.list');
  
     Route::get('/wallet','My_Wallet')->name('student.wallet');
-    Route::get('/course_details/{keyword}','CourseDetails')->name('course.details');
+    Route::get('/coursedetails/{keyword}','CourseDetails')->name('course.details');
    
 });
 Route::controller(FeatureWithBlogController::class)->group(function(){
-    Route::get('/blog_list','BlogList')->name('all.blog');
-    Route::get('/blog_details/{slug}','BlogDetails')->name('blog.details');
+    Route::get('/blog/list','BlogList')->name('all.blog');
+    Route::get('/blog/details/{slug}','BlogDetails')->name('blog.details');
 });
 
  Route::controller(UserLoginController::class)->group(function () {
@@ -233,12 +234,12 @@ Route::prefix('admin')->group(function () {
         // ------------------------------------------- End Student -------------------------------------------------------------------//
 
         // ----------------------------------------- Coupon -------------------------------------------------------------------------//
-        // Route::controller(BlogFeatureController::class)->group(function () {
-        //     Route::get('/coupons', 'couponList')->name('coupons.courses');
-        //     Route::get('/create-coupons', 'CreateCopons')->name('create.coupons');
-        // });
+        Route::controller(CouponController::class)->group(function () {
+            Route::post('/apply-referral-code', 'applyReferralCode')->name('apply.referral.code');
+            Route::get('/create-coupons', 'CreateCopons')->name('create.coupons');
+        });
 
-        // ------------------------------------------- End Coupon -------------------------------------------------------------------//
+        //------------------------------------------- End Coupon -------------------------------------------------------------------//
         Route::controller(BlogCategoryController::class)->group(function () {
             Route::get('/blog/category', 'index')->name('blog.category.index');
             Route::get('/blog/category/create', 'create')->name('blog.category.create');

@@ -50,7 +50,7 @@
             color:#fff;
         }
         .custom-btn-primary:hover {
-            background-color: #0056b3;
+            background-color: #c8ddf3;
             color:#fff;
         }
       
@@ -79,10 +79,9 @@
                         </div>
                        
                         <div class="form-group custom-submit-btn">
-                            <div class="card-footer">
-                                <button type="submit" class="btn custom-btn-primary">Submit</button>
-                            </div>
-                         
+                           
+                                <button type="submit" class="btn custom-btn-primary">Login</button>
+                           
                         </div>
                     </form>
                     

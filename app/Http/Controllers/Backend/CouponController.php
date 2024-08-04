@@ -2,20 +2,31 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\StudentEnrollment;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CouponController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function applyReferralCode(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'referral_code' => 'required|string|exists:student_enrollments,referral_code',
+        ]);
 
-   
+        $referralCode = $request->input('referral_code');
+        $enrollment = StudentEnrollment::where('referral_code', $referralCode)->first();
+
+       if ($enrollment) {
+            Session::put('referral_code', $referralCode);
+
+            return redirect()->back()->with('success', 'Referral code applied successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Invalid referral code.');
+    }
     public function couponList(){
         return view('backend.pages.courses.coupons.coupons-list');
     }
