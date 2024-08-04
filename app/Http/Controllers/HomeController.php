@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\Models\Blog;
 use App\Models\Page;
+use App\Models\Batch;
 use App\Models\Course;
 use App\Models\Enroll;
 use App\Models\Counter;
@@ -12,6 +13,7 @@ use App\Models\Section;
 use App\Models\Student;
 use App\Models\Category;
 use App\Models\Training;
+use App\Models\LiveClass;
 use App\Models\Instructor;
 use Illuminate\Http\Request;
 use App\Models\InstructorCourse;
@@ -72,7 +74,7 @@ class HomeController extends Controller
         $my_course = Course::with('sections', 'sections.lessons', 'sections.quizes', 'instructors.instructor')->where('id', $id)->first();
         return view('frontend.pages.course_metarials', compact('my_course'));
     }
-    
+
     public function CourseLesson($lesson)
     {
         $my_lesson = Lession::where('lession_title', $lesson)->first();
@@ -98,14 +100,14 @@ class HomeController extends Controller
                 ->where('enroll_status', 'Accepted')
                 ->get()
                 ->unique('studentEnrollment.course_id');
-            
+
             $enrollCourseCount = StudentEnrollment::with('course')
                 ->where('student_id', $students->id)
                 ->get()
                 ->unique('course_id');
-            
+
             $uniqueCourseCount = $enrollCourseCount->count();
-    
+
             return view('frontend.pages.student_course', [
                 'students' => $students,
                 'uniqueCourseCount' => $uniqueCourseCount,
@@ -115,19 +117,29 @@ class HomeController extends Controller
             return redirect()->back()->with('warning', 'Complete Your Order');
         }
     }
-    
+
     public function StudentBatch()
     {
-        $studentEnrollCourses = StudentEnrollment::with('course.batch')
-        ->whereHas('course.batch')
-        ->get();
+        // Fetch student enrollments for the authenticated user
+        if (!auth()->check()) {
+            return view('frontend.pages.my_batch', [
+                'studentEnrollCourses' => collect(),
+                'isAuthenticated' => false,
+            ]);
+        }
 
-    return view('frontend.pages.my_batch', ['studentEnrollCourses' => $studentEnrollCourses]);
-    
+        $students = Student::where('user_id', auth()->id())->pluck('id')->toArray();
+        $studentEnrollCourses = StudentEnrollment::with('course.batch')->whereIn('student_id', $students)->get();
+
+        return view('frontend.pages.my_batch', [
+            'studentEnrollCourses' => $studentEnrollCourses,
+            'isAuthenticated' => true,
+        ]);
     }
+
     public function UpdateStudentProfile(Request $request, $id)
     {
-        $students = User::where('emailAddress ', Auth::user()->emailAddress )
+        $students = User::where('emailAddress ', Auth::user()->emailAddress)
             ->orWhere('id', $id)
             ->first();
         if (!empty($request->file('image'))) {
@@ -154,7 +166,7 @@ class HomeController extends Controller
                 'occupation' => $request->occupation,
                 'motherOccupation' => $request->motherOccupation,
                 'presentAddress' => $request->presentAddress,
-                'permanentAddress' => $request->permanentAddress
+                'permanentAddress' => $request->permanentAddress,
             ]);
         }
 
@@ -246,12 +258,12 @@ class HomeController extends Controller
     {
         return view('frontend.pages.profile');
     }
-    public function My_Wallet(){
+    public function My_Wallet()
+    {
         return view('frontend.pages.my_wallet');
     }
     public function UpdateUserProfile(Request $request)
     {
-       
         $students = User::where('emailAddress', Auth::user()->emailAddress)->first();
         if (!empty($request->file('image'))) {
             $image = $this->image_updated($request->file('image'), 'uploaded_files/users/', $students->image);
@@ -277,16 +289,17 @@ class HomeController extends Controller
                 'occupation' => $request->occupation,
                 'motherOccupation' => $request->motherOccupation,
                 'presentAddress' => $request->presentAddress,
-                'permanentAddress' => $request->permanentAddress
+                'permanentAddress' => $request->permanentAddress,
             ]);
         }
 
         return redirect()->back()->with('success', 'User data updated successfully!!');
     }
-    public function studentCourse(){
+    public function studentCourse()
+    {
         $students = Student::where('user_id', Auth::user()->id)->first();
         if ($students != null) {
-            $enrollmentClass = Enroll::with(['studentEnrollment', 'studentEnrollment.student', 'studentEnrollment.course',  'studentEnrollment.course.media'])
+            $enrollmentClass = Enroll::with(['studentEnrollment', 'studentEnrollment.student', 'studentEnrollment.course', 'studentEnrollment.course.media'])
                 ->whereHas('studentEnrollment', function ($query) use ($students) {
                     $query->where('student_id', $students->id);
                 })
@@ -296,9 +309,9 @@ class HomeController extends Controller
                 ->where('enroll_status', 'Accepted')
                 ->get()
                 ->unique('studentEnrollment.course_id');
-            
-    //    dd($enrollmentClass);
-    
+
+            //    dd($enrollmentClass);
+
             return view('frontend.pages.student_course', [
                 'students' => $students,
                 'enrollmentClass' => $enrollmentClass,
@@ -306,13 +319,27 @@ class HomeController extends Controller
         } else {
             return redirect()->back()->with('warning', 'Complete Your Order');
         }
-        
     }
-    public function LiveClass(){
-        $live_class = StudentEnrollment::with(['course.liveclass'])
-        ->whereHas('course.liveclass')
-        ->get();
-        return view('frontend.pages.my_live_class',['live_class'=>$live_class]);
+    public function LiveClass()
+    {
+        // Check if the user is authenticated
+        if (!auth()->check()) {
+            return view('frontend.pages.my_live_class', [
+                'live_class' => collect(),
+                'isAuthenticated' => false,
+            ]);
+        }
+        // Get the IDs of students associated with the authenticated user
+        $studentIds = Student::where('user_id', auth()->id())->pluck('id')->toArray();
+        // Fetch live classes related to the courses the students are enrolled in
+        $live_class = LiveClass::whereHas('livecourses', function ($query) use ($studentIds) {
+            $query->whereIn('id', function ($subQuery) use ($studentIds) {
+                $subQuery->select('course_id')->from('student_enrollments')->whereIn('student_id', $studentIds);
+            });
+        })->get();
+        return view('frontend.pages.my_live_class', [
+            'live_class' => $live_class,
+            'isAuthenticated' => true,
+        ]);
     }
-    
 }

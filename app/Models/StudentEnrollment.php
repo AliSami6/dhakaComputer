@@ -12,23 +12,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class StudentEnrollment extends Model
 {
     use HasFactory;
-  
-      protected $fillable = [
-        'student_id',
-        'course_id',
-        'referral_code',
-        'referrer_id'
-    ];
+
+    protected $fillable = ['student_id', 'course_id', 'referral_code', 'referrer_id'];
     public function student()
     {
-        return $this->belongsTo(Student::class,'student_id');
+        return $this->belongsTo(Student::class, 'student_id');
     }
 
     public function course()
     {
-        return $this->belongsTo(Course::class,'course_id');
+        return $this->belongsTo(Course::class, 'course_id');
     }
-     public function referrer()
+    public function referrer()
     {
         return $this->belongsTo(User::class, 'referrer_id');
     }
