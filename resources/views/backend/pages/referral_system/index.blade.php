@@ -62,7 +62,7 @@
                                                 <td class="nk-tb-col tb-col-md">
                                                     <div class="user-card">
                                                         <div class="user-info">
-                                                            <span class="tb-lead text-gray">{{$list->point ?? ''}}</span>
+                                                            <span class="tb-lead text-gray">{{$list->promote ?? ''}}</span>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -87,7 +87,8 @@
                                                                 <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                                 <div class="dropdown-menu dropdown-menu-end">
                                                                     <ul class="link-list-opt no-bdr">
-                                                                        <li><a href="#"><em class="icon ni ni-edit"></em><span> Update Status  </span></a></li>
+                                                                        <li> 
+                                                                            <a href="{{ route('referral.status', ['status' => $list->wallet_status]) }}"><em class="icon ni ni-edit"></em><span> Update Status  </span></a></li>
                                                                     </ul>
                                                                 </div>
                                                             </div>

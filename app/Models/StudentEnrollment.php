@@ -4,7 +4,6 @@ namespace App\Models;
 
 use App\User;
 use App\Models\Course;
-use App\Models\Student;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +17,6 @@ class StudentEnrollment extends Model
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
-
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
@@ -30,5 +28,9 @@ class StudentEnrollment extends Model
     public static function generateReferralCode()
     {
         return strtoupper(Str::random(10));
+    }
+    public function wallets()
+    {
+        return $this->hasMany(Wallet::class, 'student_id', 'student_id');
     }
 }

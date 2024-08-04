@@ -73,15 +73,13 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/about', 'aboutPage')->name('dhaka.about');
-    Route::get('/course_cat_list/{id}','CourseCategory')->name('course.category_list');
+    Route::get('/course_cat_list/{id}','CourseCategory')->name('course.category');
     Route::get('/terms_and_condition', 'termsPage')->name('dhaka.terms');
     Route::get('/refund_policy', 'refundPolicyPage')->name('dhaka.refund');
     Route::get('/privacy_policy', 'privacyPolicyPage')->name('dhaka.privacy');
     Route::get('/course_autocomplete', 'autocomplete')->name('autocomplete');
     Route::get('/course_filter', 'coursesFilter')->name('course.filter');
     Route::get('/course_list','coursesAll')->name('course.list');
- 
-    Route::get('/wallet','My_Wallet')->name('student.wallet');
     Route::get('/coursedetails/{keyword}','CourseDetails')->name('course.details');
    
 });
@@ -109,7 +107,8 @@ Route::middleware(['auth.custom'])->group(function () {
     Route::post('/update/user',[HomeController::class, 'UpdateUserProfile'])->name('user.update');
     Route::get('/student/course',[HomeController::class, 'studentCourse'])->name('student.course');
     Route::get('/student/batch', [HomeController::class, 'StudentBatch'])->name('student.batch');
-    Route::get('/student/live_class', [HomeController::class, 'LiveClass'])->name('student.live_class');
+    Route::get('/student/live_class', [HomeController::class,'LiveClass'])->name('student.live_class');
+    Route::get('/wallet', [HomeController::class,'My_Wallet'])->name('student.wallet');
     Route::post('/update_student_profile/{id}', [HomeController::class, 'UpdateStudentProfile'])->name('update.my_profile');
 });
 
@@ -183,7 +182,6 @@ Route::prefix('admin')->group(function () {
             Route::get('/requirement/{id}', 'RequirementsDelete')->name('requirement.destroy');
             Route::get('/outcome/{id}', 'OutcomesDelete')->name('outcome.destroy');
             Route::get('/objective/{id}', 'ObjectiveDelete')->name('objective.destroy');
-            Route::get('/eligible/{id}', 'EnrolledForEligibiulityDelete')->name('eligible.destroy');
             Route::delete('/courses/delete/{id}', 'destroy')->name('courses.delete');
         });
         // ------------------------------------------- End Course -------------------------------------------------------------------//
@@ -311,6 +309,7 @@ Route::prefix('admin')->group(function () {
             Route::get('/all-messages', 'allMessages')->name('show.messages');
             Route::get('/profiles', 'ProfileInfo')->name('profiles');
             Route::get('/referral_system', 'ReferralSystem')->name('referral.system');
+            Route::get('/referral_system/{status}', 'ReferralStatusUpdate')->name('referral.status');
             Route::get('/settings', 'SettingsInfo')->name('settings');
             Route::post('/settings', 'SettingsDataSave')->name('settings.update');
         });

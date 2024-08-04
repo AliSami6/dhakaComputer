@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\User;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -11,13 +12,18 @@ class Wallet extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'student_id',
         'balance',
         'points',
         'status'
     ];
-    public function wallets()
+    public function mywallets()
     {
         return $this->belongsTo(User::class);
+    }
+    public function studentEnrollment()
+    {
+        return $this->belongsTo(StudentEnrollment::class, 'student_id');
     }
 
     public function addPoints($points)

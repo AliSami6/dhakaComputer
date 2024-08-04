@@ -39,7 +39,7 @@
                                     <div class="card category_card">
                                         <div class="card-body category_body d-flex">
                                             <div class="category_icon">
-                                                <a class="laptop pr-1" href="{{route('course.category_list',$category->id)}}" target="_blank">
+                                                <a class="laptop pr-1" href="{{route('course.category',$category->id)}}" target="_blank">
                                                     @if (isset($category))
                                                         <img src="{{ asset('uploaded_files/category/' . $category->cat_icon) }}"
                                                             height="40" alt="" />
@@ -125,7 +125,7 @@
                             <div class="card carrier_card">
                                 <div class="card-body carrier_body ">
                                     <div class="carrier_icon">
-                                        <a class="carrier_laptop" href="{{route('course.category_list',$category->id)}}" target="_blank">
+                                        <a class="carrier_laptop" href="{{route('course.category',$category->id)}}" target="_blank">
                                             <img src="{{ asset('uploaded_files/category/' . $category->cat_icon) }}"
                                             height="50" alt="" />
                                         </a>

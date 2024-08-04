@@ -25,37 +25,40 @@ class CheckoutController extends Controller
         return view('frontend.pages.checkout');
     }
 
-  public function order(Request $request)
-{
-    // Ensure user is authenticated
-    if (!Auth::check()) {
-        return redirect()->back()->with('error', 'Please log in or complete registration to place an order.');
-    }
+    public function order(Request $request)
+    {
+        // Ensure user is authenticated
+        if (!Auth::check()) {
+            return redirect()->back()->with('error', 'Please log in or complete registration to place an order.');
+        }
 
-    $request->validate([
-        'studentsName' => 'required|string|max:255',
-        'city' => 'required|string|max:255',
-        'division' => 'required|string|max:255',
-        'address' => 'required',
-        'country' => 'required|string|max:255',
-    ], [
-        'studentsName.required' => 'Student Name is required',
-        'city.required' => 'City is required',
-        'division.required' => 'Division is required',
-        'address.required' => 'Address is required',
-        'country.required' => 'Country is required',
-    ]);
+        $request->validate(
+            [
+                'studentsName' => 'required|string|max:255',
+                'city' => 'required|string|max:255',
+                'division' => 'required|string|max:255',
+                'address' => 'required',
+                'country' => 'required|string|max:255',
+            ],
+            [
+                'studentsName.required' => 'Student Name is required',
+                'city.required' => 'City is required',
+                'division.required' => 'Division is required',
+                'address.required' => 'Address is required',
+                'country.required' => 'Country is required',
+            ],
+        );
 
-    // Get cart items from session
-    $cart = Session::get('cart', []);
+        // Get cart items from session
+        $cart = Session::get('cart', []);
 
-    // Check if the cart is not empty
-    if (empty($cart)) {
-        return redirect()->back()->with('error', 'Your cart is empty.');
-    }
+        // Check if the cart is not empty
+        if (empty($cart)) {
+            return redirect()->back()->with('error', 'Your cart is empty.');
+        }
 
-    // try {
-    //     DB::beginTransaction();
+        // try {
+        //     DB::beginTransaction();
 
         // Initialize totals
         $total = 0;
@@ -90,7 +93,22 @@ class CheckoutController extends Controller
             if ($referralCode) {
                 $referrerEnrollment = StudentEnrollment::where('referral_code', $referralCode)->first();
                 if ($referrerEnrollment) {
-                    $referrer = User::find($referrerEnrollment->student_id);
+                    $referrer = Student::find($referrerEnrollment->student_id);
+                  
+                    if ($referrer) {
+                        // Ensure wallet exists and add points
+                       
+                            // Handle the case where the wallet does not exist
+                            Wallet::create([
+                                'user_id' => $referrer->user_id,
+                                'student_id' => $student->id,
+                                'balance' => 0,
+                                'points' => 500,
+                                'status' => 'Pending',
+                            ]);
+                        
+                    }
+
                     // Apply discounted price from cartItem
                     $discountedPrice = $cartItem['discounted_price'];
                     $subtotal = $discountedPrice * $cartItem['quantity'];
@@ -116,26 +134,11 @@ class CheckoutController extends Controller
             $enrollmentData = [
                 'student_id' => $student->id,
                 'course_id' => $course->id,
+                'referrer_id ' => auth()->user()->id,
                 'referral_code' => StudentEnrollment::generateReferralCode(),
             ];
 
             $enrollment = StudentEnrollment::create($enrollmentData);
-
-            if ($referrer) {
-                // Ensure wallet exists and add points
-                $wallet = $referrer->wallet;
-                if ($wallet) {
-                    $wallet->addPoints(500);
-                } else {
-                    // Handle the case where the wallet does not exist
-                    Wallet::create([
-                        'user_id' => $referrer->id,
-                        'balance' => 0,
-                        'points' => 500,
-                        'status' => 'Pending'
-                    ]);
-                }
-            }
 
             $studentID = Carbon::now()->format('ymd') . $student->id;
 
@@ -156,11 +159,9 @@ class CheckoutController extends Controller
 
         DB::commit();
         return redirect()->route('index')->with('success', 'Order placed successfully!');
-    // } catch (\Exception $exp) {
-    //     DB::rollBack();
-    //     return redirect()->back()->with('error', 'Something went wrong!');
-    // }
-}
-
-
+        // } catch (\Exception $exp) {
+        //     DB::rollBack();
+        //     return redirect()->back()->with('error', 'Something went wrong!');
+        // }
+    }
 }

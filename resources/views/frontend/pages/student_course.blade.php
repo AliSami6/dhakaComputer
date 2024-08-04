@@ -24,8 +24,8 @@
 
                     <div class="row">
                         @foreach ($enrollmentClass as $enroll)
-                            <div class="col-lg-3">
-                                <div class="card mb-4" style="width: 18rem;">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="card mb-4" style="width:22rem;">
                                     @foreach($enroll->studentEnrollment->course->media as $img)
                                     <img src="{{asset('uploaded_files/course_thumbnails/'.$img->course_thumbnail)  ?? asset('frontend/assets/images/default.jpg') }}" class="card-img-top" alt="{{ $enroll->studentEnrollment->course->course_title }}">
                                    @endforeach

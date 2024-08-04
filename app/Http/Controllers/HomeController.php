@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Models\Batch;
 use App\Models\Course;
 use App\Models\Enroll;
+use App\Models\Wallet;
 use App\Models\Counter;
 use App\Models\Lession;
 use App\Models\Section;
@@ -258,10 +259,15 @@ class HomeController extends Controller
     {
         return view('frontend.pages.profile');
     }
-    public function My_Wallet()
-    {
-        return view('frontend.pages.my_wallet');
-    }
+ public function My_Wallet()
+{
+    $wallets = Wallet::with('studentEnrollment')
+        ->where('user_id', auth()->user()->id)
+        ->get();
+
+    return view('frontend.pages.my_wallet', compact('wallets'));
+}
+
     public function UpdateUserProfile(Request $request)
     {
         $students = User::where('emailAddress', Auth::user()->emailAddress)->first();
