@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\User;
+use App\Models\WebsiteInfo;
 use Illuminate\Http\Request;
+use App\Models\StudentEnrollment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Settings\CreateRequest;
-use App\Models\WebsiteInfo;
 
 class SettingsController extends Controller
 {
@@ -54,6 +56,21 @@ class SettingsController extends Controller
         return redirect()->back()->with('success','Websettings Updated !'); 
     }
     public function ReferralSystem(){
-        return view('backend.pages.referral_system.index');
+        $referral = StudentEnrollment::select(
+                        "student_enrollments.id",
+                        "student_enrollments.referral_code",
+                        "student_enrollments.student_id",
+                        "student_enrollments.referrer_id",
+                        "students.studentsName as student_name",
+                        "wallets.id as walletID",
+                        "wallets.points as point",
+                        "wallets.status as wallet_status",
+                        "wallets.created_at as create_date"
+                    )
+                    ->join("users", "student_enrollments.referrer_id", "=", "users.id")
+                    ->join("wallets", "wallets.user_id", "=", "users.id")
+                    ->join("students", "student_enrollments.student_id", "=", "students.id")
+                    ->get();
+        return view('backend.pages.referral_system.index',['referral'=>$referral]);
     }
 }

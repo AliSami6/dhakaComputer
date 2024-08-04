@@ -15,7 +15,7 @@ class Wallet extends Model
         'points',
         'status'
     ];
-        public function user()
+    public function wallets()
     {
         return $this->belongsTo(User::class);
     }
