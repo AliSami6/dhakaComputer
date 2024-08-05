@@ -120,23 +120,43 @@ class HomeController extends Controller
     }
 
     public function StudentBatch()
-    {
-        // Fetch student enrollments for the authenticated user
-        if (!auth()->check()) {
-            return view('frontend.pages.my_batch', [
-                'studentEnrollCourses' => collect(),
-                'isAuthenticated' => false,
-            ]);
-        }
-
-        $students = Student::where('user_id', auth()->id())->pluck('id')->toArray();
-        $studentEnrollCourses = StudentEnrollment::with('course.batch')->whereIn('student_id', $students)->get();
-
+{
+    // Fetch student enrollments for the authenticated user
+    if (!auth()->check()) {
         return view('frontend.pages.my_batch', [
-            'studentEnrollCourses' => $studentEnrollCourses,
-            'isAuthenticated' => true,
+            'batchStudent' => collect(),
+            'isAuthenticated' => false,
         ]);
     }
+
+    $batchStudent = Batch::select(
+        'batches.id',
+        'batches.course_id',
+        'batches.batch_no',
+        'batches.batch_code',
+        'batches.class_type',
+        'batches.class_rutine',
+        'batches.class_start',
+        'batches.class_time',
+        'batches.total_class',
+        'students.course_id',
+        'students.user_id',
+        'courses.id as courseId',
+        'students.id as studentId',
+        'users.id as userID'
+    )
+    ->join('courses', 'courses.id', '=', 'batches.course_id')
+    ->join('students', 'students.course_id', '=', 'batches.course_id')
+    ->join('users', 'users.id', '=', 'students.user_id')
+    ->where('users.id', auth()->id())
+    ->get();
+
+    return view('frontend.pages.my_batch', [
+        'batchStudent' => $batchStudent,
+        'isAuthenticated' => true,
+    ]);
+}
+
 
     public function UpdateStudentProfile(Request $request, $id)
     {

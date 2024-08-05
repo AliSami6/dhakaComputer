@@ -29,7 +29,7 @@ class Student extends Model
     }
     public function courseofstudents()
     {
-        return $this->belongsTo(Course::class, 'course_id');
+        return $this->belongsTo(Course::class,'course_id');
     }
    
 }

@@ -86,7 +86,8 @@ class CheckoutController extends Controller
             }
 
             $referralCode = Session::get('referral_code');
-            $referrer = null;
+            $referrer =$student->user_id;
+          
             $discountedPrice = $cartItem['discounted_price'];
             $subtotal = $cartItem['price'] * $cartItem['quantity'];
 
@@ -97,8 +98,11 @@ class CheckoutController extends Controller
                   
                     if ($referrer) {
                         // Ensure wallet exists and add points
-                       
-                            // Handle the case where the wallet does not exist
+                        $wallet = Wallet::where('user_id',$referrer->user_id)->first();
+                        if($wallet){
+                             $wallet->addPoints(500);
+                        }else{
+                             // Handle the case where the wallet does not exist
                             Wallet::create([
                                 'user_id' => $referrer->user_id,
                                 'student_id' => $student->id,
@@ -106,7 +110,9 @@ class CheckoutController extends Controller
                                 'points' => 500,
                                 'status' => 'Pending',
                             ]);
-                        
+                         
+                        }
+                          
                     }
 
                     // Apply discounted price from cartItem
@@ -134,7 +140,7 @@ class CheckoutController extends Controller
             $enrollmentData = [
                 'student_id' => $student->id,
                 'course_id' => $course->id,
-                'referrer_id ' => auth()->user()->id,
+                'referrer_id' => $referrer,
                 'referral_code' => StudentEnrollment::generateReferralCode(),
             ];
 
