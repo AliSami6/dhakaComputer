@@ -29,7 +29,7 @@
             <h1 class="mt-4">My Wallet</h1>
             <div class="row">
                  <!-- Wallet Balance -->
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-4 mb-4">
             <div class="card bg-secondary text-white h-100">
                 <div class="card-body">
                     <h3 class="mb-3">Wallet Balance</h3>
@@ -41,18 +41,29 @@
             </div>
         </div>
         <!-- Recharge Wallet -->
-        <div class="col-xl-6 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-4 mb-4">
             <div class="card bg-secondary text-white h-100">
                 <div class="card-body">
                     <h3 class="mb-3">Recharge Wallet</h3>
                     <div class="d-flex align-items-center">
                         <img src="https://demo.activeitzone.com/ecommerce/assets/img/wallet-icon.png" alt="Wallet Icon" width="50" class="me-3">
-                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Recharge</button>
+                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#rechargeModal" data-bs-whatever="@mdo">Recharge</button>
                     </div>
                 </div>
             </div>
         </div>
-               
+        <div class="col-xl-4 col-md-4 mb-4">
+            <div class="card bg-secondary text-white h-100">
+                <div class="card-body">
+                    <h3 class="mb-3">Withdraw Wallet</h3>
+                    <div class="d-flex align-items-center">
+                        <img src="https://demo.activeitzone.com/ecommerce/assets/img/wallet-icon.png" alt="Wallet Icon" width="50" class="me-3">
+                        <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#withdrawModal" data-bs-whatever="@mdo">Recharge</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+                     
                
             </div>
             <div class="card mb-4">

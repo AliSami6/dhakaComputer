@@ -109,6 +109,8 @@ Route::middleware(['auth.custom'])->group(function () {
     Route::get('/student/batch', [HomeController::class, 'StudentBatch'])->name('student.batch');
     Route::get('/student/live_class', [HomeController::class,'LiveClass'])->name('student.live_class');
     Route::get('/wallet', [HomeController::class,'My_Wallet'])->name('student.wallet');
+    Route::post('/wallet/recharge', [HomeController::class, 'recharge'])->name('wallet.recharge');
+Route::post('/wallet/withdraw', [HomeController::class, 'withdraw'])->name('wallet.withdraw');
     Route::post('/update_student_profile/{id}', [HomeController::class, 'UpdateStudentProfile'])->name('update.my_profile');
 });
 

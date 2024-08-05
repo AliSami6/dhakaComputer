@@ -368,4 +368,35 @@ class HomeController extends Controller
             'isAuthenticated' => true,
         ]);
     }
+    public function recharge(Request $request)
+    {
+        $request->validate([
+            'payment_methods' => 'required|string',
+            'amount' => 'required|numeric|min:1'
+        ]);
+
+        $wallet = Wallet::where('user_id', Auth::id())->first();
+
+        if ($wallet) {
+            $wallet->rechargeBalance($request->amount);
+            return redirect()->back()->with('success', 'Balance recharged successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Wallet not found.');
+    }
+
+    public function withdraw(Request $request)
+    {
+        $request->validate([
+            'points' => 'required|numeric|min:1'
+        ]);
+
+        $wallet = Wallet::where('user_id', Auth::id())->first();
+
+        if ($wallet && $wallet->withdrawPoints($request->points)) {
+            return redirect()->back()->with('success', 'Points withdrawn successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Insufficient points or wallet not found.');
+    }
 }

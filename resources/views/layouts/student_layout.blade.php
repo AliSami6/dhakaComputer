@@ -102,32 +102,59 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+ <div class="modal fade" id="rechargeModal" tabindex="-1" aria-labelledby="rechargeModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Recharge</h5>
+                    <h5 class="modal-title" id="rechargeModalLabel">Add Recharge</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="rechargeForm" method="POST" action="{{ route('wallet.recharge') }}">
+                        @csrf
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Payment Methods:</label>
+                            <label for="payment_methods" class="col-form-label">Payment Methods:</label>
                             <input type="text" class="form-control" id="payment_methods" name="payment_methods">
                         </div>
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Amount :</label>
+                            <label for="amount" class="col-form-label">Amount:</label>
                             <input type="text" class="form-control" id="amount" name="amount">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save </button>
+                    <button type="submit" class="btn btn-primary" form="rechargeForm">Save</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Withdraw Modal -->
+    <div class="modal fade" id="withdrawModal" tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="withdrawModalLabel">Withdraw Points</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="withdrawForm" method="POST" action="{{ route('wallet.withdraw') }}">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="points" class="col-form-label">Points:</label>
+                            <input type="text" class="form-control" id="points" name="points">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="withdrawForm">Withdraw</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="{{ asset('/') }}frontend/assets/js/student.js"></script>
