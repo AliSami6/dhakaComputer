@@ -213,11 +213,7 @@
                                                                                                                                     <em
                                                                                                                                         class="icon ni ni-delete"></em>
                                                                                                                                 </button>
-
-
                                                                                                                             </div>
-
-
                                                                                                                         </li>
                                                                                                                     @endforeach
                                                                                                                 @endif
@@ -226,7 +222,6 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
-
                                                                                             </div>
                                                                                         </div><!-- .card-preview -->
                                                                                     @endforeach
@@ -398,10 +393,10 @@
                                                                                         class="custom-control-input"
                                                                                         id="course_status_private"
                                                                                         name="course_status"
-                                                                                        value="Private"
-                                                                                        {{ $editCourses->course_status == 'Private' ? 'checked' : '' }}>
+                                                                                        value="Special"
+                                                                                        {{ $editCourses->course_status == 'Special' ? 'checked' : '' }}>
                                                                                     <label class="custom-control-label"
-                                                                                        for="course_status_private">Private
+                                                                                        for="course_status_private">Special
                                                                                         Course</label>
                                                                                 </div>
                                                                             </li>
@@ -411,10 +406,10 @@
                                                                                         class="custom-control-input"
                                                                                         id="course_status_upcoming"
                                                                                         name="course_status"
-                                                                                        value="Upcoming"
-                                                                                        {{ $editCourses->course_status == 'Upcoming' ? 'checked' : '' }}>
+                                                                                        value="Free"
+                                                                                        {{ $editCourses->course_status == 'Free' ? 'checked' : '' }}>
                                                                                     <label class="custom-control-label"
-                                                                                        for="course_status_upcoming">Upcoming
+                                                                                        for="course_status_upcoming">Free
                                                                                         Course</label>
                                                                                 </div>
                                                                             </li>

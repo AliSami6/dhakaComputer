@@ -225,9 +225,9 @@
                                                                                         class="custom-control-input"
                                                                                         id="course_status_private"
                                                                                         name="course_status"
-                                                                                        value="Private">
+                                                                                        value="Special">
                                                                                     <label class="custom-control-label"
-                                                                                        for="course_status_private">Private
+                                                                                        for="course_status_private">Special
                                                                                         Course</label>
                                                                                 </div>
                                                                             </li>
@@ -237,9 +237,9 @@
                                                                                         class="custom-control-input"
                                                                                         id="course_status_upcoming"
                                                                                         name="course_status"
-                                                                                        value="Upcoming">
+                                                                                        value="Free">
                                                                                     <label class="custom-control-label"
-                                                                                        for="course_status_upcoming">Upcoming
+                                                                                        for="course_status_upcoming">Free
                                                                                         Course</label>
                                                                                 </div>
                                                                             </li>

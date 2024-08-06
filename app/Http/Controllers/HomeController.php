@@ -385,18 +385,27 @@ class HomeController extends Controller
         return redirect()->back()->with('error', 'Wallet not found.');
     }
 
-    public function withdraw(Request $request)
-    {
-        $request->validate([
-            'points' => 'required|numeric|min:1'
-        ]);
+   public function withdraw(Request $request)
+{
+    // Validate the request
+    $request->validate([
+        'points' => 'required|numeric|min:1',
+        'amount' => 'required',
+    ]);
 
-        $wallet = Wallet::where('user_id', Auth::id())->first();
+    // Get the authenticated user's wallet
+    $wallet = Wallet::where('user_id', Auth::id())->first();
 
-        if ($wallet && $wallet->withdrawPoints($request->points)) {
-            return redirect()->back()->with('success', 'Points withdrawn successfully.');
-        }
+    // Check if the wallet exists and has sufficient points
+    if ($wallet && $wallet->withdrawPoints($request->points)) {
+        // Add the equivalent amount to the wallet balance
+        $wallet->rechargeBalance($request->points);
 
-        return redirect()->back()->with('error', 'Insufficient points or wallet not found.');
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Points withdrawn and balance recharged successfully.');
     }
+
+    // Redirect back with an error message if insufficient points or wallet not found
+    return redirect()->back()->with('error', 'Insufficient points or wallet not found.');
+}
 }

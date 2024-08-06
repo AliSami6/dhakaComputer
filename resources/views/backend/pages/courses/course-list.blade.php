@@ -50,9 +50,6 @@
                                                         <canvas class="ecommerce-line-chart-s3" id="todayOrders"></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="info"><span class="change up text-danger"><em
-                                                            class="icon ni ni-arrow-long-up"></em>4.63%</span><span> vs.
-                                                        last week</span></div>
                                             </div>
                                         </div><!-- .card-inner -->
                                     </div><!-- .nk-ecwg -->
@@ -74,9 +71,7 @@
                                                         <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="info"><span class="change down text-danger"><em
-                                                            class="icon ni ni-arrow-long-down"></em>2.34%</span><span> vs.
-                                                        last week</span></div>
+                                               
                                             </div>
                                         </div><!-- .card-inner -->
                                     </div><!-- .nk-ecwg -->
@@ -99,9 +94,6 @@
                                                             id="todayCustomers"></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="info"><span class="change up text-danger"><em
-                                                            class="icon ni ni-arrow-long-up"></em>4.63%</span><span> vs.
-                                                        last week</span></div>
                                             </div>
                                         </div><!-- .card-inner -->
                                     </div><!-- .nk-ecwg -->
@@ -123,9 +115,6 @@
                                                         <canvas class="ecommerce-line-chart-s3" id="todayVisitors"></canvas>
                                                     </div>
                                                 </div>
-                                                <div class="info"><span class="change down text-danger"><em
-                                                            class="icon ni ni-arrow-long-down"></em>2.34%</span><span> vs.
-                                                        last week</span></div>
                                             </div>
                                         </div><!-- .card-inner -->
                                     </div><!-- .nk-ecwg -->
@@ -135,69 +124,6 @@
                             <div class="card card-bordered card-preview">
                                 <div class="card-title ml-5">
                                     <h6 class="title pt-3 mt-3 pl-5 text-uppercase">&nbsp;&nbsp;&nbsp; Course List</h6>
-                                </div>
-
-                                <div class="card-body">
-                                    <form action="" method="post">
-                                        <div class="row ml-1">
-                                            <div class="col-xxl-3 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Categories</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-select js-select2" data-search="on">
-                                                            <option value="default_option">Default Option</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xxl-3 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Status</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-select js-select2" data-search="on">
-                                                            <option value="default_option">Default Option</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xxl-2 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Instructor</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-select js-select2" data-search="on">
-                                                            <option value="default_option">Default Option</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xxl-2 col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Price</label>
-                                                    <div class="form-control-wrap">
-                                                        <select class="form-select js-select2" data-search="on">
-                                                            <option value="default_option">Default Option</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                            <option value="option_select_name">Option select name</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xxl-2 col-sm-6">
-                                                <div class="form-group">
-                                                    <button type="submit"
-                                                        class="btn btn-lg btn-primary mb-3 mt-4 float-end">Filter </button>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </form>
                                 </div>
                                 <div class="card-inner">
                                     <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
@@ -250,23 +176,18 @@
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-mb" data-order="35040.34">
-
                                                             <div class="user-card">
                                                                 <div class="user-info">
-
                                                                     <span class="tb-lead text-gray">Module
                                                                         {{ $course->sections->count() }}</span>
-                                                                    
                                                                 </div>
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-card">
                                                                 <div class="user-info">
-
                                                                     <span class="tb-lead text-gray">Enrollments:
                                                                         {{ $course->studentEnrollments->count() }}</span>
-
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -276,14 +197,10 @@
                                                                 class="tb-status text-success">{{ $course->course_status }}</span>
                                                         </td>
                                                         <td class="nk-tb-col nk-tb-col-check">
-
                                                             <div class="user-card">
                                                                 <div class="user-info">
-                                                                    <span
-                                                                        class="tb-lead badge badge-dim bg-light text-gray"><span>$
+                                                                    <spanc class="tb-lead badge badge-dim bg-light text-gray"><span> &#2547;
                                                                             {{ $course->price }}
-                                                                        </span></span>
-                                                                   
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -332,10 +249,7 @@
                                                                         <div class="dropdown-menu dropdown-menu-end">
                                                                             @if (Auth::guard('admin')->user()->status=='Active')
                                                                                 <ul class="link-list-opt no-bdr">
-                                                                                    {{-- <li><a href="#"><em class="icon ni ni-eye"></em><span>View course on frontend</span></a></li>
-                                                                            <li><a href="#"><em class="icon ni ni-repeat"></em><span>Go to course playing page</span></a></li>
-                                                                            <li><a href="#"><em class="icon ni ni-bar-chart-alt"></em><span>Academic progress</span></a></li> --}}
-
+                                                                                  
                                                                                     <li><a
                                                                                             href="{{ route('edit.courses', $course->id) }}"><em
                                                                                                 class="icon ni ni-edit"></em><span>
@@ -348,11 +262,11 @@
                                                                                     </li>
                                                                                     <li><a
                                                                                             href="{{ route('course_status.update', [$course->id, 'Private']) }}"><em
-                                                                                                class="icon ni ni-lock"></em><span>Private</span></a>
+                                                                                                class="icon ni ni-lock"></em><span>Special</span></a>
                                                                                     </li>
                                                                                     <li><a
                                                                                             href="{{ route('course_status.update', [$course->id, 'Upcoming']) }}"><em
-                                                                                                class="icon ni ni-signal"></em><span>Upcoming</span></a>
+                                                                                                class="icon ni ni-signal"></em><span>Free</span></a>
                                                                                     </li>
 
 

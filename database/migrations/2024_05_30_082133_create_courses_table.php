@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->enum('level', ['Beginner', 'Advanced', 'Intermediate'])->default('Beginner');
             $table->string('language')->default('English');
-            $table->enum('course_status', ['Active', 'Private', 'Upcoming'])->default('Private');
+            $table->enum('course_status', ['Active', 'Special', 'Free'])->default('Active');
             $table->boolean('is_free')->nullable();
             $table->double('price',[8,2])->default(0);
             $table->double('price_bn',[8,2])->nullable();
