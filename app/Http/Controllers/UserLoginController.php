@@ -113,7 +113,7 @@ class UserLoginController extends Controller
             'courseTime' => $request->courseTime,
         ]);
 
-        return redirect()->route('sign_in')->with('success', 'Registration Successfully');
+        return redirect()->route('student.profile')->with('success', 'Registration Successfully');
     }
   
     public function logoutData()

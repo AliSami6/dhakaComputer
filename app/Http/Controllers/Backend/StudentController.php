@@ -156,7 +156,7 @@ class StudentController extends Controller
     }
     public function deleteStudents($id){
         $students = Student::find($id);
-       
+       $students->delete();
         return back()->with('success','Student Deleted Successfully!');
 
     }

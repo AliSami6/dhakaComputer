@@ -313,9 +313,9 @@ class HomeController extends Controller
                 })
                 ->where('enroll_status', 'Accepted')
                 ->get()
-                ->unique('studentEnrollment.course_id');
+                ;
 
-            //    dd($enrollmentClass);
+           //dd($enrollmentClass);
 
             return view('frontend.pages.student_course', [
                 'students' => $students,

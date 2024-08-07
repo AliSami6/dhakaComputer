@@ -92,8 +92,11 @@
                             <a class="btn btn-primary" href="{{ route('student.profile') }}">Dashboard <i
                                     class="fas fa-arrow-right"></i></a>
                         @else
-                            <a class="btn btn-primary" href="{{ route('sign_in') }}">LOG IN <i
-                                    class="fas fa-arrow-right"></i></a>
+                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                                LOG IN
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
                         @endauth
                     @endif
                     <!-- <a href="">SIGN UP</a> -->
@@ -207,6 +210,34 @@
         </div>
     </section>
     <!-- footer end -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Student Login</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="offcanvas_login">
+                <form method="POST" action="{{ route('login.save') }}" class="custom-form">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="contactNumber" class="form-label">Phone Number <span
+                                class="text-danger">*</span></label>
+                        <input type="text" name="contactNumber" class="form-control @error('contactNumber') is-invalid @enderror" id="contactNumber"
+                           >
+                            @error('contactNumber')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-4">Login</button>
+                </form>
+                <a href="{{ route('signUp') }}" class="text-decoration-none">Not Yet Registration?</a>
+            </div>
+
+        </div>
+    </div>
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="{{ asset('frontend') }}/assets/plugins/font-awesome/js/fontawesome.min.js">
     </script>
