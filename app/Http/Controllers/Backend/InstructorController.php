@@ -14,26 +14,29 @@ use App\Models\InstructorCourse;
 
 class InstructorController extends Controller
 {
-   
     public function index()
     {
         $instructors = Instructor::with('instructorCourses.course')->get();
         return view('backend.pages.instructors.instructor-lists', ['instructors' => $instructors]);
     }
-    public function InstructorOverview(){
-        return view('backend.pages.instructors.dashborad');  
+    public function InstructorOverview()
+    {
+        return view('backend.pages.instructors.dashborad');
     }
-    public function instructorStatus($id,$status){
+    public function instructorStatus($id, $status)
+    {
         $instructor = Instructor::findOrFail($id);
         $instructor->status = $status;
         $instructor->save();
-        return redirect()->back()->with('success','Status Updated !'); 
+        return redirect()->back()->with('success', 'Status Updated !');
     }
-    public function DetailsForInstructor($id){
-        $detailsInstructor = Instructor::with('designations','professions','instructorCourses.course')->where('id',$id)->first();
-        return view('backend.pages.instructors.instructor-details',['detailsInstructor'=>$detailsInstructor]);
+    public function DetailsForInstructor($id)
+    {
+        $detailsInstructor = Instructor::with('designations', 'professions', 'instructorCourses.course')->where('id', $id)->first();
+        return view('backend.pages.instructors.instructor-details', ['detailsInstructor' => $detailsInstructor]);
     }
-    public function PaymentForInstructor(){
+    public function PaymentForInstructor()
+    {
         return view('backend.pages.instructors.instructor-payments');
     }
 
@@ -42,8 +45,7 @@ class InstructorController extends Controller
      */
     public function store(Request $request)
     {
-        
-       //dd($request->all());
+        //dd($request->all());
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -82,25 +84,22 @@ class InstructorController extends Controller
             'dob' => $request->dob,
             'join_date' => $request->join_date,
             'image' => $image,
-            'about' => $request->about
+            'about' => $request->about,
         ]);
-       
-        if($ins) {
+
+        if ($ins) {
             return response()->json(['status' => 'success', 'message' => 'Created Successfully'], 200);
         } else {
             return response()->json(['status' => 'error', 'message' => 'Something went wrong'], 500);
         }
-        
-       
     }
 
     /**
      * Display the specified resource.
      */
-    
+
     public function edit(Request $request)
     {
-       
         $id = $request->id;
         $EditInstructors = Instructor::find($id);
         return response()->json([
@@ -113,7 +112,6 @@ class InstructorController extends Controller
      */
     public function update(Request $request)
     {
-       
         $validator = Validator::make($request->all(), [
             'first_name' => 'string|max:255',
             'last_name' => 'string|max:255',
@@ -138,7 +136,7 @@ class InstructorController extends Controller
         } else {
             $image = $updateInstructors->image;
         }
-        
+
         $updateInstructors->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -155,11 +153,10 @@ class InstructorController extends Controller
             'dob' => $request->dob,
             'join_date' => $request->join_date,
             'image' => $image,
-            'about' => $request->about
-            
+            'about' => $request->about,
         ]);
-       
-        if($updateInstructors) {
+
+        if ($updateInstructors) {
             return response()->json(['status' => 'success', 'message' => 'Updated Successfully'], 200);
         } else {
             return response()->json(['status' => 'error', 'message' => 'Something went wrong'], 500);
@@ -167,73 +164,74 @@ class InstructorController extends Controller
     }
     public function DetailsForInstructorForm($id)
     {
-       
-        $instructors = Instructor::where('id',$id)->first();
-        $course = Course::where('course_status','Active')->get();
-       return view('backend.pages.instructors.instructor-form',['instructors'=>$instructors,'course'=>$course]);
+        $instructors = Instructor::where('id', $id)->first();
+        $course = Course::where('course_status', 'Active')->get();
+        return view('backend.pages.instructors.instructor-form', ['instructors' => $instructors, 'course' => $course]);
     }
 
-    public function DetailsForInstructorSave(Request $request){
-      
+    public function DetailsForInstructorSave(Request $request)
+    {
         // Validation rules and custom error messages
-        $request->validate([
-            'instructor_id' => 'required|integer',
-            'course_id' => 'required|array',
-            'professions' => 'required|array',
-            'designation' => 'required|array',
-        ], [
-            'instructor_id.required' => 'Instructor id is required',
-            'instructor_id.integer' => 'Instructor id must be an integer',
-            'course_id.required' => 'Course id is required',
-            'course_id.array' => 'Course id must be an array',
-            'professions.required' => 'Professions are required',
-            'professions.array' => 'Professions must be an array',
-            'designation.required' => 'Designation is required',
-            'designation.array' => 'Designation must be an array',
-        ]);
-          
+        $request->validate(
+            [
+                'instructor_id' => 'required|integer',
+                'course_id' => 'required|array',
+                'professions' => 'required|array',
+                'designation' => 'required|array',
+            ],
+            [
+                'instructor_id.required' => 'Instructor id is required',
+                'instructor_id.integer' => 'Instructor id must be an integer',
+                'course_id.required' => 'Course id is required',
+                'course_id.array' => 'Course id must be an array',
+                'professions.required' => 'Professions are required',
+                'professions.array' => 'Professions must be an array',
+                'designation.required' => 'Designation is required',
+                'designation.array' => 'Designation must be an array',
+            ],
+        );
+
         try {
             // Wrap database operations in a transaction
-            DB::transaction(function() use ($request) {
+            DB::transaction(function () use ($request) {
                 $instructor_id = $request->instructor_id;
                 $professions = $request->professions;
                 $designations = $request->designation;
                 $course_ids = $request->course_id;
-    
+
                 // Save professions
                 foreach ($professions as $profession) {
                     DB::table('instructor_professions')->insert([
                         'instructor_id' => $instructor_id,
-                        'professions' => $profession
+                        'professions' => $profession,
                     ]);
                 }
-    
+
                 // Save designations
                 foreach ($designations as $designation) {
                     DB::table('instructor_designations')->insert([
                         'instructor_id' => $instructor_id,
-                        'designation' => $designation
+                        'designation' => $designation,
                     ]);
                 }
-    
+
                 // Save courses
                 foreach ($course_ids as $course_id) {
                     DB::table('instructor_courses')->insert([
                         'instructor_id' => $instructor_id,
-                        'course_id' => $course_id
+                        'course_id' => $course_id,
                     ]);
                 }
             });
-    
+
             // Redirect back with success message
             return redirect()->back()->with('success', 'Successfully Created');
         } catch (\Exception $e) {
             // Handle exception and redirect back with error message
-            return redirect()->back()->with('error','An error occurred while saving the data. Please try again.');
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
     }
-    
-    
+
     /**
      * Remove the specified resource from storage.
      */

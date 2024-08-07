@@ -2,8 +2,6 @@
 @section('title', 'My Batch')
 @push('styles')
     <style>
-
-
     </style>
 @endpush
 @section('student_content')
@@ -30,25 +28,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @if (!$isAuthenticated)
-    <p>You are not a student or something is wrong.</p>
-@elseif($batchStudent->isEmpty())
-    <p>No enrollments found for the authenticated user.</p>
-@else
-    @foreach ($batchStudent as $batch)
-        <tr>
-            <td>{{ $batch->batch_no ?? '' }}</td>
-            <td>{{ $batch->batch_code ?? '' }}</td>
-            <td>{{ $batch->class_rutine ?? ''}}</td>
-           <td>
-             {{date('j F y', strtotime($batch->class_start))}}
-           </td>
-
-            <td>{{ $batch->class_time ?? '' }}</td>
-            <td>{{ $batch->total_class ?? '' }}</td>
-        </tr>
-    @endforeach
-@endif
+                                @if (!$isAuthenticated)
+                                    <p>You are not a student or something is wrong.</p>
+                                @elseif($batchStudent->isEmpty())
+                                    <p>No enrollments found for the authenticated user.</p>
+                                @else
+                                    @foreach ($batchStudent as $batch)
+                                        <tr>
+                                            <td>{{ $batch->batch_no ?? '' }}</td>
+                                            <td>{{ $batch->batch_code ?? '' }}</td>
+                                            <td>{{ $batch->class_rutine ?? '' }}</td>
+                                            <td>
+                                                {{ date('j F y', strtotime($batch->class_start)) }}
+                                            </td>
+                                            <td>{{ $batch->class_time ?? '' }}</td>
+                                            <td>{{ $batch->total_class ?? '' }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endif
 
                             </tbody>
                         </table>

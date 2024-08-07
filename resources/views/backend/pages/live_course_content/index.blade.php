@@ -41,10 +41,13 @@
                                     <table class="datatable-init nk-tb-list nk-tb-ulist" data-auto-responsive="false">
                                         <thead>
                                             <tr class="nk-tb-item nk-tb-head">
-                                                <th class="nk-tb-col"><span class="sub-text">Live Course Content Image</span></th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Course Content Title</span>
+                                                <th class="nk-tb-col"><span class="sub-text">Live Course Content
+                                                        Image</span></th>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Course Content
+                                                        Title</span>
                                                 </th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Course Content Description</span>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Course Content
+                                                        Description</span>
                                                 </th>
                                                 <th class="nk-tb-col nk-tb-col-tools text-end">
                                                 </th>
@@ -54,7 +57,7 @@
                                             @if ($training->isNotEmpty())
                                                 @foreach ($training as $list)
                                                     <tr class="nk-tb-item">
-                                                        
+
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-card">
                                                                 <div class="user-info">

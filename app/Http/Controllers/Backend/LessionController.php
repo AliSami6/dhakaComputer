@@ -11,11 +11,11 @@ class LessionController extends Controller
 {
     public function LessionSave(Request $request)
     {
-       // dd($request->video_url);
+        // dd($request->video_url);
         $validator = Validator::make($request->all(), [
             'lession_title' => 'required|string|max:255',
             'section_id' => 'required|integer|exists:sections,id',
-            'summary' => 'required'
+            'summary' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -67,61 +67,62 @@ class LessionController extends Controller
         $lessons = Lession::findOrFail($id);
         return response()->json(['lessons' => $lessons]);
     }
-  
-  public function updateLesson(Request $request)
-{
-    $validator = Validator::make($request->all(), [
-        'lesson_id' => 'required|integer|exists:lessions,id',
-        'lession_title' => 'string|max:255',
-        'section_id' => 'required|integer|exists:sections,id',
-        'document_type' => 'nullable|string|in:Pdf,Text,document',
-        'attachment' => 'nullable|file|mimes:pdf,doc,docx,txt|max:10240', // 10 MB max
-        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024', // 1 MB max
-        'video_url' => 'nullable|url',
-        'video_resource' => 'nullable|file|mimetypes:video/mp4,video/wmv,video/mov|max:100040', // 100 MB max
-        'is_free_lesson' => 'nullable|boolean',
-        'summary' => 'required', // Ensure summary is validated
-    ]);
 
-    if ($validator->fails()) {
-        return response()->json([
-            'error' => $validator->errors()->all(),
+    public function updateLesson(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'lesson_id' => 'required|integer|exists:lessions,id',
+            'lession_title' => 'string|max:255',
+            'section_id' => 'required|integer|exists:sections,id',
+            'document_type' => 'nullable|string|in:Pdf,Text,document',
+            'attachment' => 'nullable|file|mimes:pdf,doc,docx,txt|max:10240', // 10 MB max
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024', // 1 MB max
+            'video_url' => 'nullable|url',
+            'video_resource' => 'nullable|file|mimetypes:video/mp4,video/wmv,video/mov|max:100040', // 100 MB max
+            'is_free_lesson' => 'nullable|boolean',
+            'summary' => 'required', // Ensure summary is validated
         ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->all(),
+            ]);
+        }
+
+        $id = $request->lesson_id;
+        $lesson = Lession::findOrFail($id);
+
+        $data = $request->only(['lession_title', 'section_id', 'summary', 'document_type', 'video_url', 'duration', 'description', 'is_free_lesson']);
+
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploaded_files/attachments'), $fileName);
+            $data['attachment'] = $fileName;
+        }
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->image_updated($request->file('image'), 'uploaded_files/video_images/', $lesson->image);
+        }
+
+        if ($request->hasFile('video_resource')) {
+            $file = $request->file('video_resource');
+            $videoFile = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploaded_files/videos'), $videoFile);
+            $data['video_resource'] = $videoFile;
+        }
+
+        $lesson->update($data);
+
+        if ($lesson) {
+            return response()->json(['status' => 'success', 'message' => 'Successfully updated']);
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);
+        }
     }
 
-    $id = $request->lesson_id;
-    $lesson = Lession::findOrFail($id);
-
-    $data = $request->only(['lession_title', 'section_id', 'summary', 'document_type', 'video_url', 'duration', 'description', 'is_free_lesson']);
-
-    if ($request->hasFile('attachment')) {
-        $file = $request->file('attachment');
-        $fileName = time() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('uploaded_files/attachments'), $fileName);
-        $data['attachment'] = $fileName;
-    }
-
-    if ($request->hasFile('image')) {
-        $data['image'] = $this->image_updated($request->file('image'), 'uploaded_files/video_images/', $lesson->image);
-    }
-
-    if ($request->hasFile('video_resource')) {
-        $file = $request->file('video_resource');
-        $videoFile = time() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('uploaded_files/videos'), $videoFile);
-        $data['video_resource'] = $videoFile;
-    }
-
-    $lesson->update($data);
-
-    if ($lesson) {
-        return response()->json(['status' => 'success', 'message' => 'Successfully updated']);
-    } else {
-        return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);
-    }
-}
-
-     public function LessonDelete($id){
+    public function LessonDelete($id)
+    {
         $lesson = Lession::findOrFail($id);
 
         if ($lesson) {

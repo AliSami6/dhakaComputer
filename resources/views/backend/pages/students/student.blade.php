@@ -94,8 +94,7 @@
                                                 <div class="data-group">
                                                     <div class="amount">23</div>
                                                     <div class="nk-ecwg6-ck">
-                                                        <canvas class="ecommerce-line-chart-s3"
-                                                            id="todayRevenue"></canvas>
+                                                        <canvas class="ecommerce-line-chart-s3" id="todayRevenue"></canvas>
                                                     </div>
                                                 </div>
                                                 <div class="info"><span class="change down text-danger"><em
@@ -156,12 +155,12 @@
                                     </div><!-- .nk-ecwg -->
                                 </div><!-- .card -->
                             </div><!-- .col -->
-                            
+
                         </div>
                         <div class="card ">
-                            
+
                         </div>
-                      
+
                         <div class="card">
                             <div class="card-body">
                                 <form action="" method="post" class="mt-4 mb-4">
@@ -229,11 +228,11 @@
                                 <div class="card-inner p-0">
                                     <div class="nk-tb-list nk-tb-ulist">
                                         <div class="nk-tb-item nk-tb-head">
-                                         
+
                                             <div class="nk-tb-col"><span class="sub-text">Students</span></div>
                                             <div class="nk-tb-col tb-col-mb"><span
                                                     class="sub-text d-lg-flex d-none">Enrolled Courses</span></div>
-                                          
+
                                             <div class="nk-tb-col tb-col-lg"><span class="sub-text">Country</span></div>
                                             <div class="nk-tb-col tb-col-lg"><span class="sub-text">Payment</span></div>
                                             <div class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></div>
@@ -244,7 +243,7 @@
                                         @if ($students->isNotEmpty())
                                             @foreach ($students as $student)
                                                 <div class="nk-tb-item mb-2">
-                                               
+
                                                     <div class="nk-tb-col">
                                                         <a href="html/lms/students-details.html">
                                                             <div class="user-card">
@@ -252,8 +251,7 @@
                                                                     <span>{{ $student->studentsName[0] }}</span>
                                                                 </div>
                                                                 <div class="user-info">
-                                                                    <span
-                                                                        class="tb-lead">{{ $student->studentsName }}
+                                                                    <span class="tb-lead">{{ $student->studentsName }}
                                                                         <span
                                                                             class="dot dot-success d-md-none ms-1"></span></span>
                                                                     <span>{{ $student->email }}</span>
@@ -294,14 +292,15 @@
                                                                 <div class="dropdown-menu dropdown-menu-start">
                                                                     <ul class="link-list-opt no-bdr p-3">
                                                                         @foreach ($allCourseTitles as $courseTitle)
-                                                                            <li class="tb-lead p-1">{{ $courseTitle }}</li>
+                                                                            <li class="tb-lead p-1">{{ $courseTitle }}
+                                                                            </li>
                                                                         @endforeach
                                                                     </ul>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                  
+
                                                     <div class="nk-tb-col tb-col-lg">
                                                         <span>{{ $student->country }}</span>
                                                     </div>
@@ -429,7 +428,7 @@
                             </div>
                         </div>
                     </div><!-- .nk-block -->
-                   
+
                 </div>
             </div>
         </div>
