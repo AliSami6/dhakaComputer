@@ -26,27 +26,9 @@ class CheckoutController extends Controller
         return view('frontend.pages.checkout');
     }
 
-    public function order(Request $request)
+    public function order(CreateRequest $request)
     {
-        // Validate the request inputs
-        $request->validate(
-            [
-                'studentsName' => 'required|string|max:255',
-                'city' => 'required|string|max:255',
-                'division' => 'required|string|max:255',
-                'address' => 'required',
-                'country' => 'required|string|max:255',
-            ],
-            [
-                'studentsName.required' => 'Student Name is required',
-                'city.required' => 'City is required',
-                'division.required' => 'Division is required',
-                'address.required' => 'Address is required',
-                'country.required' => 'Country is required',
-            ],
-        );
-    
-        // Initialize the $userId variable
+        
         $userId = null;
     
         DB::beginTransaction();

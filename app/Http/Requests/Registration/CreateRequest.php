@@ -23,35 +23,46 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'applicantName' => 'nullable|string|max:255',
-            'studentsName' => 'required|string|max:255',
+            'applicantName' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'division' => 'required|string|max:255',
             'country' => 'required|string|max:255',
-            'fatherName' => 'nullable|string|max:255',
-            'fatherOccupation' => 'nullable|string|max:255',
-            'motherName' => 'nullable|string|max:255',
-            'nationalId' => 'nullable',
-            'occupation' => 'nullable',
-            'education' => 'nullable',
+            'fatherName' => 'required|string|max:255',
+            'fatherOccupation' => 'required|string|max:255',
+            'motherName' => 'required|string|max:255',
+            'nationalId' => 'required',
+            'occupation' => 'required',
+            'education' => 'required',
             'address' => 'required',
-            'motherOccupation' => 'nullable|string|max:255',
-            'presentAddress' => 'nullable',
-            'permanentAddress' => 'nullable',
-            'contactNumber' => 'nullable|unique:users',
-            'emailAddress' => 'nullable|string|email|unique:users',
-            'dob' => 'nullable',
-            'registrationNumber' => 'nullable',
-            'race' => 'nullable',
-            'gender' => 'nullable',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg',
-            'courseDay' => 'nullable|integer',
-            'courseTime' => 'nullable|integer'
+            'motherOccupation' => 'required|string|max:255',
+            'contactNumber' => 'required|unique:users',
+            'emailAddress' => 'required|string|email|unique:users',
+            'registrationNumber' => 'required|string|max:255',
+            'race' => 'required',
+            'gender' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
+            'courseDay' => 'required|integer',
+            'courseTime' => 'required|integer'
         ];
-
-       
+    
+        if (Auth::check()) {
+            $nullableFields = [
+                'fatherName', 'fatherOccupation', 'motherName', 
+                'motherOccupation', 'nationalId', 'occupation', 
+                'education', 'presentAddress', 'permanentAddress', 
+                'contactNumber', 'emailAddress', 'dob', 
+                'registrationNumber', 'race', 'gender', 
+                'courseDay', 'courseTime'
+            ];
+            
+            foreach ($nullableFields as $field) {
+                $rules[$field] = 'nullable';
+            }
+        }
+    
         return $rules;
     }
+    
 
     /**
      * Get the custom validation messages for the request.
@@ -61,13 +72,20 @@ class CreateRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'applicantName.required' => 'Applicant Name is required',
             'applicantName.string' => 'Applicant Name is string',
-            'studentsName.required' => 'Student Name is required',
             'city.required' => 'City  is required',
+            'registrationNumber.required' => 'Registration Number  is required',
+            'nationalId.required' => 'National ID is required',
             'division.required' => 'Division is required',
             'country.required' => 'Country is required',
+            'emailAddress.required' => 'Email is required',
+            'fatherName.required' => 'Father Name is required',
             'fatherName.string' => 'Father Name is string',
+            'fatherOccupation.required' => 'Father Occupation is required',
             'fatherOccupation.string' => 'Father Occupation is string',
+            'motherName.required' => 'Mother Name is required',
+            'contactNumber.required' => 'Contact Number is required',
             'motherName.string' => 'Mother Name is string',
             'motherOccupation.string' => 'Mother Occupation is string',
             'contactNumber.unique' => 'Contact Number already exists',

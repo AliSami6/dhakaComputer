@@ -54,8 +54,6 @@ class UserLoginController extends Controller
                 'occupation' => 'required',
                 'education' => 'required',
                 'motherOccupation' => 'required|string|max:255',
-                'presentAddress' => 'required',
-                'permanentAddress' => 'required',
                 'contactNumber' => 'required',
                 'emailAddress' => 'required|string|email|unique:users',
                 'dob' => 'required|string',
@@ -83,7 +81,7 @@ class UserLoginController extends Controller
                 'race.required' => 'Race is required',
                 'gender.required' => 'Gender is required',
                 'courseDay.required' => 'Course Day is required',
-                'courseTime.required' => 'Course Time is required',
+                'courseTime.required' => 'Course Time is required'
             ],
         );
 
