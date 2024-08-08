@@ -10,7 +10,6 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserLoginController;
 use App\Http\Controllers\Backend\BlogController;
 
-
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\QuizController;
 use App\Http\Controllers\Backend\BatchController;
@@ -73,47 +72,42 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/about', 'aboutPage')->name('dhaka.about');
-    Route::get('/course_cat_list/{id}','CourseCategory')->name('course.category');
+    Route::get('/course_cat_list/{id}', 'CourseCategory')->name('course.category');
     Route::get('/terms_and_condition', 'termsPage')->name('dhaka.terms');
     Route::get('/refund_policy', 'refundPolicyPage')->name('dhaka.refund');
     Route::get('/privacy_policy', 'privacyPolicyPage')->name('dhaka.privacy');
     Route::get('/course_autocomplete', 'autocomplete')->name('autocomplete');
     Route::get('/course_filter', 'coursesFilter')->name('course.filter');
-    Route::get('/course_list','coursesAll')->name('course.list');
-    Route::get('/coursedetails/{keyword}','CourseDetails')->name('course.details');
-   
+    Route::get('/course_list', 'coursesAll')->name('course.list');
+    Route::get('/coursedetails/{keyword}', 'CourseDetails')->name('course.details');
 });
-Route::controller(FeatureWithBlogController::class)->group(function(){
-    Route::get('/blog/list','BlogList')->name('all.blog');
-    Route::get('/blog/details/{slug}','BlogDetails')->name('blog.details');
+Route::controller(FeatureWithBlogController::class)->group(function () {
+    Route::get('/blog/list', 'BlogList')->name('all.blog');
+    Route::get('/blog/details/{slug}', 'BlogDetails')->name('blog.details');
 });
 
- Route::controller(UserLoginController::class)->group(function () {
+Route::controller(UserLoginController::class)->group(function () {
     Route::get('/register', 'register')->name('signUp');
     Route::post('/register', 'registerFormSave')->name('register.save');
     Route::post('/update/user', 'UpdateUserProfile')->name('user.update');
     Route::get('/signin', 'login')->name('sign_in');
     Route::post('/signin', 'LoginDataCheck')->name('login.save');
     Route::post('/logout/data', 'logoutData')->name('logout.name');
- });
-
-
-
+});
 
 Route::middleware(['auth.custom'])->group(function () {
     Route::get('/course_metarials/{id}', [HomeController::class, 'CourseMetarials'])->name('course.metarials');
     Route::get('/course_lession/{lesson}', [HomeController::class, 'CourseLesson'])->name('course.lesson');
-    Route::get('/student',[HomeController::class, 'studentProfiles'])->name('student.profile');
-    Route::post('/update/user',[HomeController::class, 'UpdateUserProfile'])->name('user.update');
-    Route::get('/student/course',[HomeController::class, 'studentCourse'])->name('student.course');
+    Route::get('/student', [HomeController::class, 'studentProfiles'])->name('student.profile');
+    Route::post('/update/user', [HomeController::class, 'UpdateUserProfile'])->name('user.update');
+    Route::get('/student/course', [HomeController::class, 'studentCourse'])->name('student.course');
     Route::get('/student/batch', [HomeController::class, 'StudentBatch'])->name('student.batch');
-    Route::get('/student/live_class', [HomeController::class,'LiveClass'])->name('student.live_class');
-    Route::get('/wallet', [HomeController::class,'My_Wallet'])->name('student.wallet');
+    Route::get('/student/live_class', [HomeController::class, 'LiveClass'])->name('student.live_class');
+    Route::get('/wallet', [HomeController::class, 'My_Wallet'])->name('student.wallet');
     Route::post('/wallet/recharge', [HomeController::class, 'recharge'])->name('wallet.recharge');
-Route::post('/wallet/withdraw', [HomeController::class, 'withdraw'])->name('wallet.withdraw');
+    Route::post('/wallet/withdraw', [HomeController::class, 'withdraw'])->name('wallet.withdraw');
     Route::post('/update_student_profile/{id}', [HomeController::class, 'UpdateStudentProfile'])->name('update.my_profile');
 });
-
 
 Route::post('/order', [OrderController::class, 'store'])->name('order.save');
 
@@ -145,14 +139,13 @@ Route::prefix('admin')->group(function () {
             Route::get('/category-courses', 'index')->name('category.courses');
             Route::get('/subcategory', 'SubCategoryList')->name('subcategory.index');
             Route::get('/edit_subcategory/{id}', 'editSbcategory')->name('subcategory.edit');
-           Route::post('/update_subcategory', 'SubcatUpdate')->name('subcategory.update');
+            Route::post('/update_subcategory', 'SubcatUpdate')->name('subcategory.update');
             Route::post('/category-courses', 'store')->name('category.save');
             Route::get('/category-courses/edit', 'edit')->name('category.edit');
             Route::post('/category-courses/update', 'update')->name('category.update');
             Route::delete('/category-courses/delete/{id}', 'destroy')->name('category.courses.delete');
-             Route::delete('/delete-subcategory/{id}', 'deleteSubCategory')->name('delete-subcategory');
+            Route::delete('/delete-subcategory/{id}', 'deleteSubCategory')->name('delete-subcategory');
         });
-       
 
         // ------------------------------------------- End Category -------------------------------------------------------------------//
 
@@ -196,8 +189,8 @@ Route::prefix('admin')->group(function () {
             Route::delete('/section/delete/{id}', 'sectionDelete')->name('section.delete');
         });
         // ------------------------------------------- End Section -------------------------------------------------------------------//
-          // ----------------------------------------- Lession  -------------------------------------------------------------------------//
-          Route::controller(LessionController::class)->group(function () {
+        // ----------------------------------------- Lession  -------------------------------------------------------------------------//
+        Route::controller(LessionController::class)->group(function () {
             Route::post('/add_new_lesson/save', 'LessionSave')->name('lesson.save');
             Route::get('/edit_lesson', 'EditLesson')->name('edit.lesson');
             Route::post('/lesson/update', 'updateLesson')->name('lesson.update');
@@ -278,7 +271,7 @@ Route::prefix('admin')->group(function () {
             Route::delete('/live_course/deleted/{id}', 'destroy')->name('live.destroy');
         });
 
-          Route::controller(CounterController::class)->group(function () {
+        Route::controller(CounterController::class)->group(function () {
             Route::get('/counter/all', 'index')->name('counter.index');
             Route::get('/counter/create', 'create')->name('counter.create');
             Route::post('/counter/store', 'store')->name('counter.save');
@@ -327,8 +320,6 @@ Route::prefix('admin')->group(function () {
         });
 
         // ------------------------------------------- End Page -------------------------------------------------------------------//
-
-
     });
 });
 

@@ -66,9 +66,9 @@
                                             <div class="form-group">
                                                 <label class="form-label">Country</label>
                                                 <div class="form-control-wrap">
-                                                   
+
                                                     <input type="text" class="form-control" id="country" name="country"
-                                                    placeholder="Country">
+                                                        placeholder="Country">
                                                     @error('country')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
@@ -80,26 +80,15 @@
                                                 <label class="form-label">State</label>
                                                 <div class="form-control-wrap">
                                                     <input type="text" class="form-control" id="state" name="state"
-                                                    placeholder="State">
+                                                        placeholder="State">
                                                     @error('state')
                                                         <span class="text-danger">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div><!--col-->
-                                        {{-- <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label class="form-label">Payment Method</label>
-                                            <div class="form-control-wrap">
-                                                <select class="form-select js-select2"
-                                                    data-placeholder="Select multiple options">
-                                                    <option value="default_option">Card</option>
-                                                    <option value="option_select_name">Bitcoin</option>
-                                                    <option value="option_select_name">Cash</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                      
+                                    </div>
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="form-label" for="mobile_no">Phone</label>

@@ -19,7 +19,6 @@
                                         data-target="more-options"><em class="icon ni ni-more-v"></em></a>
                                     <div class="toggle-expand-content" data-content="more-options">
                                         <ul class="nk-block-tools g-3">
-                                            
                                         </ul>
                                     </div>
                                 </div>

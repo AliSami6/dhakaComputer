@@ -44,15 +44,20 @@
                                             -item nk-tb-head">
                                                 <th class="nk-tb-col"><span class="sub-text">Course Name
                                                     </span></th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class Date</span>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class
+                                                        Date</span>
                                                 </th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class Start Time</span>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class Start
+                                                        Time</span>
                                                 </th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class End Time</span>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class End
+                                                        Time</span>
                                                 </th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class Meeting Link</span>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class Meeting
+                                                        Link</span>
                                                 </th>
-                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class Meeting Platform</span>
+                                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Live Class Meeting
+                                                        Platform</span>
                                                 </th>
                                                 <th class="nk-tb-col nk-tb-col-tools text-end">
                                                 </th>
@@ -62,11 +67,11 @@
                                             @if ($liveClass->isNotEmpty())
                                                 @foreach ($liveClass as $list)
                                                     <tr class="nk-tb-item">
-                                                        
+
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-card">
                                                                 <div class="user-info">
-                                                                  {{ $list->livecourses->course_title ?? '' }}
+                                                                    {{ $list->livecourses->course_title ?? '' }}
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -81,25 +86,25 @@
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-info">
                                                                 <span
-                                                                    class="tb-lead text-gray">{{$list->start_time ?? ''}}</span>
+                                                                    class="tb-lead text-gray">{{ $list->start_time ?? '' }}</span>
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-info">
                                                                 <span
-                                                                    class="tb-lead text-gray">{{$list->end_time ?? ''}}</span>
+                                                                    class="tb-lead text-gray">{{ $list->end_time ?? '' }}</span>
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-info">
                                                                 <span
-                                                                    class="tb-lead text-gray">{{$list->metting_link ?? ''}}</span>
+                                                                    class="tb-lead text-gray">{{ $list->metting_link ?? '' }}</span>
                                                             </div>
                                                         </td>
                                                         <td class="nk-tb-col tb-col-md">
                                                             <div class="user-info">
                                                                 <span
-                                                                    class="tb-lead text-gray">{{$list->metting_platform ?? ''}}</span>
+                                                                    class="tb-lead text-gray">{{ $list->metting_platform ?? '' }}</span>
                                                             </div>
                                                         </td>
 
