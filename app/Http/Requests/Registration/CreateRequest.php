@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Registration;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,9 +25,9 @@ class CreateRequest extends FormRequest
     {
         $rules = [
             'applicantName' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'division' => 'required|string|max:255',
-            'country' => 'required|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'division' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
             'fatherName' => 'required|string|max:255',
             'fatherOccupation' => 'required|string|max:255',
             'motherName' => 'required|string|max:255',
@@ -40,29 +41,12 @@ class CreateRequest extends FormRequest
             'registrationNumber' => 'required|string|max:255',
             'race' => 'required',
             'gender' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:1024',
-            'courseDay' => 'required|integer',
-            'courseTime' => 'required|integer'
+            'image' => 'nullable|image|mimes:jpeg,png,jpg'
         ];
-    
-        if (Auth::check()) {
-            $nullableFields = [
-                'fatherName', 'fatherOccupation', 'motherName', 
-                'motherOccupation', 'nationalId', 'occupation', 
-                'education', 'presentAddress', 'permanentAddress', 
-                'contactNumber', 'emailAddress', 'dob', 
-                'registrationNumber', 'race', 'gender', 
-                'courseDay', 'courseTime'
-            ];
-            
-            foreach ($nullableFields as $field) {
-                $rules[$field] = 'nullable';
-            }
-        }
-    
+
+
         return $rules;
     }
-    
 
     /**
      * Get the custom validation messages for the request.
@@ -73,21 +57,21 @@ class CreateRequest extends FormRequest
     {
         return [
             'applicantName.required' => 'Applicant Name is required',
-            'applicantName.string' => 'Applicant Name is string',
-            'city.required' => 'City  is required',
-            'registrationNumber.required' => 'Registration Number  is required',
+            'applicantName.string' => 'Applicant Name must be a string',
+            'city.string' => 'City must be a string',
+            'registrationNumber.required' => 'Registration Number is required',
             'nationalId.required' => 'National ID is required',
-            'division.required' => 'Division is required',
-            'country.required' => 'Country is required',
-            'emailAddress.required' => 'Email is required',
+            'division.string' => 'Division must be a string',
+            'country.string' => 'Country must be a string',
+            'emailAddress.required' => 'Email Address is required',
             'fatherName.required' => 'Father Name is required',
-            'fatherName.string' => 'Father Name is string',
+            'fatherName.string' => 'Father Name must be a string',
             'fatherOccupation.required' => 'Father Occupation is required',
-            'fatherOccupation.string' => 'Father Occupation is string',
+            'fatherOccupation.string' => 'Father Occupation must be a string',
             'motherName.required' => 'Mother Name is required',
             'contactNumber.required' => 'Contact Number is required',
-            'motherName.string' => 'Mother Name is string',
-            'motherOccupation.string' => 'Mother Occupation is string',
+            'motherName.string' => 'Mother Name must be a string',
+            'motherOccupation.string' => 'Mother Occupation must be a string',
             'contactNumber.unique' => 'Contact Number already exists',
             'emailAddress.unique' => 'Email Address already exists'
         ];

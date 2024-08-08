@@ -87,17 +87,15 @@
                             <li><a class="dropdown-item" href="#">Menu item</a></li>
                         </ul>
                     </div>
-                    @if (Route::has('sign_in'))
-                        @auth
-                            <a class="btn btn-primary" href="{{ route('student.profile') }}">Dashboard <i
-                                    class="fas fa-arrow-right"></i></a>
-                        @else
-                            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
-                                LOG IN
-                                <i class="fas fa-arrow-right"></i>
-                            </button>
-                        @endauth
+                    @if (session()->has('user'))
+                        <a class="btn btn-primary" href="{{ route('student.profile') }}">Dashboard <i
+                                class="fas fa-arrow-right"></i></a>
+                    @else
+                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                            LOG IN
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
                     @endif
                     <!-- <a href="">SIGN UP</a> -->
                 </div>
@@ -109,7 +107,7 @@
     @yield('content')
     <!-- footer-area -->
     <!-- footer start -->
-    <section id="footer_section" style="background-color: aliceblue" class="mt-2">
+    <section id="footer_section" class="mt-2">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-4">
@@ -223,9 +221,9 @@
                     <div class="mb-3">
                         <label for="contactNumber" class="form-label">Phone Number <span
                                 class="text-danger">*</span></label>
-                        <input type="text" name="contactNumber" class="form-control @error('contactNumber') is-invalid @enderror" id="contactNumber"
-                           >
-                            @error('contactNumber')
+                        <input type="text" name="contactNumber"
+                            class="form-control @error('contactNumber') is-invalid @enderror" id="contactNumber">
+                        @error('contactNumber')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

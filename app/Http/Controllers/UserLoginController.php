@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class UserLoginController extends Controller
 {
@@ -30,7 +31,8 @@ class UserLoginController extends Controller
 
         if ($user) {
             // Manually log in the user
-            Auth::login($user);
+           Auth::login($user);
+           Session::put('user', $user);
             return redirect()->route('student.profile')->with('success', 'Login Successfully');
         } else {
             return redirect()->route('signUp')->with('error', 'Complete Registration First');
@@ -117,6 +119,7 @@ class UserLoginController extends Controller
     public function logoutData()
     {
         Auth::logout();
+        Session::forget('user');
         return redirect('/')->with('success', 'You have been logged out!');
     }
 }
