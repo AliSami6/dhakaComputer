@@ -157,9 +157,7 @@
                             </div><!-- .col -->
 
                         </div>
-                        <div class="card ">
 
-                        </div>
 
                         <div class="card">
                             <div class="card-body">
@@ -223,207 +221,172 @@
 
                                     </div>
                                 </form>
-                            </div>
-                            <div class="card-inner-group">
-                                <div class="card-inner p-0">
-                                    <div class="nk-tb-list nk-tb-ulist">
-                                        <div class="nk-tb-item nk-tb-head">
+                                <div class="card-inner-group">
+                                    <div class="card-inner p-0">
+                                        <div class="nk-tb-list nk-tb-ulist">
+                                            <table class="datatable-init nk-tb-list nk-tb-ulist"
+                                                data-auto-responsive="false">
+                                                <thead>
+                                                    <tr class="nk-tb-item nk-tb-head">
+                                                        <th class="nk-tb-col"><span class="sub-text">Students</span></th>
+                                                        <th class="nk-tb-col"><span class="sub-text">Enrolled
+                                                                Courses</span>
+                                                        </th>
+                                                        <th class="nk-tb-col tb-col-mb"><span
+                                                                class="sub-text">Country</span>
+                                                        </th>
+                                                        <th class="nk-tb-col tb-col-mb"><span
+                                                                class="sub-text">Payments</span>
+                                                        </th>
+                                                        <th class="nk-tb-col tb-col-md"><span class="sub-text">
+                                                                Status</span></th>
 
-                                            <div class="nk-tb-col"><span class="sub-text">Students</span></div>
-                                            <div class="nk-tb-col tb-col-mb"><span
-                                                    class="sub-text d-lg-flex d-none">Enrolled Courses</span></div>
+                                                        <th class="nk-tb-col nk-tb-col-tools text-end">
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if ($students->isNotEmpty())
+                                                        @foreach ($students as $student)
+                                                            <tr class="nk-tb-item">
+                                                                <td class="nk-tb-col nk-tb-col-check">
+                                                                    <div class="user-card">
+                                                                        <div class="user-avatar bg-primary">
+                                                                            <span>{{ $student->studentsName[0] }}</span>
+                                                                        </div>
+                                                                        <div class="user-info">
+                                                                            <span
+                                                                                class="tb-lead">{{ $student->studentsName ?? '' }}
+                                                                                <span
+                                                                                    class="dot dot-success d-md-none ms-1"></span></span>
 
-                                            <div class="nk-tb-col tb-col-lg"><span class="sub-text">Country</span></div>
-                                            <div class="nk-tb-col tb-col-lg"><span class="sub-text">Payment</span></div>
-                                            <div class="nk-tb-col tb-col-md"><span class="sub-text">Status</span></div>
-                                            <div class="nk-tb-col nk-tb-col-tools">
-                                            </div>
-                                        </div>
-                                        <!-- .nk-tb-item -->
-                                        @if ($students->isNotEmpty())
-                                            @foreach ($students as $student)
-                                                <div class="nk-tb-item mb-2">
-
-                                                    <div class="nk-tb-col">
-                                                        <a href="html/lms/students-details.html">
-                                                            <div class="user-card">
-                                                                <div class="user-avatar bg-primary">
-                                                                    <span>{{ $student->studentsName[0] }}</span>
-                                                                </div>
-                                                                <div class="user-info">
-                                                                    <span class="tb-lead">{{ $student->studentsName }}
-                                                                        <span
-                                                                            class="dot dot-success d-md-none ms-1"></span></span>
-                                                                    <span>{{ $student->email }}</span>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                    @php
-                                                        $firstCourseTitle = '';
-                                                        $allCourseTitles = [];
-                                                    @endphp
-                                                    <div class="nk-tb-col tb-col-mb">
-                                                        @foreach ($student->enrollments as $index => $enrollment)
-                                                            @if ($enrollment->course)
-                                                                @if ($index == 0)
-                                                                    @php
-                                                                        $firstCourseTitle =
-                                                                            $enrollment->course->course_title;
-                                                                    @endphp
-                                                                @endif
-                                                                @php
-                                                                    $allCourseTitles[] =
-                                                                        $enrollment->course->course_title;
-                                                                @endphp
-                                                            @endif
-                                                        @endforeach
-
-                                                        @if ($firstCourseTitle)
-                                                            <span
-                                                                class="tb-lead d-lg-flex d-none">{{ $firstCourseTitle }}</span>
-                                                        @endif
-                                                        <div class="d-lg-flex d-none">
-                                                            <div class="drodown">
-                                                                <a href="#" class="dropdown-toggle pt-1 text-info"
-                                                                    data-bs-toggle="dropdown">
-                                                                    <span>View More</span>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-start">
-                                                                    <ul class="link-list-opt no-bdr p-3">
-                                                                        @foreach ($allCourseTitles as $courseTitle)
-                                                                            <li class="tb-lead p-1">{{ $courseTitle }}
-                                                                            </li>
-                                                                        @endforeach
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span>{{ $student->country }}</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-lg">
-                                                        <span class="badge badge-dot badge-dot bg-warning">Due</span>
-                                                    </div>
-                                                    <div class="nk-tb-col tb-col-md">
-                                                        <span class="tb-status text-success">{{ $student->status }}</span>
-                                                    </div>
-                                                    <div class="nk-tb-col nk-tb-col-tools">
-                                                        <ul class="nk-tb-actions gx-1">
-                                                            {{-- <li class="nk-tb-action-hidden">
-                                                        <a href="#" class="btn btn-trigger btn-icon"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Send Email">
-                                                            <em class="icon ni ni-mail-fill"></em>
-                                                        </a>
-                                                    </li>
-                                                    <li class="nk-tb-action-hidden">
-                                                        <a href="#" class="btn btn-trigger btn-icon"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Suspend">
-                                                            <em class="icon ni ni-user-cross-fill"></em>
-                                                        </a>
-                                                    </li> --}}
-                                                            <li>
-                                                                <div class="drodown">
-                                                                    <a href="#"
-                                                                        class="dropdown-toggle btn btn-icon btn-trigger"
-                                                                        data-bs-toggle="dropdown"><em
-                                                                            class="icon ni ni-more-h"></em></a>
-                                                                    <div class="dropdown-menu dropdown-menu-end">
-                                                                        <ul class="link-list-opt no-bdr">
-                                                                            <li><a
-                                                                                    href="{{ route('students.details', $student->id) }}"><em
-                                                                                        class="icon ni ni-eye"></em><span>View
-                                                                                        Details</span></a></li>
-                                                                            <li><a
-                                                                                    href="{{ route('students_status.update', [$student->id, 'Active']) }}"><em
-                                                                                        class="icon ni ni-activity-round"></em><span>Student
-                                                                                        Active</span></a></li>
-                                                                            <li><a
-                                                                                    href="{{ route('students_status.update', [$student->id, 'Inactive']) }}"><em
-                                                                                        class="icon ni ni-cross-circle-fill"></em><span>Student
-                                                                                        Inactive</span></a></li>
-                                                                            <li><a
-                                                                                    href="{{ route('students_status.update', [$student->id, 'Suspend']) }}"><em
-                                                                                        class="icon ni ni-na"></em><span>Student
-                                                                                        Suspend</span></a></li>
-                                                                            <form
-                                                                                action="{{ route('student.delete', $student->id) }}"
-                                                                                method="post">
-                                                                                @csrf
-                                                                                @method('DELETE')
-                                                                                <li>
-                                                                                    <a href="#"
-                                                                                        class="delete_student">
-                                                                                        <em class="icon ni ni-trash"></em>
-                                                                                        <span>Delete</span>
-                                                                                    </a>
-                                                                                </li>
-                                                                            </form>
-                                                                        </ul>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endif
-                                        <!-- .nk-tb-item -->
+                                                                </td>
+                                                                @php
+                                                                    $firstCourseTitle = '';
+                                                                    $allCourseTitles = [];
+                                                                @endphp
+                                                                <td class="nk-tb-col tb-col-md">
+                                                                    @foreach ($student->enrollments as $index => $enrollment)
+                                                                        @if ($enrollment->course)
+                                                                            @if ($index == 0)
+                                                                                @php
+                                                                                    $firstCourseTitle =
+                                                                                        $enrollment->course
+                                                                                            ->course_title;
+                                                                                @endphp
+                                                                            @endif
+                                                                            @php
+                                                                                $allCourseTitles[] =
+                                                                                    $enrollment->course->course_title;
+                                                                            @endphp
+                                                                        @endif
+                                                                    @endforeach
 
-                                    </div><!-- .nk-tb-list -->
-                                </div>
-                                <div class="card-inner">
-                                    <div class="nk-block-between-md g-3">
-                                        <div class="g">
-                                            <ul class="pagination justify-content-center justify-content-md-start">
-                                                <li class="page-item"><a class="page-link" href="#"><em
-                                                            class="icon ni ni-chevrons-left"></em></a></li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><span class="page-link"><em
-                                                            class="icon ni ni-more-h"></em></span></li>
-                                                <li class="page-item"><a class="page-link" href="#">6</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">7</a></li>
-                                                <li class="page-item"><a class="page-link" href="#"><em
-                                                            class="icon ni ni-chevrons-right"></em></a></li>
-                                            </ul><!-- .pagination -->
+                                                                    @if ($firstCourseTitle)
+                                                                        <span
+                                                                            class="tb-lead d-lg-flex d-none">{{ $firstCourseTitle }}</span>
+                                                                    @endif
+                                                                    <div class="d-lg-flex d-none">
+                                                                        <div class="drodown">
+                                                                            <a href="#"
+                                                                                class="dropdown-toggle pt-1 text-info"
+                                                                                data-bs-toggle="dropdown">
+                                                                                <span>View More</span>
+                                                                            </a>
+                                                                            <div class="dropdown-menu dropdown-menu-start">
+                                                                                <ul class="link-list-opt no-bdr p-3">
+                                                                                    @foreach ($allCourseTitles as $courseTitle)
+                                                                                        <li class="tb-lead p-1">
+                                                                                            {{ $courseTitle }}
+                                                                                        </li>
+                                                                                    @endforeach
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="nk-tb-col tb-col-md">
+                                                                    <div class="user-card">
+                                                                        <div class="user-info">
+                                                                            <span
+                                                                                class="tb-lead text-gray">{{ $student->country ?? '' }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="nk-tb-col tb-col-md">
+                                                                    <div class="user-card">
+                                                                        <div class="user-info">
+                                                                            <span
+                                                                                class="tb-lead text-gray">{{ $student->payment_status ?? '' }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="nk-tb-col tb-col-md">
+                                                                    <div class="user-card">
+                                                                        <div class="user-info">
+                                                                            <span
+                                                                                class="tb-lead text-gray">{{ $student->status ?? '' }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="nk-tb-col nk-tb-col-tools">
+                                                                    <ul class="nk-tb-actions gx-1">
+                                                                        <li>
+                                                                            <div class="drodown">
+                                                                                <a href="#"
+                                                                                    class="dropdown-toggle btn btn-icon btn-trigger"
+                                                                                    data-bs-toggle="dropdown"><em
+                                                                                        class="icon ni ni-more-h"></em></a>
+                                                                                <div
+                                                                                    class="dropdown-menu dropdown-menu-end">
+                                                                                    <ul class="link-list-opt no-bdr">
+                                                                                        <li><a
+                                                                                                href="{{ route('students.details', $student->id) }}"><em
+                                                                                                    class="icon ni ni-eye"></em><span>View
+                                                                                                    Details</span></a></li>
+                                                                                        <li><a
+                                                                                                href="{{ route('students_status.update', [$student->id, 'Active']) }}"><em
+                                                                                                    class="icon ni ni-activity-round"></em><span>Student
+                                                                                                    Active</span></a></li>
+                                                                                        <li><a
+                                                                                                href="{{ route('students_status.update', [$student->id, 'Inactive']) }}"><em
+                                                                                                    class="icon ni ni-cross-circle-fill"></em><span>Student
+                                                                                                    Inactive</span></a></li>
+                                                                                        <li><a
+                                                                                                href="{{ route('students_status.update', [$student->id, 'Suspend']) }}"><em
+                                                                                                    class="icon ni ni-na"></em><span>Student
+                                                                                                    Suspend</span></a></li>
+                                                                                        <form
+                                                                                            action="{{ route('student.delete', $student->id) }}"
+                                                                                            method="post">
+                                                                                            @csrf
+                                                                                            @method('DELETE')
+                                                                                            <li>
+                                                                                                <a href="#"
+                                                                                                    class="delete_student">
+                                                                                                    <em
+                                                                                                        class="icon ni ni-trash"></em>
+                                                                                                    <span>Delete</span>
+                                                                                                </a>
+                                                                                            </li>
+                                                                                        </form>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+                                                    <!-- .nk-tb-item  -->
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="g">
-                                            <div
-                                                class="pagination-goto d-flex justify-content-center justify-content-md-start gx-3">
-                                                <div>Page</div>
-                                                <div>
-                                                    <select class="form-select js-select2" data-search="on"
-                                                        data-dropdown="xs center">
-                                                        <option value="page-1">1</option>
-                                                        <option value="page-2">2</option>
-                                                        <option value="page-4">4</option>
-                                                        <option value="page-5">5</option>
-                                                        <option value="page-6">6</option>
-                                                        <option value="page-7">7</option>
-                                                        <option value="page-8">8</option>
-                                                        <option value="page-9">9</option>
-                                                        <option value="page-10">10</option>
-                                                        <option value="page-11">11</option>
-                                                        <option value="page-12">12</option>
-                                                        <option value="page-13">13</option>
-                                                        <option value="page-14">14</option>
-                                                        <option value="page-15">15</option>
-                                                        <option value="page-16">16</option>
-                                                        <option value="page-17">17</option>
-                                                        <option value="page-18">18</option>
-                                                        <option value="page-19">19</option>
-                                                        <option value="page-20">20</option>
-                                                    </select>
-                                                </div>
-                                                <div>OF 102</div>
-                                            </div>
-                                        </div><!-- .pagination-goto -->
-                                    </div><!-- .nk-block-between -->
+                                        <!-- .nk-tb-list -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
