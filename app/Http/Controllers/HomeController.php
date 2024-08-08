@@ -120,43 +120,22 @@ class HomeController extends Controller
     }
 
     public function StudentBatch()
-{
-    // Fetch student enrollments for the authenticated user
-    if (!auth()->check()) {
+    {
+        // Fetch student enrollments for the authenticated user
+        if (!auth()->check()) {
+            return view('frontend.pages.my_batch', [
+                'batchStudent' => collect(),
+                'isAuthenticated' => false,
+            ]);
+        }
+
+        $batchStudent = Batch::select('batches.id', 'batches.course_id', 'batches.batch_no', 'batches.batch_code', 'batches.class_type', 'batches.class_rutine', 'batches.class_start', 'batches.class_time', 'batches.total_class', 'students.course_id', 'students.user_id', 'courses.id as courseId', 'students.id as studentId', 'users.id as userID')->join('courses', 'courses.id', '=', 'batches.course_id')->join('students', 'students.course_id', '=', 'batches.course_id')->join('users', 'users.id', '=', 'students.user_id')->where('users.id', auth()->id())->get();
+
         return view('frontend.pages.my_batch', [
-            'batchStudent' => collect(),
-            'isAuthenticated' => false,
+            'batchStudent' => $batchStudent,
+            'isAuthenticated' => true,
         ]);
     }
-
-    $batchStudent = Batch::select(
-        'batches.id',
-        'batches.course_id',
-        'batches.batch_no',
-        'batches.batch_code',
-        'batches.class_type',
-        'batches.class_rutine',
-        'batches.class_start',
-        'batches.class_time',
-        'batches.total_class',
-        'students.course_id',
-        'students.user_id',
-        'courses.id as courseId',
-        'students.id as studentId',
-        'users.id as userID'
-    )
-    ->join('courses', 'courses.id', '=', 'batches.course_id')
-    ->join('students', 'students.course_id', '=', 'batches.course_id')
-    ->join('users', 'users.id', '=', 'students.user_id')
-    ->where('users.id', auth()->id())
-    ->get();
-
-    return view('frontend.pages.my_batch', [
-        'batchStudent' => $batchStudent,
-        'isAuthenticated' => true,
-    ]);
-}
-
 
     public function UpdateStudentProfile(Request $request, $id)
     {
@@ -279,14 +258,14 @@ class HomeController extends Controller
     {
         return view('frontend.pages.profile');
     }
- public function My_Wallet()
-{
-    $wallets = Wallet::with('studentEnrollment')
-        ->where('user_id', auth()->user()->id)
-        ->get();
+    public function My_Wallet()
+    {
+        $wallets = Wallet::with('studentEnrollment')
+            ->where('user_id', auth()->user()->id)
+            ->get();
 
-    return view('frontend.pages.my_wallet', compact('wallets'));
-}
+        return view('frontend.pages.my_wallet', compact('wallets'));
+    }
 
     public function UpdateUserProfile(Request $request)
     {
@@ -372,7 +351,7 @@ class HomeController extends Controller
     {
         $request->validate([
             'payment_methods' => 'required|string',
-            'amount' => 'required|numeric|min:1'
+            'amount' => 'required|numeric|min:1',
         ]);
 
         $wallet = Wallet::where('user_id', Auth::id())->first();
@@ -385,27 +364,27 @@ class HomeController extends Controller
         return redirect()->back()->with('error', 'Wallet not found.');
     }
 
-   public function withdraw(Request $request)
-{
-    // Validate the request
-    $request->validate([
-        'points' => 'required|numeric|min:1',
-        'amount' => 'required',
-    ]);
+    public function withdraw(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'points' => 'required|numeric|min:1',
+            'amount' => 'required',
+        ]);
 
-    // Get the authenticated user's wallet
-    $wallet = Wallet::where('user_id', Auth::id())->first();
+        // Get the authenticated user's wallet
+        $wallet = Wallet::where('user_id', Auth::id())->first();
 
-    // Check if the wallet exists and has sufficient points
-    if ($wallet && $wallet->withdrawPoints($request->points)) {
-        // Add the equivalent amount to the wallet balance
-        $wallet->rechargeBalance($request->points);
+        // Check if the wallet exists and has sufficient points
+        if ($wallet && $wallet->withdrawPoints($request->points)) {
+            // Add the equivalent amount to the wallet balance
+            $wallet->rechargeBalance($request->points);
 
-        // Redirect back with a success message
-        return redirect()->back()->with('success', 'Points withdrawn and balance recharged successfully.');
+            // Redirect back with a success message
+            return redirect()->back()->with('success', 'Points withdrawn and balance recharged successfully.');
+        }
+
+        // Redirect back with an error message if insufficient points or wallet not found
+        return redirect()->back()->with('error', 'Insufficient points or wallet not found.');
     }
-
-    // Redirect back with an error message if insufficient points or wallet not found
-    return redirect()->back()->with('error', 'Insufficient points or wallet not found.');
-}
 }
