@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\Registration\CreateRequest;
+
 use App\Library\SslCommerz\SslCommerzNotification;
 
 class CheckoutController extends Controller
@@ -143,8 +143,7 @@ class CheckoutController extends Controller
                 $course = Course::findOrFail($cartItem['course_id']);
                 $student = Student::firstOrNew(['user_id' => $userId]);
                 if (!$student->exists) {
-                    $student
-                        ->fill([
+                    $students = Student::create([
                             'studentsName' => $request->applicantName,
                             'course_id' => $course->id,
                             'user_id' => $userId,
@@ -154,8 +153,8 @@ class CheckoutController extends Controller
                             'country' => $request->country,
                             'status' => 'Active',
                             'payment_status' => 'Due',
-                        ])
-                        ->save();
+                    ]);
+                       
                 }
 
                 $referralCode = StudentEnrollment::where('referral_code', $request->referral_code)->first();
@@ -163,19 +162,29 @@ class CheckoutController extends Controller
                 $subtotal = $cartItem['price'] * $cartItem['quantity'];
 
                 if ($referralCode) {
-                    $referrer = Student::find($referralCode->student_id);
+                    $referrer = Student::where('user_id',$referralCode->referrer_id)->first();
                     if ($referrer) {
-                        $wallet = Wallet::firstOrCreate(['user_id' => $referrer->user_id], ['balance' => 0, 'points' => 0, 'status' => 'Pending']);
-                        $wallet->increment('points', 500);
+                        $wallet = Wallet::where('user_id', $referrer->user_id)->first();
+                        if ($wallet) {
+                            $wallet->addPoints(500);
+                        } else {
+                            Wallet::create([
+                                'user_id' => $referrer->user_id,
+                                'student_id' => $students->id ?? $student->id,
+                                'balance' => 0,
+                                'points' => 500,
+                                'status' => 'Pending',
+                            ]);
+                        }
                     }
                 }
 
                 $total += $subtotal;
 
                 // Create order
-                $order = Order::create([
+                Order::create([
                     'course_id' => $course->id,
-                    'student_id' => $student->id,
+                    'student_id' => $students->id ?? $student->id,
                     'price' => $cartItem['price'],
                     'discounted_price' => $discountedPrice,
                     'subtotal' => $subtotal,
@@ -186,9 +195,9 @@ class CheckoutController extends Controller
 
                 // Create student enrollment
                 $enrollment = StudentEnrollment::create([
-                    'student_id' => $student->id,
+                    'student_id' => $students->id ?? $student->id,
                     'course_id' => $course->id,
-                    'referrer_id' => $referralCode->student_id ?? null,
+                    'referrer_id' => $referralCode->referrer_id ?? null,
                     'referral_code' => StudentEnrollment::generateReferralCode(),
                 ]);
 
