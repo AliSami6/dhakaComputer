@@ -206,14 +206,6 @@
                                                         </td>
                                                         <td class="nk-tb-col nk-tb-col-tools">
                                                             <ul class="nk-tb-actions gx-1">
-                                                                <li class="nk-tb-action-hidden">
-                                                                    <a href="#" class="btn btn-trigger btn-icon"
-                                                                        data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                        title="View">
-
-                                                                        <em class="icon ni ni-eye"></em>
-                                                                    </a>
-                                                                </li>
                                                                 @if (Auth::guard('admin')->user()->status=='Active')
                                                                     <li class="nk-tb-action-hidden">
                                                                         <a href="{{ route('edit.courses', $course->id) }}"
@@ -268,8 +260,6 @@
                                                                                             href="{{ route('course_status.update', [$course->id, 'Upcoming']) }}"><em
                                                                                                 class="icon ni ni-signal"></em><span>Free</span></a>
                                                                                     </li>
-
-
                                                                                 </ul>
                                                                             @endif
                                                                         </div>
@@ -285,7 +275,6 @@
                                     </table>
                                 </div>
                             </div><!-- .card-preview -->
-
                         </div><!-- .row -->
                     </div>
                 </div>

@@ -14,7 +14,7 @@ class AdminsController extends Controller
    
     public function index()
     {
-        $admins = Admin::all();
+        $admins = Admin::oldest('id')->get();
         return view('backend.pages.admins.index', compact('admins'));
     }
 

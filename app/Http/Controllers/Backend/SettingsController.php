@@ -58,26 +58,14 @@ class SettingsController extends Controller
     }
     public function ReferralSystem()
     {
-        $referral = StudentEnrollment::select('student_enrollments.id',
-         'student_enrollments.referral_code', 'student_enrollments.student_id', 
-         'students.studentsName as student_name', 
-         'students.id as studentId', 
-         'wallets.id as walletID', 'wallets.points as promote', 
-         'wallets.status as wallet_status', 
-         'wallets.created_at as create_date')
-          ->join('students', 'student_enrollments.student_id', '=', 'students.id')
-         ->join('users', 'students.user_id', '=', 'users.id')
-         ->join('wallets', 'wallets.user_id', '=', 'users.id')
-        ->get();
+        $referral = StudentEnrollment::select('student_enrollments.id', 'student_enrollments.referral_code', 'student_enrollments.student_id', 'students.studentsName as student_name', 'students.id as studentId', 'wallets.id as walletID', 'wallets.points as promote', 'wallets.status as wallet_status', 'wallets.created_at as create_date')->join('students', 'student_enrollments.student_id', '=', 'students.id')->join('users', 'students.user_id', '=', 'users.id')->join('wallets', 'wallets.user_id', '=', 'users.id')->get();
         return view('backend.pages.referral_system.index', ['referral' => $referral]);
     }
-public function ReferralStatusUpdate($status)
-{
-    // Define the new status based on your logic
-    $newStatus = $status == 'Pending' ? 'Allow' : 'Pending'; // Example logic to toggle status
-
-    Wallet::where('status', $status)->update(['status' => $newStatus]);
-    return redirect()->back()->with('success', 'Status Updated!');
-}
-
+    public function ReferralStatusUpdate($status)
+    {
+        // Define the new status based on your logic
+        $newStatus = $status == 'Pending' ? 'Allow' : 'Pending'; // Example logic to toggle status
+        Wallet::where('status', $status)->update(['status' => $newStatus]);
+        return redirect()->back()->with('success', 'Status Updated!');
+    }
 }

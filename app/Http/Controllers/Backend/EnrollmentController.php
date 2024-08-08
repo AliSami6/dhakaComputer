@@ -16,8 +16,17 @@ class EnrollmentController extends Controller
     public function allEnrollmentList()
     {
         $courses = Course::where('course_status', 'Active')->get();
-        $enrollments = StudentEnrollment::select('student_enrollments.id', 'student_enrollments.student_id', 'student_enrollments.course_id', 'student_enrollments.referral_code', 'enrolls.id as enrollId', 'enrolls.enroll_status as enrollStatus', 'enrolls.created_at as createDate', 'students.studentsName as student_name', 'courses.course_title as course_name')->join('enrolls', 'enrolls.student_enrol_id', '=', 'student_enrollments.id')->join('students', 'students.id', '=', 'student_enrollments.student_id')->join('courses', 'courses.id', '=', 'student_enrollments.course_id')->get();
-        return view('backend.pages.enrollments.enrollments', ['courses' => $courses, 'enrollments' => $enrollments]);
+        $enrollments = StudentEnrollment::select('student_enrollments.id', 
+        'student_enrollments.student_id', 'student_enrollments.course_id', 
+        'student_enrollments.referral_code', 'enrolls.id as enrollId', 
+        'enrolls.enroll_status as enrollStatus', 'enrolls.created_at as createDate', 
+        'students.studentsName as student_name', 
+        'courses.course_title as course_name')->join('enrolls', 'enrolls.student_enrol_id', '=', 
+        'student_enrollments.id')->join('students', 'students.id', '=', 
+        'student_enrollments.student_id')->join('courses', 'courses.id', '=', 
+        'student_enrollments.course_id')->get();
+        return view('backend.pages.enrollments.enrollments', ['courses' => $courses,
+         'enrollments' => $enrollments]);
     }
     public function studentEnrollment()
     {
